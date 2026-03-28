@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect } from "react";
 import { useRoutes } from "react-router-dom";
-//import Home from "./pages/home/Home";
+import Home from "./pages/home/Home";
 import AOS from "aos";
 import "aos/dist/aos.css";
 // import DetailProduct from "./pages/product/DetailProduct/DetailProduct";
@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 // import Cart from "./pages/cart/Cart";
 import Auth from "./pages/auth/Auth";
 import OAuthCallback from "./pages/auth/OAuthCallback";
-
+import Account from "./pages/account/Account";
 // import ProductsByCategory from "./pages/productsByCategory/ProductsByCategory";
 // import ContactPage from "./pages/contact/ContactPage";
 // import MarketSystemPage from "./pages/market-system/MarketSystemPage";
@@ -31,10 +31,10 @@ const App = () => {
   }, []);
 
   const routes = useRoutes([
-    // {
-    //   path: "/",
-    //   element: <Home />,
-    // },
+    {
+      path: "/",
+      element: <Home />,
+    },
     // {
     //   path: "/product/:id",
     //   element: <DetailProduct />,
@@ -54,6 +54,10 @@ const App = () => {
     {
       path: "/auth/callback",
       element: <OAuthCallback />,
+    },
+    {
+      path: "/account",
+      element: <Account />,
     },
     // {
     //   path: "/productsByCategory/:categoryName",

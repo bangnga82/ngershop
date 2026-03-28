@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { setInputImage, setInputValue, setResult } from "@/store/searchSlice";
 import { readFileAsync } from "@/utils/readFile";
 import Menu from "./Menu";
+import authApi from "@/utils/api/authApi";
+import logo from "@/assets/images/logo.png";
 
 import { FiSearch } from "react-icons/fi";
 import { MdFlipCameraIos } from "react-icons/md";
@@ -17,6 +19,7 @@ const HeaderDesktop = () => {
   const [inputText, setInputText] = useState("");
   const [isShow, setIsShow] = useState(false);
   const childRef = useRef(null);
+  const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -203,73 +206,122 @@ const HeaderDesktop = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessTokenExpiresAt");
+      setIsShow(false);
+      navigate("/auth");
+    }
+  };
+
   return (
-    <div className="header-desktop">
-      <div className="header-desktop__search">
-        <div onClick={() => navigate("/")} className="header-desktop__logo">
-          <span className="header-desktop-logo_first">ND</span>
-          <span className="header-desktop-logo_second">Style</span>
-        </div>
+      <div className="header-desktop">
+        <div className="header-desktop__search">
+          <div onClick={() => navigate("/")} className="header-desktop__logo">
+            <img className="header-desktop__logo-img" src={logo} alt="TechNova" />
+          </div>
 
-        <div className="header-desktop__search-input">
-          <button className="header-desktop__search-input-button">
-            <FiSearch className="header-desktop__search-input-icon1" />
-          </button>
-          <input
-            onChange={(e) => setInputText(e.target.value)}
-            className="header-desktop__search-i"
-            onKeyDown={handleKeyPress}
-            value={inputText}
-            type="text"
-            placeholder="Tìm kiếm sản phẩm"
-          />
-          <label className="header-desktop__search-input-file-label">
+          <div className="header-desktop__search-input">
+            <button className="header-desktop__search-input-button">
+              <FiSearch className="header-desktop__search-input-icon1" />
+            </button>
             <input
-              onChange={handleChangeFile}
-              accept="image/*"
-              type="file"
-              className="header-desktop__search-input-file"
+                onChange={(e) => setInputText(e.target.value)}
+                className="header-desktop__search-i"
+                onKeyDown={handleKeyPress}
+                value={inputText}
+                type="text"
+                placeholder="Tìm kiếm sản phẩm"
             />
-            <span className="header-desktop__search-input-image"></span>
-            <MdFlipCameraIos className="header-desktop__search-input-icon2" />
-          </label>
-        </div>
+            <label className="header-desktop__search-input-file-label">
+              <input
+                  onChange={handleChangeFile}
+                  accept="image/*"
+                  type="file"
+                  className="header-desktop__search-input-file"
+              />
+              <span className="header-desktop__search-input-image"></span>
+              <MdFlipCameraIos className="header-desktop__search-input-icon2" />
+            </label>
+          </div>
 
-        <div className="header-desktop__group-icon">
-          <div
-            className="header-desktop__group-icon-item flex items-center justify-center flex-col"
-            onClick={() => navigate(`/followingProducts/1`)}
-          >
-            <AiOutlineHeart className="header-desktop_group-i" />
-            <p className="header-desktop_group-p">Yêu thích</p>
-          </div>
-          <div
-            className="header-desktop__group-icon-item flex items-center justify-center flex-col"
-            onClick={() => setIsShow(!isShow)}
-          >
-            <MdOutlineAccountCircle className="header-desktop_group-i" />
-            <p className="header-desktop_group-p">Tài khoản</p>
-          </div>
-          {isShow && (
+          <div className="header-desktop__group-icon">
             <div
-              ref={childRef}
-              className="header-desktop__group-icon-item-child"
+                className="header-desktop__group-icon-item flex items-center justify-center flex-col"
+                onClick={() => navigate(`/followingProducts/1`)}
             >
+              <AiOutlineHeart className="header-desktop_group-i" />
+              <p className="header-desktop_group-p">Yêu thích</p>
+            </div>
+            <div
+                className="header-desktop__group-icon-item flex items-center justify-center flex-col"
+                onClick={() => setIsShow(!isShow)}
+            >
+              <MdOutlineAccountCircle className="header-desktop_group-i" />
+              <p className="header-desktop_group-p">Tài khoản</p>
+            </div>
+            {isShow && (
+                <div
+                    ref={childRef}
+                    className="header-desktop__group-icon-item-child"
+                >
+                  {isLoggedIn ? (
+                      <>
+                        <p onClick={() => navigate("/account")}>Tai khoan</p>
+                        <p onClick={handleLogout}>Dang xuat</p>
+                      </>
+                  ) : (
+                      <>
+                        <p onClick={() => navigate("/auth?mode=register")}>
+                          Dang ky
+                        </p>
+                        <p onClick={() => navigate("/auth?mode=login")}>Dang nhap</p>
+                      </>
+                  )}
+                  {/*
+              {isLoggedIn ? (
+                <>
+                  <p onClick={() => navigate("/account")}>Tài khoản</p>
+                  <p onClick={handleLogout}>Đăng xuất</p>
+                </>
+              ) : (
+                <>
+                  <p onClick={() => navigate("/auth")}>Đăng ký</p>
+                  <p onClick={() => navigate("/auth")}>Đăng nhập</p>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <p onClick={() => navigate("/account")}>TÃ i khoáº£n</p>
+                  <p onClick={handleLogout}>ÄÄƒng xuáº¥t</p>
+                </>
+                </>
+              )}
+              {!isLoggedIn && (
+                <>
               <p onClick={() => navigate("/auth")}>Đăng ký</p>
               <p onClick={() => navigate("/auth")}>Đăng nhập</p>
+              )}
+              */}
+                </div>
+            )}
+            <div
+                className="header-desktop__group-icon-item flex items-center justify-center flex-col"
+                onClick={() => navigate("/cart")}
+            >
+              <GrCart className="header-desktop_group-i" />
+              <p className="header-desktop_group-p">Giỏ hàng</p>
             </div>
-          )}
-          <div
-            className="header-desktop__group-icon-item flex items-center justify-center flex-col"
-            onClick={() => navigate("/cart")}
-          >
-            <GrCart className="header-desktop_group-i" />
-            <p className="header-desktop_group-p">Giỏ hàng</p>
           </div>
         </div>
+        <Menu />
       </div>
-      <Menu />
-    </div>
   );
 };
 
