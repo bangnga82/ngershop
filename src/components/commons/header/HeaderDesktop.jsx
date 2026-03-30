@@ -224,7 +224,7 @@ const HeaderDesktop = () => {
       <div className="header-desktop">
         <div className="header-desktop__search">
           <div onClick={() => navigate("/")} className="header-desktop__logo">
-            <img className="header-desktop__logo-img" src={logo} alt="TechNova" />
+            <img className="header-desktop__logo-img" src={logo} alt="NgerShop" />
           </div>
 
           <div className="header-desktop__search-input">
