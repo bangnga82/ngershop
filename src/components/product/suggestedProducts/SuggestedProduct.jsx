@@ -1,28 +1,17 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import "./SuggestedProduct.scss";
-import recommendationApi from "@/utils/api/recommendationApi";
-import { mapProductToCard } from "@/utils/api/mappers";
 
 const SuggestedProduct = () => {
-  const [featured, setFeatured] = useState([]);
-
-  useEffect(() => {
-    let isMounted = true;
-    recommendationApi
-        .home()
-        .then((res) => {
-          const data = res?.data?.data;
-          const list = data?.recommendations || data?.seeds || [];
-          if (isMounted) setFeatured(list.map(mapProductToCard).slice(0, 4));
-        })
-        .catch((error) => {
-          console.error("Load recommendations error:", error);
-        });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const featured = useMemo(
+    () => [
+      { id: "featured-1", name: "Featured Product 1", price: 199000 },
+      { id: "featured-2", name: "Featured Product 2", price: 249000 },
+      { id: "featured-3", name: "Featured Product 3", price: 299000 },
+      { id: "featured-4", name: "Featured Product 4", price: 349000 },
+    ],
+    []
+  );
 
   return (
       <section className="tech-section tech-section--dark">

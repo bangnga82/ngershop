@@ -6,7 +6,10 @@ import { setInputImage, setInputValue, setResult } from "@/store/searchSlice";
 import { readFileAsync } from "@/utils/readFile";
 import Menu from "./Menu";
 import authApi from "@/utils/api/authApi";
+import productApi from "@/utils/api/productApi";
+import { mapProductToCard } from "@/utils/api/mappers";
 import logo from "@/assets/images/logo.png";
+import { clearAdminFlag, ensureAdminStatus } from "@/utils/auth";
 
 import { FiSearch } from "react-icons/fi";
 import { MdFlipCameraIos } from "react-icons/md";
@@ -18,6 +21,7 @@ import "./HeaderDesktop.scss";
 const HeaderDesktop = () => {
   const [inputText, setInputText] = useState("");
   const [isShow, setIsShow] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const childRef = useRef(null);
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
 
@@ -33,6 +37,24 @@ const HeaderDesktop = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [childRef]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsAdmin(false);
+      return;
+    }
+    let isMounted = true;
+    ensureAdminStatus()
+        .then((value) => {
+          if (isMounted) setIsAdmin(value);
+        })
+        .catch(() => {
+          if (isMounted) setIsAdmin(false);
+        });
+    return () => {
+      isMounted = false;
+    };
+  }, [isLoggedIn]);
 
   const resultFake = [
     {
@@ -183,14 +205,22 @@ const HeaderDesktop = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      dispatch(setInputValue(inputText));
+  const handleKeyPress = async (e) => {
+    if (e.key !== "Enter") return;
+    const keyword = inputText.trim();
+    if (!keyword) return;
+    dispatch(setInputValue(keyword));
+    try {
+      const res = await productApi.search(keyword);
+      const items = res?.data?.data || [];
+      dispatch(setResult(items.map(mapProductToCard)));
+    } catch (error) {
+      console.error("Search error:", error);
       dispatch(setResult(resultFake));
-      dispatch(setInputImage(""));
-      navigate("/search");
-      dispatch(setInputValue(""));
     }
+    dispatch(setInputImage(""));
+    navigate("/search");
+    dispatch(setInputValue(""));
   };
 
   const handleChangeFile = async (e) => {
@@ -215,6 +245,7 @@ const HeaderDesktop = () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessTokenExpiresAt");
+      clearAdminFlag();
       setIsShow(false);
       navigate("/auth");
     }
@@ -224,7 +255,7 @@ const HeaderDesktop = () => {
       <div className="header-desktop">
         <div className="header-desktop__search">
           <div onClick={() => navigate("/")} className="header-desktop__logo">
-            <img className="header-desktop__logo-img" src={logo} alt="NgerShop" />
+            <img className="header-desktop__logo-img" src={logo} alt="TechNova" />
           </div>
 
           <div className="header-desktop__search-input">
@@ -273,6 +304,9 @@ const HeaderDesktop = () => {
                 >
                   {isLoggedIn ? (
                       <>
+                        {isAdmin && (
+                            <p onClick={() => navigate("/admin")}>Admin</p>
+                        )}
                         <p onClick={() => navigate("/account")}>Tai khoan</p>
                         <p onClick={handleLogout}>Dang xuat</p>
                       </>
