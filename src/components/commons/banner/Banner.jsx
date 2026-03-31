@@ -6,10 +6,10 @@ const Banner = () => {
   return (
       <section className="tech-hero">
         <div className="tech-hero__content">
-          <p className="tech-hero__eyebrow">TechNova | Do cong nghe chinh hang</p>
-          <h1>Nang cap goc lam viec. Tang toc trai nghiem.</h1>
+          <p className="tech-hero__eyebrow">NgerShop | My pham chinh hang</p>
+          <h1>Mai tuoi - Mai xinh nha nguoi dep.</h1>
           <p className="tech-hero__sub">
-            Hang moi moi tuan, bao hanh ro rang, giao nhanh 2 gio noi thanh.
+            Hang moi moi tuan, chat luong, giao giao hang nhanh.
           </p>
           <div className="tech-hero__actions">
             <button className="btn btn--primary">Mua ngay</button>
