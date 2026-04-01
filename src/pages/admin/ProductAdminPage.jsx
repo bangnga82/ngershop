@@ -20,11 +20,11 @@ import { buildVariantLabel, resolveImageUrl } from "@/utils/api/mappers";
 
 const mapProductToAdmin = (product) => {
   const images =
-    product?.images?.map((img) => resolveImageUrl(img?.imageUrl)) || [];
+      product?.images?.map((img) => resolveImageUrl(img?.imageUrl)) || [];
   const variations =
-    product?.variants?.length > 0
-      ? product.variants.map(buildVariantLabel)
-      : [];
+      product?.variants?.length > 0
+          ? product.variants.map(buildVariantLabel)
+          : [];
   return {
     id: product?.id,
     name: product?.name || "",
@@ -36,10 +36,11 @@ const mapProductToAdmin = (product) => {
     description: product?.description || "",
     sku: product?.id ? String(product.id).slice(0, 8) : "",
     lastUpdated: product?.createdDate
-      ? new Date(product.createdDate).toLocaleDateString("en-US")
-      : "",
+        ? new Date(product.createdDate).toLocaleDateString("en-US")
+        : "",
     rating: 0,
     variations,
+    variantsRaw: product?.variants || [],
     tags: [],
   };
 };
@@ -73,22 +74,22 @@ const ProductAdminPage = () => {
   const statusCounts = getProductStatusCounts(products);
 
   const filteredProducts = products.filter(
-    (product) =>
-      (product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        String(product.id).toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (statusFilter === "All" || product.status === statusFilter)
+      (product) =>
+          (product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              String(product.id).toLowerCase().includes(searchQuery.toLowerCase())) &&
+          (statusFilter === "All" || product.status === statusFilter)
   );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (!sortConfig.key) return 0;
     const aValue =
-      sortConfig.key === "price"
-        ? parseFloat(a[sortConfig.key].replace("$", ""))
-        : a[sortConfig.key];
+        sortConfig.key === "price"
+            ? parseFloat(a[sortConfig.key].replace("$", ""))
+            : a[sortConfig.key];
     const bValue =
-      sortConfig.key === "price"
-        ? parseFloat(b[sortConfig.key].replace("$", ""))
-        : b[sortConfig.key];
+        sortConfig.key === "price"
+            ? parseFloat(b[sortConfig.key].replace("$", ""))
+            : b[sortConfig.key];
     if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
     if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
@@ -107,13 +108,13 @@ const ProductAdminPage = () => {
   useEffect(() => {
     refreshProducts();
     categoryApi
-      .getCategories({ page: 0, size: 50 })
-      .then((res) => {
-        setCategories(res?.data?.data?.content || []);
-      })
-      .catch((error) => {
-        console.error("Load categories error:", error);
-      });
+        .getCategories({ page: 0, size: 50 })
+        .then((res) => {
+          setCategories(res?.data?.data?.content || []);
+        })
+        .catch((error) => {
+          console.error("Load categories error:", error);
+        });
   }, []);
 
   useEffect(() => {
@@ -165,7 +166,7 @@ const ProductAdminPage = () => {
 
   const handleFormSubmit = async (formData) => {
     const category = categories.find(
-      (c) => c.name.toLowerCase() === String(formData.category).toLowerCase()
+        (c) => c.name.toLowerCase() === String(formData.category).toLowerCase()
     );
     if (!category) {
       alert("Khong tim thay danh muc.");
@@ -181,12 +182,12 @@ const ProductAdminPage = () => {
     form.append("categoryId", category.id);
 
     const existingImageUrls = (payload.image || []).filter(
-      (img) => typeof img === "string" && !img.startsWith("data:")
+        (img) => typeof img === "string" && !img.startsWith("data:")
     );
     existingImageUrls.forEach((url) => form.append("existingImageUrls", url));
 
     const newImages = (payload.image || []).filter(
-      (img) => typeof img === "string" && img.startsWith("data:")
+        (img) => typeof img === "string" && img.startsWith("data:")
     );
     newImages.forEach((dataUrl, index) => {
       const file = dataUrlToFile(dataUrl, `upload-${index}.png`);
@@ -207,100 +208,101 @@ const ProductAdminPage = () => {
   };
 
   return (
-    <LayoutAdmin>
-      <div className="flex-1 overflow-auto relative z-10">
-        <HeaderAdmin title={"Products"} />
-        <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-          <motion.div
-            className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 10, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <StatCard
-              name="Total Sales"
-              icon={Zap}
-              value="$12,345"
-              color="#6366F1"
-            />
-            <StatCard
-              name="New Users"
-              icon={Users}
-              value="1,234"
-              color="#8B5CF6"
-            />
-            <StatCard
-              name="Total Products"
-              icon={ShoppingBag}
-              value="567"
-              color="#EC4899"
-            />
-            <StatCard
-              name="Conversion Rate"
-              icon={BarChart2}
-              value="12,5%"
-              color="#10B981"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 10, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ProductFilters
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              statusFilter={statusFilter}
-              onStatusFilterChange={setStatusFilter}
-              onExportExcel={handleExportExcel}
-              onAddProduct={handleAddProduct}
-              statusCounts={statusCounts}
-              totalCount={products.length}
-            />
-
-            <ProductList
-              products={sortedProducts}
-              currentPage={currentPage}
-              productsPerPage={productsPerPage}
-              totalProducts={sortedProducts.length}
-              onPageChange={setCurrentPage}
-              onProductsPerPageChange={setProductsPerPage}
-              onViewProduct={handleViewProduct}
-              onEditProduct={handleEditProduct}
-              onDeleteProduct={handleDeleteProductClick}
-              onSort={handleSort}
-              sortConfig={sortConfig}
-            />
-            {showModal === "view" && selectedProduct && (
-              <ProductViewModal
-                product={selectedProduct}
-                onClose={() => setShowModal(null)}
-                onEdit={handleEditProduct}
+      <LayoutAdmin>
+        <div className="flex-1 overflow-auto relative z-10">
+          <HeaderAdmin title={"Products"} />
+          <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+            <motion.div
+                className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 10, x: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+              <StatCard
+                  name="Total Sales"
+                  icon={Zap}
+                  value="$12,345"
+                  color="#6366F1"
               />
-            )}
-
-            {(showModal === "add" || showModal === "edit") && (
-              <ProductFormModal
-                isOpen={true}
-                onClose={() => setShowModal(null)}
-                onSubmit={handleFormSubmit}
-                initialData={showModal === "edit" ? selectedProduct : null}
-                formType={showModal}
+              <StatCard
+                  name="New Users"
+                  icon={Users}
+                  value="1,234"
+                  color="#8B5CF6"
               />
-            )}
-
-            {showModal === "delete" && selectedProduct && (
-              <DeleteProductModal
-                isOpen={true}
-                onClose={() => setShowModal(null)}
-                onConfirm={handleDeleteProduct}
-                product={selectedProduct}
+              <StatCard
+                  name="Total Products"
+                  icon={ShoppingBag}
+                  value="567"
+                  color="#EC4899"
               />
-            )}
-          </motion.div>
-        </main>
-      </div>
-    </LayoutAdmin>
+              <StatCard
+                  name="Conversion Rate"
+                  icon={BarChart2}
+                  value="12,5%"
+                  color="#10B981"
+              />
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 10, x: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+              <ProductFilters
+                  searchQuery={searchQuery}
+                  onSearchChange={setSearchQuery}
+                  statusFilter={statusFilter}
+                  onStatusFilterChange={setStatusFilter}
+                  onExportExcel={handleExportExcel}
+                  onAddProduct={handleAddProduct}
+                  statusCounts={statusCounts}
+                  totalCount={products.length}
+              />
+
+              <ProductList
+                  products={sortedProducts}
+                  currentPage={currentPage}
+                  productsPerPage={productsPerPage}
+                  totalProducts={sortedProducts.length}
+                  onPageChange={setCurrentPage}
+                  onProductsPerPageChange={setProductsPerPage}
+                  onViewProduct={handleViewProduct}
+                  onEditProduct={handleEditProduct}
+                  onDeleteProduct={handleDeleteProductClick}
+                  onSort={handleSort}
+                  sortConfig={sortConfig}
+              />
+              {showModal === "view" && selectedProduct && (
+                  <ProductViewModal
+                      product={selectedProduct}
+                      onClose={() => setShowModal(null)}
+                      onEdit={handleEditProduct}
+                  />
+              )}
+
+              {(showModal === "add" || showModal === "edit") && (
+                  <ProductFormModal
+                      isOpen={true}
+                      onClose={() => setShowModal(null)}
+                      onSubmit={handleFormSubmit}
+                      onVariantsUpdated={refreshProducts}
+                      initialData={showModal === "edit" ? selectedProduct : null}
+                      formType={showModal}
+                  />
+              )}
+
+              {showModal === "delete" && selectedProduct && (
+                  <DeleteProductModal
+                      isOpen={true}
+                      onClose={() => setShowModal(null)}
+                      onConfirm={handleDeleteProduct}
+                      product={selectedProduct}
+                  />
+              )}
+            </motion.div>
+          </main>
+        </div>
+      </LayoutAdmin>
   );
 };
 

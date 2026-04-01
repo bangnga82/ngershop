@@ -1,4 +1,3 @@
-import { Plus, Trash } from "lucide-react";
 import React from "react";
 
 const CategoryForm = ({
@@ -7,8 +6,6 @@ const CategoryForm = ({
 	onSubmit,
 	formType,
 	onClose,
-	onAddSubcategory,
-	onRemoveSubcategory,
 }) => {
 	return (
 		<form onSubmit={onSubmit} className="space-y-4">
@@ -41,74 +38,34 @@ const CategoryForm = ({
 
 			<div>
 				<label className="block text-sm font-medium text-gray-700">
-					Icon
+					Image
 				</label>
-				<input
-					type="text"
-					name="icon"
-					value={formData.icon}
-					onChange={onChange}
-					placeholder="📱, 👕, 🏠, etc."
-					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-				/>
-			</div>
-
-			<div>
-				<label className="block text-sm font-medium text-gray-700">
-					Display Order
+				<label className="mt-1 flex items-center justify-between gap-3 rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-600 cursor-pointer transition hover:border-orange-300 hover:bg-orange-50 focus-within:ring-2 focus-within:ring-orange-500">
+					<span className="truncate">
+						{formData.image?.name || "Choose an image file"}
+					</span>
+					<span className="inline-flex items-center rounded-md bg-orange-500 px-3 py-1 text-xs font-medium text-white">
+						Browse
+					</span>
+					<input
+						type="file"
+						name="image"
+						accept="image/*"
+						className="hidden"
+						onChange={(e) => {
+							const file = e.target.files?.[0] || null;
+							onChange({
+								target: {
+									name: "image",
+									value: file,
+								},
+							});
+						}}
+					/>
 				</label>
-				<input
-					type="number"
-					name="displayOrder"
-					value={formData.displayOrder}
-					onChange={onChange}
-					min="1"
-					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-				/>
-			</div>
-
-			<div>
-				<label className="block text-sm font-medium text-gray-700 mb-2">
-					Subcategories
-				</label>
-
-				{formData.subcategories.map((subcategory, index) => (
-					<div key={index} className="flex items-center mb-2">
-						<input
-							type="text"
-							value={subcategory}
-							onChange={(e) => {
-								const newSubcategories = [
-									...formData.subcategories,
-								];
-								newSubcategories[index] = e.target.value;
-								onChange({
-									target: {
-										name: "subcategories",
-										value: newSubcategories,
-									},
-								});
-							}}
-							className="block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-							placeholder="Subcategory name"
-						/>
-						<button
-							type="button"
-							onClick={() => onRemoveSubcategory(index)}
-							className="ml-2 text-red-500 hover:text-red-700"
-						>
-							<Trash className="h-4 w-4" />
-						</button>
-					</div>
-				))}
-
-				<button
-					type="button"
-					onClick={onAddSubcategory}
-					className="mt-2 flex items-center text-sm text-orange-500 hover:text-orange-700"
-				>
-					<Plus className="h-4 w-4 mr-1" /> Add Subcategory
-				</button>
+				<p className="mt-1 text-xs text-gray-500">
+					Upload an image for this category.
+				</p>
 			</div>
 
 			<div className="flex justify-end space-x-3 pt-4">

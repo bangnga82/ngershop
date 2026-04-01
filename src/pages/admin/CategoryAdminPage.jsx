@@ -13,13 +13,11 @@ import {
 } from "@/components/admin/categoryAdmin/categoryExcel";
 import categoryApi from "@/utils/api/categoryApi";
 
-const mapCategoryToAdmin = (category, index) => ({
+const mapCategoryToAdmin = (category) => ({
   id: category?.id,
   name: category?.name || "",
   description: category?.description || "",
-  icon: "",
-  displayOrder: index + 1,
-  subcategories: [],
+  imageUrl: category?.imageUrl || "",
   productCount: 0,
   lastUpdated: new Date().toLocaleDateString("en-US", {
     month: "short",
@@ -38,7 +36,7 @@ const CategoryAdminPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({
-    key: "displayOrder",
+    key: "name",
     direction: "asc",
   });
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -61,12 +59,8 @@ const CategoryAdminPage = () => {
     id: `CAT-${Math.floor(1000 + Math.random() * 9000)}`,
     name: "",
     description: "",
-    icon: "",
-    displayOrder:
-      categories.length > 0
-        ? Math.max(...categories.map((c) => Number(c.displayOrder))) + 1
-        : 1,
-    subcategories: [],
+    imageUrl: "",
+    image: null,
     productCount: 0,
     lastUpdated: new Date().toLocaleDateString("en-US", {
       month: "short",
@@ -121,6 +115,9 @@ const CategoryAdminPage = () => {
     const form = new FormData();
     form.append("name", formData.name);
     form.append("description", formData.description || "");
+    if (formData.image) {
+      form.append("image", formData.image);
+    }
     try {
       if (modalType === "add") {
         await categoryApi.create(form);

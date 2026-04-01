@@ -9,7 +9,6 @@ export const exportCategoriesToExcel = (
 		Name: category.name,
 		Description: category.description || "",
 		"Product Count": category.productCount || 0,
-		Subcategories: category.subcategories.join(", "),
 		"Last Updated": category.lastUpdated,
 	}));
 
@@ -22,7 +21,6 @@ export const exportCategoriesToExcel = (
 		{ wch: 25 }, // Name
 		{ wch: 40 }, // Description
 		{ wch: 12 }, // Product Count
-		{ wch: 40 }, // Subcategories
 		{ wch: 15 }, // Last Updated
 	];
 	worksheet["!cols"] = columnWidths;
@@ -43,10 +41,7 @@ export const sortCategories = (categories, sortConfig) => {
 		let bValue = b[sortConfig.key];
 
 		// Special handling for number values
-		if (
-			sortConfig.key === "displayOrder" ||
-			sortConfig.key === "productCount"
-		) {
+		if (sortConfig.key === "productCount") {
 			aValue = Number(aValue);
 			bValue = Number(bValue);
 		}

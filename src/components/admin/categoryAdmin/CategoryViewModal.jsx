@@ -18,18 +18,21 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 				</div>
 				<div className="p-6">
 					<div className="flex items-center mb-6">
-						<div className="h-16 w-16 bg-orange-100 rounded-lg flex items-center justify-center text-4xl">
-							{category.icon || "📂"}
+						<div className="h-16 w-16 bg-orange-100 rounded-lg flex items-center justify-center text-4xl overflow-hidden">
+							{category.imageUrl ? (
+								<img
+									src={category.imageUrl}
+									alt={category.name}
+									className="h-full w-full object-cover"
+								/>
+							) : (
+								<span>📂</span>
+							)}
 						</div>
 						<div className="ml-4">
 							<h2 className="text-xl font-semibold">
 								{category.name}
 							</h2>
-							<div className="flex items-center mt-1">
-								<span className="text-sm text-gray-500">
-									Order: {category.displayOrder}
-								</span>
-							</div>
 						</div>
 					</div>
 
@@ -41,26 +44,6 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 							<p className="text-gray-600">
 								{category.description}
 							</p>
-						</div>
-					)}
-
-					{category.subcategories.length > 0 && (
-						<div className="mb-6">
-							<h4 className="text-sm font-medium text-gray-700 mb-2">
-								Subcategories
-							</h4>
-							<div className="grid grid-cols-2 gap-2">
-								{category.subcategories.map(
-									(subcategory, index) => (
-										<div
-											key={index}
-											className="bg-gray-50 px-3 py-2 rounded-lg text-sm"
-										>
-											{subcategory}
-										</div>
-									)
-								)}
-							</div>
 						</div>
 					)}
 

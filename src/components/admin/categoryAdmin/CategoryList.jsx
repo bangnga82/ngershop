@@ -36,28 +36,14 @@ const CategoryList = ({
 										? "↑"
 										: "↓")}
 							</th>
-							<th
-								onClick={() => onSort("displayOrder")}
-								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
-							>
-								Display Order{" "}
-								{sortConfig.key === "displayOrder" &&
-									(sortConfig.direction === "asc"
-										? "↑"
-										: "↓")}
+							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Description
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 								Products
 							</th>
-							<th
-								onClick={() => onSort("lastUpdated")}
-								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
-							>
-								Last Updated{" "}
-								{sortConfig.key === "lastUpdated" &&
-									(sortConfig.direction === "asc"
-										? "↑"
-										: "↓")}
+							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Last Updated
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 								Actions

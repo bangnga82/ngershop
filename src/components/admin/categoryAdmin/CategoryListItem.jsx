@@ -6,24 +6,27 @@ const CategoryListItem = ({ category, onView, onEdit, onDelete }) => {
 		<tr className="hover:bg-gray-50">
 			<td className="px-4 py-4 whitespace-nowrap">
 				<div className="flex items-center">
-					<div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center text-xl">
-						{category.icon || "📂"}
+					<div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center text-xl overflow-hidden flex-shrink-0">
+						{category.imageUrl ? (
+							<img
+								src={category.imageUrl}
+								alt={category.name}
+								className="h-full w-full object-cover"
+							/>
+						) : (
+							<span>📂</span>
+						)}
 					</div>
 					<div className="ml-4">
 						<div className="font-medium text-gray-900">
 							{category.name}
 						</div>
-						<div className="text-sm text-gray-500">
-							{category.subcategories.length > 0
-								? `${category.subcategories.length} subcategories`
-								: "No subcategories"}
-						</div>
 					</div>
 				</div>
 			</td>
 			<td className="px-4 py-4 whitespace-nowrap">
-				<div className="text-sm text-gray-500">
-					{category.displayOrder}
+				<div className="text-sm text-gray-500 line-clamp-2 max-w-xs">
+					{category.description || "No description"}
 				</div>
 			</td>
 			<td className="px-4 py-4 whitespace-nowrap">

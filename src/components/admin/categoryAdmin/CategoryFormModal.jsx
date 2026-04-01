@@ -16,20 +16,6 @@ const CategoryFormModal = ({
 		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleAddSubcategory = () => {
-		setFormData((prev) => ({
-			...prev,
-			subcategories: [...prev.subcategories, ""],
-		}));
-	};
-
-	const handleRemoveSubcategory = (index) => {
-		setFormData((prev) => ({
-			...prev,
-			subcategories: prev.subcategories.filter((_, i) => i !== index),
-		}));
-	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		onSubmit(formData);
@@ -58,8 +44,6 @@ const CategoryFormModal = ({
 						onSubmit={handleSubmit}
 						formType={formType}
 						onClose={onClose}
-						onAddSubcategory={handleAddSubcategory}
-						onRemoveSubcategory={handleRemoveSubcategory}
 					/>
 				</div>
 			</div>
