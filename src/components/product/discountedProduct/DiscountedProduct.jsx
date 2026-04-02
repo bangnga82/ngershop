@@ -4,9 +4,9 @@ import "./DiscountedProduct.scss";
 
 const DiscountedProduct = () => {
   const deals = [
-    { title: "Combo Workstation", desc: "Laptop + man hinh + dock", tag: "-12%" },
-    { title: "Gaming Starter", desc: "PC + gear + ghe", tag: "-18%" },
-    { title: "Creator Kit", desc: "Mic + cam + den", tag: "-10%" },
+    { title: "Combo duong am", desc: "Ngay va dem", tag: "-10%" },
+    { title: "Combo son", desc: "Son li va tint", tag: "-20%" },
+    { title: "Combo lam sach da", desc: "Tay trang va tay te bao chet", tag: "-15%" },
   ];
 
   return (

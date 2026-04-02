@@ -17,7 +17,7 @@ const SuggestedProduct = () => {
       <section className="tech-section tech-section--dark">
         <div className="tech-section__header">
           <h2>San pham noi bat</h2>
-          <p>De xuat boi doi ngu ky thuat cua TechNova.</p>
+          <p>De xuat boi nhan vien cham soc da NgerShop.</p>
         </div>
         <div className="tech-grid tech-grid--featured">
           {featured.map((item) => (

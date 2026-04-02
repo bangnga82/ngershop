@@ -22,7 +22,7 @@ const Banner = () => {
             </div>
             <div>
               <strong>500+</strong>
-              <span>San pham cong nghe</span>
+              <span>San pham lam dep</span>
             </div>
             <div>
               <strong>4.9/5</strong>

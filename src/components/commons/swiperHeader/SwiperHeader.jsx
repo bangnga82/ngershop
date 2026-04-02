@@ -49,9 +49,9 @@ const SwiperHeader = () => {
                 }}
                 className="swiper-container"
             >
-                <SwiperSlide>TechNova: Hang moi ve hang tuan</SwiperSlide>
-                <SwiperSlide>Giam gia linh kien va phu kien gaming</SwiperSlide>
-                <SwiperSlide>Tra gop 0% cho laptop va dien thoai</SwiperSlide>
+                <SwiperSlide>NgerShop: Hang moi ve hang tuan</SwiperSlide>
+                <SwiperSlide>Qua sinh - Phu kien de thuong</SwiperSlide>
+                <SwiperSlide>Da xinh tu tin don he</SwiperSlide>
             </Swiper>
             <button
                 ref={nextRef}

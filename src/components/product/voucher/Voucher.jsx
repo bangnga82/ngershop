@@ -5,9 +5,9 @@ import "./Voucher.scss";
 const Voucher = () => {
   const items = [
     "Mien phi doi tra 7 ngay",
-    "Bao hanh dien tu",
-    "Tra gop 0%",
-    "Ho tro ky thuat 24/7",
+    "Free ship moi don hang",
+    "Mua la co qua",
+    "Mua sam hang chuan",
   ];
 
   return (
