@@ -19,6 +19,8 @@ import BlogDetail from "./components/blog/BlogDetail";
 import SearchResultPage from "./pages/blog/SearchResultPage";
 import Overview from "./pages/admin/Overview";
 import ProductAdminPage from "./pages/admin/ProductAdminPage";
+import ProductVariantAdminPage from "./pages/admin/ProductVariantAdminPage";
+import ProductAttributeAdminPage from "./pages/admin/ProductAttributeAdminPage";
 import OrderAdminPage from "./pages/admin/OrderAdminPage";
 import CategoryAdminPage from "./pages/admin/CategoryAdminPage";
 import UserAdminPage from "./pages/admin/UserAdminPage";
@@ -102,6 +104,22 @@ const App = () => {
       element: (
           <AdminGuard>
             <ProductAdminPage />
+          </AdminGuard>
+      ),
+    },
+    {
+      path: "/admin/variants",
+      element: (
+          <AdminGuard>
+            <ProductVariantAdminPage />
+          </AdminGuard>
+      ),
+    },
+    {
+      path: "/admin/attributes",
+      element: (
+          <AdminGuard>
+            <ProductAttributeAdminPage />
           </AdminGuard>
       ),
     },

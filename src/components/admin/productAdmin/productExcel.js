@@ -65,24 +65,14 @@ export const getProductStatusCounts = (products) => {
 
 
 export const formatProductForSave = (formData, existingProduct = null) => {
-  // Use placeholder image if no images were uploaded
-  const productImages = formData.images.length > 0 
-    ? formData.images 
-    : ['/api/placeholder/100/100'];
-
   return {
     id: formData.id,
     name: formData.name,
     category: formData.category,
     price: `$${parseFloat(formData.price).toFixed(2)}`,
-    stock: parseInt(formData.stock) || 0,
-    status: formData.status,
-    image: productImages,
+    image: Array.isArray(formData.images) ? formData.images : [],
     description: formData.description,
-    sku: formData.sku,
     lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
     rating: existingProduct ? existingProduct.rating : 0,
-    variations: formData.variations,
-    tags: formData.tags,
   };
 };

@@ -285,8 +285,22 @@ const ProductAdminPage = () => {
                       isOpen={true}
                       onClose={() => setShowModal(null)}
                       onSubmit={handleFormSubmit}
-                      onVariantsUpdated={refreshProducts}
-                      initialData={showModal === "edit" ? selectedProduct : null}
+                      initialData={
+                        showModal === "edit" && selectedProduct
+                          ? {
+                              id: selectedProduct.id,
+                              name: selectedProduct.name || "",
+                              category: selectedProduct.category || "",
+                              price: String(selectedProduct.price || "").replace(
+                                "$",
+                                ""
+                              ),
+                              description: selectedProduct.description || "",
+                              images: selectedProduct.image || [],
+                            }
+                          : null
+                      }
+                      categories={categories}
                       formType={showModal}
                   />
               )}

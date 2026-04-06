@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import {
 	BarChart2,
 	DollarSign,
+	Layers,
 	Menu,
 	ShoppingBag,
+	Sliders,
 	TrendingUp,
 	Users,
 } from "lucide-react";
@@ -29,6 +31,18 @@ const SIDEBAR_ITEMS = [
 		icon: ShoppingBag,
 		color: "#EC4899",
 		href: "/admin/products",
+	},
+	{
+		name: "Variants",
+		icon: Layers,
+		color: "#F97316",
+		href: "/admin/variants",
+	},
+	{
+		name: "Attributes",
+		icon: Sliders,
+		color: "#14B8A6",
+		href: "/admin/attributes",
 	},
 	{
 		name: "Orders",
