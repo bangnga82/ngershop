@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
 
 import "./MenuSidebar.scss";
 import categoryApi from "@/utils/api/categoryApi";
@@ -8,6 +9,8 @@ const MenuSidebar = () => {
   const [opens, setOpens] = useState([]);
   const [isOpenPrice, setIsOpenPrice] = useState(true);
   const [category, setCategory] = useState([]);
+  const navigate = useNavigate();
+  const { categoryName } = useParams();
 
   const handleClick = (value, isOpen) => {
     if (isOpen) {
@@ -39,7 +42,18 @@ const MenuSidebar = () => {
           {category.map((item, index) => (
               <div key={index}>
                 <div key={item.id} className="menuSidebar__category-item">
-                  <p>{item.name}</p>
+                  <p
+                    className={
+                      item.name === categoryName ? "is-active" : undefined
+                    }
+                    onClick={() =>
+                      navigate(
+                        `/productsByCategory/${encodeURIComponent(item.name)}`
+                      )
+                    }
+                  >
+                    {item.name}
+                  </p>
                   {opens.includes(item.id) ? (
                       <FaCaretUp
                           className="icon-up"

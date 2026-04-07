@@ -255,7 +255,10 @@ const HeaderDesktop = () => {
       <div className="header-desktop">
         <div className="header-desktop__search">
           <div onClick={() => navigate("/")} className="header-desktop__logo">
-            <img className="header-desktop__logo-img" src={logo} alt="TechNova" />
+            <img className="header-desktop__logo-img" src={logo} alt="NgerShop" />
+            <span className="header-desktop__logo-text">
+              NgerShop
+            </span>
           </div>
 
           <div className="header-desktop__search-input">
@@ -354,7 +357,9 @@ const HeaderDesktop = () => {
             </div>
           </div>
         </div>
-        <Menu />
+        <div className="header-desktop__menu">
+          <Menu />
+        </div>
       </div>
   );
 };

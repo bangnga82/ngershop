@@ -10,6 +10,7 @@ import DiscountedProduct from "@/components/product/discountedProduct/Discounted
 import SuggestedProduct from "@/components/product/suggestedProducts/SuggestedProduct";
 import Voucher from "@/components/product/voucher/Voucher";
 import React from "react";
+import ChatbotWidget from "@/components/chatbot/ChatbotWidget";
 
 const Home = () => {
     return (
@@ -24,6 +25,7 @@ const Home = () => {
                 <Female />
                 <Accessory/>
                 <Comment />
+                <ChatbotWidget />
             </Layout>
         </div>
     );

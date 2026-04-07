@@ -1,6 +1,6 @@
 .header-desktop {
   width: 100%;
-  padding: 14px 130px;
+  padding: 10px 24px 8px;
   //background: #fff;
   background: #fff;
   border-bottom: 1px solid #efe6e1;
@@ -9,20 +9,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
 
     .header-desktop__logo {
-      text-align: center;
+      width: 96px;
+      height: 96px;
+      text-align: left;
       cursor: pointer;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0;
+      gap: 8px;
+      align-self: center;
 
       .header-desktop__logo-img {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
+      }
+
+      .header-desktop__logo-text {
+        display: none;
+        font-size: 28px;
+        line-height: 1;
+        color: #ff5c9a;
+        white-space: nowrap;
+        padding-left: 52px;
       }
     }
 
@@ -144,6 +156,11 @@
         }
       }
     }
+  }
+
+  .header-desktop__menu {
+    width: 42%;
+    margin: 2px auto 0;
   }
 }
 

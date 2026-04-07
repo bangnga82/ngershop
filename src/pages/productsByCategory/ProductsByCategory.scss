@@ -1,10 +1,11 @@
 .productsByCategory{
   .productsByCategory__container{
     width: 100%;
-    padding: 0px 10%;
+    padding: 0px 6%;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
+    gap: 24px;
 
     @media screen and (max-width: 767.98px) {
       padding: 0px 5%;

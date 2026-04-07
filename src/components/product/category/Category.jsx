@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Category.scss";
 import { useNavigate } from "react-router-dom";
 import categoryApi from "@/utils/api/categoryApi";
@@ -9,6 +9,7 @@ const Category = () => {
   const [categorys, setCategorys] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const scrollerRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -31,21 +32,45 @@ const Category = () => {
   }, []);
 
   return (
-      <div data-aos="fade-up" className="category">
+    <div data-aos="fade-up" className="category">
+      <button
+        type="button"
+        className="category__nav category__nav--prev"
+        onClick={() =>
+          scrollerRef.current?.scrollBy({ left: -320, behavior: "smooth" })
+        }
+        aria-label="Xem truoc"
+      >
+        ‹
+      </button>
+      <div ref={scrollerRef} className="category__track">
         {!loading &&
-            categorys.map((item, index) => (
-                <div
-                    key={index}
-                    className="category__item"
-                    onClick={() => navigate(`/productsByCategory/${item.name}`)}
-                >
-                  <div className="category__item-img">
-                    <img src={resolveImageUrl(item.imageUrl)} alt={item.name} />
-                  </div>
-                  <button className="category__item-btn">{item.name}</button>
-                </div>
-            ))}
+          categorys.map((item, index) => (
+            <div
+              key={index}
+              className="category__item"
+              onClick={() =>
+                navigate(`/productsByCategory/${encodeURIComponent(item.name)}`)
+              }
+            >
+              <div className="category__item-img">
+                <img src={resolveImageUrl(item.imageUrl)} alt={item.name} />
+              </div>
+              <button className="category__item-btn">{item.name}</button>
+            </div>
+          ))}
       </div>
+      <button
+        type="button"
+        className="category__nav category__nav--next"
+        onClick={() =>
+          scrollerRef.current?.scrollBy({ left: 320, behavior: "smooth" })
+        }
+        aria-label="Xem tiep"
+      >
+        ›
+      </button>
+    </div>
   );
 };
 

@@ -40,9 +40,9 @@ const Banner = () => {
     <section className="tech-hero">
       <div className="tech-hero__content">
         <p className="tech-hero__eyebrow">NgerShop | My pham chinh hang</p>
-        <h1>Mai tuoi - Mai xinh nha nguoi dep.</h1>
+        <h1>Mãi tươi - Mãi xinh nha người đẹp.</h1>
         <p className="tech-hero__sub">
-          Hang moi moi tuan, chat luong, giao giao hang nhanh.
+          Hàng mới mỗi tuần, chất lượng, giao hàng nhanh.
         </p>
         <div className="tech-hero__actions">
           <button className="btn btn--primary">Mua ngay</button>
