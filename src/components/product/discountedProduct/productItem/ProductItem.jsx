@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { formatNumber } from "@/utils/function";
 import { FaRegHeart } from "react-icons/fa";
 import cartApi from "@/utils/api/cartApi";
+import { buildAuthRedirectPath, isAuthenticated } from "@/utils/auth";
 
 import "./ProductItem.scss";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, breadcrumbCategory }) => {
     const [indexImage, setIndexImage] = useState(0);
     const navigate = useNavigate();
     const [isFettching, setIsFetching] = useState(false);
@@ -44,10 +45,18 @@ const ProductItem = ({ product }) => {
             alert("San pham chua co bien the de mua.");
             return;
         }
+        if (!isAuthenticated()) {
+            navigate(buildAuthRedirectPath(`/product/${product?.id}`));
+            return;
+        }
         try {
             await cartApi.addItem(variantId, 1);
             alert("Da them vao gio hang.");
         } catch (error) {
+            if (error?.response?.status === 401) {
+                navigate(buildAuthRedirectPath(`/product/${product?.id}`));
+                return;
+            }
             const message =
                 error?.response?.data?.data?.message ||
                 error?.response?.data?.message ||
@@ -57,10 +66,7 @@ const ProductItem = ({ product }) => {
     };
 
     return (
-        <div
-            onClick={() => navigate(`/product/${product.id}`)}
-            className="product-item"
-        >
+        <div className="product-item">
             {discount > 0 && (
                 <button className="product-item_discount">- {discount}%</button>
             )}
@@ -70,7 +76,16 @@ const ProductItem = ({ product }) => {
             >
                 <FaRegHeart onClick={() => handleLike(product)} />
             </div>
-            <div className="product-item_img">
+            <div
+                className="product-item_img"
+                onClick={() =>
+                    navigate(`/product/${product.id}`, {
+                        state: breadcrumbCategory
+                            ? { fromCategory: breadcrumbCategory }
+                            : undefined,
+                    })
+                }
+            >
                 <img src={images[indexImage]} alt={product.name} />
             </div>
             <button className="product-item_add-to-card" onClick={handleAddToCart}>
@@ -80,6 +95,10 @@ const ProductItem = ({ product }) => {
                 {images.map((image, index) => (
                     <div
                         onMouseEnter={() => setIndexImage(index)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIndexImage(index);
+                        }}
                         key={index}
                         className={`product-item_img-list-item ${
                             index === indexImage ? "active" : ""
@@ -89,16 +108,24 @@ const ProductItem = ({ product }) => {
                     </div>
                 ))}
             </div>
-            <p className="product-item_name">{product.name}</p>
+            <p
+                className="product-item_name"
+                onClick={() =>
+                    navigate(`/product/${product.id}`, {
+                        state: breadcrumbCategory
+                            ? { fromCategory: breadcrumbCategory }
+                            : undefined,
+                    })
+                }
+            >
+                {product.name}
+            </p>
             <p className="product-item_sold">
                 So luong: <span>{count}</span>
             </p>
             <div className="product-item_price">
                 <p className="product-item_price-fake">
                     {formatNumber(product.price * (1 - discount / 100))}d
-                </p>
-                <p className="product-item_price-real">
-                    {formatNumber(product.price)} d
                 </p>
             </div>
         </div>

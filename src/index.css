@@ -144,6 +144,10 @@ body {
   line-height: 1.4;
 }
 
+.chatbot-text {
+  margin: 0;
+}
+
 .chatbot-message--user .chatbot-bubble {
   background: #ff5f8a;
   color: #fff;
@@ -157,6 +161,39 @@ body {
 .chatbot-bubble--typing {
   font-style: italic;
   opacity: 0.7;
+}
+
+.chatbot-products {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.chatbot-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e7e7f5;
+  text-decoration: none;
+  color: #1f1f2c;
+  font-size: 12px;
+}
+
+.chatbot-product:hover {
+  border-color: #ff5f8a;
+}
+
+.chatbot-product-name {
+  font-weight: 600;
+}
+
+.chatbot-product-price {
+  font-weight: 600;
+  color: #ff5f8a;
 }
 
 .chatbot-input {

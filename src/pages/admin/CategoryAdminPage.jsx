@@ -12,13 +12,14 @@ import {
   exportCategoriesToExcel,
 } from "@/components/admin/categoryAdmin/categoryExcel";
 import categoryApi from "@/utils/api/categoryApi";
+import productApi from "@/utils/api/productApi";
 
-const mapCategoryToAdmin = (category) => ({
+const mapCategoryToAdmin = (category, productCounts = {}) => ({
   id: category?.id,
   name: category?.name || "",
   description: category?.description || "",
   imageUrl: category?.imageUrl || "",
-  productCount: 0,
+  productCount: productCounts[String(category?.name || "").trim().toLowerCase()] || 0,
   lastUpdated: new Date().toLocaleDateString("en-US", {
     month: "short",
     day: "2-digit",
@@ -43,9 +44,23 @@ const CategoryAdminPage = () => {
 
   const refreshCategories = async () => {
     try {
-      const res = await categoryApi.getCategories({ page: 0, size: 50 });
-      const items = res?.data?.data?.content || [];
-      setCategories(items.map(mapCategoryToAdmin));
+      const [categoryRes, productRes] = await Promise.all([
+        categoryApi.getCategories({ page: 0, size: 50 }),
+        productApi.getProducts({ page: 0, size: 200 }),
+      ]);
+
+      const items = categoryRes?.data?.data?.content || [];
+      const products = productRes?.data?.data?.content || [];
+      const productCounts = products.reduce((counts, product) => {
+        const key = String(product?.categoryName || "").trim().toLowerCase();
+        if (!key) {
+          return counts;
+        }
+        counts[key] = (counts[key] || 0) + 1;
+        return counts;
+      }, {});
+
+      setCategories(items.map((category) => mapCategoryToAdmin(category, productCounts)));
     } catch (error) {
       console.error("Load categories error:", error);
     }

@@ -4,6 +4,17 @@ const ADMIN_CACHE_KEY = "isAdmin";
 
 export const getAccessToken = () => localStorage.getItem("accessToken");
 
+export const isAuthenticated = () => Boolean(getAccessToken());
+
+export const buildAuthRedirectPath = (redirectTo, mode = "login") => {
+  const params = new URLSearchParams();
+  params.set("mode", mode);
+  if (redirectTo) {
+    params.set("redirect", redirectTo);
+  }
+  return `/auth?${params.toString()}`;
+};
+
 export const decodeJwtPayload = (token) => {
   if (!token) return null;
   const parts = token.split(".");

@@ -1,6 +1,6 @@
 .product-item {
   width: 270px;
-  height: 500px;
+  height: 445px;
   border-radius: 12px;
   background-color: #ffffff;
   position: relative;
@@ -55,25 +55,29 @@
 
   .product-item_img {
     width: 100%;
-    height: 315px;
+    height: 250px;
     overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #fff8f6 0%, #ffffff 100%);
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 86%;
+      height: 86%;
+      object-fit: contain;
       border-radius: 12px 12px 0 0;
-      transform: scale(1.2);
+      transform: scale(1);
       transition: transform 0.4s ease-in-out;
     }
   }
 
   .product-item_add-to-card {
     position: absolute;
-    top: 240px;
+    top: 185px;
     left: 10%;
     width: 80%;
     z-index: 10;
@@ -101,7 +105,7 @@
 
   .product-item_img-list {
     position: absolute;
-    top: 330px;
+    top: 265px;
     display: flex;
     gap: 10px;
     padding: 0 20px;
@@ -129,15 +133,21 @@
   }
   .product-item_name {
     position: absolute;
-    top: 370px;
+    top: 305px;
     padding: 0 20px;
     font-size: 15px;
     font-weight: 500;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .product-item_sold {
     position: absolute;
-    bottom: 60px;
+    bottom: 52px;
     padding: 0 20px;
     font-size: 15px;
 
@@ -149,7 +159,7 @@
   .product-item_price {
     position: absolute;
     width: 100%;
-    bottom: 30px;
+    bottom: 20px;
     padding: 0 20px;
     font-size: 15px;
     font-weight: 500;
@@ -192,7 +202,7 @@
 
     .product-item_img {
       img {
-        transform: scale(1);
+        transform: scale(1.04);
         transition: transform 0.4s ease-in-out;
       }
     }
@@ -200,18 +210,22 @@
 
   @media screen and (max-width: 1280.98px) {
     width: 217px;
-    height: 451px;
+    height: 405px;
 
     .product-item_img {
-      height: 286px;
+      height: 225px;
+    }
+
+    .product-item_add-to-card {
+      top: 165px;
     }
 
     .product-item_img-list {
-      top: 295px;
+      top: 238px;
     }
 
     .product-item_name {
-      top: 330px;
+      top: 278px;
     }
   }
 }

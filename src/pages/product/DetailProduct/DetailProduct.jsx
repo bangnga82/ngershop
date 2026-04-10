@@ -7,7 +7,7 @@ import Layout from "@/components/commons/layout/Layout";
 import TitleRouter from "@/components/product/titleRouter/TitleRouter";
 import LeftSession from "@/components/product/detailProduct/leftSession/LeftSession";
 import RightSession from "@/components/product/detailProduct/rightSession/RightSession";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import productApi from "@/utils/api/productApi";
 import reviewApi from "@/utils/api/reviewApi";
 import {
@@ -18,9 +18,11 @@ import {
 
 const DetailProduct = () => {
   const { id } = useParams();
+  const location = useLocation();
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedType, setSelectedType] = useState(0);
 
   useEffect(() => {
     if (!id) return;
@@ -30,7 +32,10 @@ const DetailProduct = () => {
       .getById(id)
       .then((res) => {
         const data = res?.data?.data;
-        if (isMounted) setProduct(data || null);
+        if (isMounted) {
+          setProduct(data || null);
+          setSelectedType(0);
+        }
       })
       .catch((error) => {
         console.error("Load product error:", error);
@@ -83,6 +88,12 @@ const DetailProduct = () => {
     };
   }, [product, reviews]);
 
+  const selectedVariantImage = useMemo(() => {
+    if (!productView) return null;
+    const variant = productView?.variants?.[selectedType];
+    return resolveImageUrl(variant?.imageUrl);
+  }, [productView, selectedType]);
+
   if (loading || !productView) {
     return (
       <Layout>
@@ -91,12 +102,27 @@ const DetailProduct = () => {
     );
   }
 
+  const categoryFromState = location?.state?.fromCategory;
+  const crumbs = categoryFromState
+    ? [
+        {
+          label: categoryFromState,
+          to: `/productsByCategory/${encodeURIComponent(categoryFromState)}`,
+        },
+        { label: productView?.name || "Chi tiet" },
+      ]
+    : null;
+
   return (
     <Layout>
-      <TitleRouter title={productView?.name || "Chi tiet"} />
+      <TitleRouter title={productView?.name || "Chi tiet"} crumbs={crumbs} />
       <div data-aos="fade-up" className="detail-product_info">
-        <LeftSession product={productView} />
-        <RightSession product={productView} />
+        <LeftSession product={productView} selectedImage={selectedVariantImage} />
+        <RightSession
+          product={productView}
+          selectedType={selectedType}
+          onSelectType={setSelectedType}
+        />
       </div>
       <InformationDetail product={productView} />
     </Layout>

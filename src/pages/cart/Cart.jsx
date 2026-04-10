@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { setOrderList, setPrice } from "@/store/orderSlice";
 import cartApi from "@/utils/api/cartApi";
 import { resolveImageUrl } from "@/utils/api/mappers";
+import { buildAuthRedirectPath, isAuthenticated } from "@/utils/auth";
 
 const Cart = () => {
   const [listProducts, setListProducts] = useState([]);
@@ -39,6 +40,10 @@ const Cart = () => {
     }));
 
   const refreshCart = async () => {
+    if (!isAuthenticated()) {
+      navigate(buildAuthRedirectPath("/cart"));
+      return;
+    }
     try {
       const res = await cartApi.getCart();
       const items = res?.data?.data?.items || [];
@@ -50,6 +55,10 @@ const Cart = () => {
           .filter(Boolean)
       );
     } catch (error) {
+      if (error?.response?.status === 401) {
+        navigate(buildAuthRedirectPath("/cart"));
+        return;
+      }
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||

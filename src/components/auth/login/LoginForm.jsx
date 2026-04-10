@@ -8,13 +8,14 @@ import { FiLock, FiUser } from "react-icons/fi";
 import "./LoginForm.scss";
 import { loginValidationSchema } from "@/utils/validation/authValidation";
 import ForgotPassword from "../forgotPassword/ForgotPassword";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import authApi from "@/utils/api/authApi";
 
 const LoginForm = ({ setIsLogin, compact = false }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFogotPassword, setIsForgotPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const initiateValues = {
     userName: "",
@@ -42,7 +43,9 @@ const LoginForm = ({ setIsLogin, compact = false }) => {
         const expiresAt = Date.now() + Number(expiresIn) * 1000;
         localStorage.setItem("accessTokenExpiresAt", String(expiresAt));
       }
-      navigate("/");
+      const params = new URLSearchParams(location.search);
+      const redirect = params.get("redirect") || "/";
+      navigate(redirect);
     } catch (error) {
       const message =
         error?.response?.data?.data?.message ||

@@ -1,5 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import chatbotApi from "@/utils/api/chatbotApi";
+import { formatNumber } from "@/utils/function";
 
 const defaultBotMessage = {
   id: "bot-welcome",
@@ -29,24 +32,20 @@ const ChatbotWidget = ({ onSend }) => {
     setInputValue("");
     pushMessage({ role: "user", text: trimmed });
 
-    if (!onSend) {
-      setIsSending(true);
-      setTimeout(() => {
-        pushMessage({
-          role: "bot",
-          text: "Mình đã nhận câu hỏi. Vui lòng chờ trong giây lát nhé.",
-        });
-        setIsSending(false);
-      }, 700);
-      return;
-    }
-
     try {
       setIsSending(true);
-      const reply = await onSend(trimmed);
-      if (reply) {
-        pushMessage({ role: "bot", text: reply });
+      let replyText = "";
+      let products = [];
+      if (onSend) {
+        const customReply = await onSend(trimmed);
+        replyText = customReply || "";
+      } else {
+        const response = await chatbotApi.chat(trimmed);
+        replyText = response?.data?.reply || "Mình đã nhận câu hỏi. Vui lòng chờ trong giây lát nhé.";
+        products = response?.data?.products || [];
       }
+
+      pushMessage({ role: "bot", text: replyText, products });
     } catch (error) {
       pushMessage({
         role: "bot",
@@ -62,6 +61,27 @@ const ChatbotWidget = ({ onSend }) => {
       event.preventDefault();
       handleSend();
     }
+  };
+
+  const getDisplayPrice = (product) => {
+    const prices = Array.isArray(product?.variants)
+      ? product.variants
+          .map((variant) => variant?.price)
+          .filter((price) => typeof price === "number")
+      : [];
+    if (prices.length > 0) {
+      return { value: Math.min(...prices), hasVariantPrice: true };
+    }
+    if (typeof product?.price === "number") {
+      return { value: product.price, hasVariantPrice: false };
+    }
+    return null;
+  };
+
+  const formatPrice = (priceInfo) => {
+    if (!priceInfo) return "Xem chi tiết";
+    const formatted = formatNumber(priceInfo.value);
+    return priceInfo.hasVariantPrice ? `Từ ${formatted}đ` : `${formatted}đ`;
   };
 
   return (
@@ -95,7 +115,29 @@ const ChatbotWidget = ({ onSend }) => {
               key={message.id}
               className={`chatbot-message chatbot-message--${message.role}`}
             >
-              <div className="chatbot-bubble">{message.text}</div>
+              <div className="chatbot-bubble">
+                <p className="chatbot-text">{message.text}</p>
+                {message.role === "bot" &&
+                  Array.isArray(message.products) &&
+                  message.products.length > 0 && (
+                    <div className="chatbot-products">
+                      {message.products.slice(0, 4).map((product) => (
+                        <Link
+                          key={product?.id}
+                          to={`/product/${product?.id}`}
+                          className="chatbot-product"
+                        >
+                          <div className="chatbot-product-name">
+                            {product?.name}
+                          </div>
+                          <div className="chatbot-product-price">
+                            {formatPrice(getDisplayPrice(product))}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+              </div>
             </div>
           ))}
           {isSending && (

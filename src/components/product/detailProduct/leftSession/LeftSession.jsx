@@ -9,13 +9,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "./LeftSession.scss";
 
-const LeftSession = ({product}) => {
+const LeftSession = ({product, selectedImage}) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [indexImage, setIndexImage] = useState(0);
+  const [useSelectedImage, setUseSelectedImage] = useState(false);
+  const programmaticRef = useRef(false);
 
   const updateNavigation = useCallback(() => {
     if (swiperRef.current) {
@@ -23,6 +25,11 @@ const LeftSession = ({product}) => {
       setIndexImage(swiperInstance.activeIndex);
       setIsBeginning(swiperInstance.isBeginning);
       setIsEnd(swiperInstance.isEnd);
+      if (programmaticRef.current) {
+        programmaticRef.current = false;
+      } else {
+        setUseSelectedImage(false);
+      }
     }
   }, []);
 
@@ -39,19 +46,39 @@ const LeftSession = ({product}) => {
   }, [updateNavigation]);
 
   useEffect(() => {
-    console.log("indexImage", indexImage);
-  }, [indexImage]);
+    if (!selectedImage || !swiperRef.current || !product?.images) return;
+    const matchIndex = product.images.findIndex((img) => img === selectedImage);
+    if (matchIndex >= 0) {
+      setUseSelectedImage(false);
+      programmaticRef.current = true;
+      setIndexImage(matchIndex);
+      swiperRef.current.slideTo(matchIndex);
+      updateNavigation();
+      return;
+    }
+    setUseSelectedImage(true);
+    programmaticRef.current = true;
+    setIndexImage(0);
+    swiperRef.current.slideTo(0);
+    updateNavigation();
+  }, [selectedImage, updateNavigation, product?.images]);
+
+  const handlePreviewImage = useCallback((index) => {
+    setIndexImage(index);
+    setUseSelectedImage(false);
+    swiperRef.current?.slideTo(index);
+  }, []);
 
   return (
     <div className="left-session">
       <div className="left-session__left-images">
         {product.images.map((image, index) => (
           <div
-            onClick={() => {
-              setIndexImage(index);
-              swiperRef.current?.slideTo(index);
-            }}
+            onMouseEnter={() => handlePreviewImage(index)}
+            onFocus={() => handlePreviewImage(index)}
+            onTouchStart={() => handlePreviewImage(index)}
             key={index}
+            tabIndex={0}
             className={`left-session__left-image-item ${
               indexImage === index ? "active" : ""
             }`}
@@ -91,7 +118,17 @@ const LeftSession = ({product}) => {
           {product.images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="swiper-image_item">
-                <img src={image} alt="product" />
+                <img
+                  src={
+                    useSelectedImage &&
+                    selectedImage &&
+                    !product.images.includes(selectedImage) &&
+                    index === indexImage
+                      ? selectedImage
+                      : image
+                  }
+                  alt="product"
+                />
               </div>
             </SwiperSlide>
           ))}

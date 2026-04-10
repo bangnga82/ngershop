@@ -66,7 +66,11 @@ const ProductsContainer = ({ categoryName }) => {
         <div className="productsContainer__list">
           {!loading &&
               products.map((product, index) => (
-                  <ProductItem key={product.id || index} product={product} />
+                  <ProductItem
+                      key={product.id || index}
+                      product={product}
+                      breadcrumbCategory={categoryName}
+                  />
               ))}
         </div>
         <Pagination

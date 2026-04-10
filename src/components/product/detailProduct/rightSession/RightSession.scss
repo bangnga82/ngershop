@@ -2,6 +2,7 @@
   width: 50%;
   height: 500px;
   padding-left: 50px;
+  padding-top: 36px;
 
   .right-session__product-name {
     width: 100%;
@@ -50,15 +51,20 @@
       color: #ff6347;
     }
 
-    .hidden {
-      display: none;
-    }
-
     .right-session__price__real {
-      font-size: 20px;
-      font-weight: 500;
-      color: #c9c9c9;
-      text-decoration: line-through;
+      &.is-original {
+        font-size: 20px;
+        font-weight: 500;
+        color: #c9c9c9;
+        text-decoration: line-through;
+      }
+
+      &.is-current {
+        font-size: 30px;
+        font-weight: 600;
+        color: #ff6347;
+        text-decoration: none;
+      }
     }
   }
 
@@ -199,52 +205,16 @@
     }
   }
 
-  .right-session__benefits {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    .right-session__benefits__item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      .right-session__benefits__icon-item {
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ff6347;
-        border-radius: 12px;
-        color: white;
-      }
-
-      .right-session__benefits__content-item {
-        display: flex;
-        gap: 5px;
-
-        .title-item {
-          font-size: 15px;
-          font-weight: 500;
-          color: #000000;
-        }
-
-        .content-item {
-          font-size: 15px;
-          color: #000000;
-        }
-      }
-    }
-  }
-
   @media screen and (max-width: 1091.98px) {
     width: 100%;
     padding-left: 0px;
+    padding-top: 0px;
   }
 
   @media screen and (max-width: 499.98px) {
     width: 100%;
     padding-left: 0px;
+    padding-top: 0px;
 
     .right-session__button {
       display: flex;
@@ -260,14 +230,6 @@
       }
     }
 
-    .right-session__benefits {
-      .right-session__benefits__item {
-        .right-session__benefits__content-item {
-          display: flex;
-          flex-direction: column;
-        }
-      }
-    }
   }
 
   @media screen and (max-width: 344.98px) {
