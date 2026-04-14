@@ -1,8 +1,9 @@
 import { Eye } from "lucide-react";
 import React from "react";
 import OrderStatusBadge from "./OrderStatusBadge";
+import OrderStatusEditor from "./OrderStatusEditor";
 
-const OrderListItem = ({ order, onView }) => {
+const OrderListItem = ({ order, onView, onStatusChange }) => {
 	const itemsCount = order.items.length;
 
 	const formattedDate = new Date(order.orderDate).toLocaleDateString(
@@ -17,7 +18,9 @@ const OrderListItem = ({ order, onView }) => {
 	return (
 		<tr className="hover:bg-gray-50">
 			<td className="px-4 py-4 whitespace-nowrap">
-				<div className="font-medium text-gray-900">{order.id}</div>
+				<div className="font-medium text-gray-900">
+					{order.reference || order.id}
+				</div>
 			</td>
 			<td className="px-4 py-4">
 				<div className="text-sm text-gray-900">
@@ -41,7 +44,15 @@ const OrderListItem = ({ order, onView }) => {
 				{order.shippingFee ? order.shippingFee : "Free"}
 			</td>
 			<td className="px-4 py-4 whitespace-nowrap">
-				<OrderStatusBadge status={order.status} />
+				<div className="flex min-w-[180px] flex-col gap-2">
+					<OrderStatusBadge status={order.status} />
+					<OrderStatusEditor
+						value={order.rawStatus}
+						onChange={(nextStatus) =>
+							onStatusChange?.(order.id, nextStatus)
+						}
+					/>
+				</div>
 			</td>
 			<td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
 				<button

@@ -1,14 +1,44 @@
 /* eslint-disable*/
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import "./FollowingProducts.scss";
 import Layout from "@/components/commons/layout/Layout";
 import TitleRouter from "@/components/product/titleRouter/TitleRouter";
 import ProductItem from "@/components/product/discountedProduct/productItem/ProductItem";
 import { Pagination } from "antd";
+import {
+  FAVORITES_UPDATED_EVENT,
+  getFavoriteProducts,
+} from "@/utils/favoriteProducts";
 const FollowingProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const likeProducts = JSON.parse(localStorage.getItem("likeProducts")) || [];
+  const [likeProducts, setLikeProducts] = useState(getFavoriteProducts());
+
+  useEffect(() => {
+    const syncFavorites = (event) => {
+      setLikeProducts(event?.detail?.products || getFavoriteProducts());
+    };
+
+    window.addEventListener(FAVORITES_UPDATED_EVENT, syncFavorites);
+    window.addEventListener("storage", syncFavorites);
+
+    return () => {
+      window.removeEventListener(FAVORITES_UPDATED_EVENT, syncFavorites);
+      window.removeEventListener("storage", syncFavorites);
+    };
+  }, []);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(likeProducts.length / 8));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, likeProducts.length]);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * 8;
+    return likeProducts.slice(start, start + 8);
+  }, [currentPage, likeProducts]);
 
   const handleChangePage = (page) => {
     setCurrentPage(page);
@@ -23,8 +53,8 @@ const FollowingProducts = () => {
       ) : (
         <div>
           <div className="following-products">
-            {likeProducts.map((item, index) => (
-              <ProductItem product={item} key={index} />
+            {paginatedProducts.map((item) => (
+              <ProductItem product={item} key={item.id} />
             ))}
           </div>
           <Pagination

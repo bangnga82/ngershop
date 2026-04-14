@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Order.scss";
 import Layout from "@/components/commons/layout/Layout";
@@ -15,6 +16,7 @@ import { setOrderList } from "@/store/orderSlice";
 const Order = () => {
   const selectedProducts = useSelector((state) => state.order.orderList);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("COD");
@@ -74,10 +76,6 @@ const Order = () => {
       alert("Vui long chon dia chi giao hang.");
       return;
     }
-    if (paymentMethod === "MOMO") {
-      alert("Chua ho tro thanh toan Momo.");
-      return;
-    }
     const payload = {
       items: selectedProducts.map((item) => ({
         variantId: item.variantId || item.id,
@@ -108,6 +106,9 @@ const Order = () => {
       );
       alert("Dat hang thanh cong.");
       dispatch(setOrderList([]));
+      navigate(`/order-tracking?orderRef=${encodeURIComponent(order?.reference || "")}`, {
+        replace: true,
+      });
     } catch (error) {
       const message =
         error?.response?.data?.data?.message ||

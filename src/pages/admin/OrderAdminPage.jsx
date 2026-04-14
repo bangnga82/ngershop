@@ -10,21 +10,13 @@ import OrderFilters from "@/components/admin/orderAdmin/OrderFilters";
 import OrderList from "@/components/admin/orderAdmin/OrderList";
 import OrderViewModal from "@/components/admin/orderAdmin/OrderViewModal";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
+import { ORDER_STATUS_LABELS } from "@/components/admin/orderAdmin/orderStatusOptions";
 import orderApi from "@/utils/api/orderApi";
 
 const placeholderItem = {
   image: "/vite.svg",
   description: "",
   size: "N/A",
-};
-
-const statusMap = {
-  PENDING: "Pending",
-  CONFIRMED: "Processing",
-  PAID: "Delivered",
-  SHIPPED: "Shipping",
-  DELIVERED: "Delivered",
-  CANCELLED: "Cancelled",
 };
 
 const mapOrderToAdmin = (order) => {
@@ -38,13 +30,16 @@ const mapOrderToAdmin = (order) => {
       ...placeholderItem,
     })) || [];
 
-  const mappedStatus = statusMap[order?.status] || order?.status || "Pending";
+  const rawStatus = order?.status || "PENDING";
+  const mappedStatus = ORDER_STATUS_LABELS[rawStatus] || rawStatus;
   return {
-    id: order?.reference || order?.id,
+    id: order?.id,
+    reference: order?.reference || order?.id,
     orderDate: order?.createdDate || new Date().toISOString(),
     sellerName: "TechNova",
     storeName: "TechNova Official",
     sellerContact: "N/A",
+    rawStatus,
     status: mappedStatus,
     shippingMethod: "Standard Delivery",
     shippingFee: "Free",
@@ -53,7 +48,8 @@ const mapOrderToAdmin = (order) => {
     recipientPhone: "N/A",
     deliveryAddress: "N/A",
     paymentMethod: order?.paymentMethod || "N/A",
-    paymentStatus: order?.status === "PAID" ? "Paid" : "Pending",
+    paymentStatus:
+      rawStatus === "PAID" || rawStatus === "DELIVERED" ? "Paid" : "Pending",
     subtotal: `$${Number(order?.totalAmount || 0).toFixed(2)}`,
     discount: null,
     tax: null,
@@ -95,7 +91,9 @@ const OrderAdminPage = () => {
 
   const filteredOrders = orders.filter(
     (order) =>
-      (String(order.id).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (String(order.reference || order.id)
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
         order.sellerName.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (statusFilter === "All" || order.status === statusFilter)
   );
@@ -117,6 +115,24 @@ const OrderAdminPage = () => {
   const handleViewOrder = (order) => {
     setSelectedOrder(order);
     setShowModal(true);
+  };
+
+  const handleStatusChange = async (orderId, nextStatus) => {
+    try {
+      const res = await orderApi.changeStatus(orderId, nextStatus);
+      const updated = mapOrderToAdmin(res?.data?.data);
+
+      setOrders((prev) =>
+        prev.map((order) => (order.id === orderId ? updated : order))
+      );
+      setSelectedOrder((prev) => (prev?.id === orderId ? updated : prev));
+    } catch (error) {
+      const message =
+        error?.response?.data?.data?.message ||
+        error?.response?.data?.message ||
+        "Khong the cap nhat trang thai don hang.";
+      alert(message);
+    }
   };
 
   const handleExportExcel = () => {
@@ -151,12 +167,14 @@ const OrderAdminPage = () => {
               onPageChange={setCurrentPage}
               onOrdersPerPageChange={setOrdersPerPage}
               onViewOrder={handleViewOrder}
+              onStatusChange={handleStatusChange}
               onSort={handleSort}
               sortConfig={sortConfig}
             />
             {showModal && selectedOrder && (
               <OrderViewModal
                 order={selectedOrder}
+                onStatusChange={handleStatusChange}
                 onClose={() => setShowModal(false)}
               />
             )}

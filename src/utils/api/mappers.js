@@ -30,7 +30,7 @@ export const mapReviewToComment = (review) => ({
   name: review?.userName || "User",
   rating: Number(review?.rating || 0),
   comment: review?.comment || "",
-  avatar: "/vite.svg",
+  avatar: review?.avatarUrl ? resolveImageUrl(review.avatarUrl) : "",
 });
 
 export const buildVariantLabel = (variant) => {

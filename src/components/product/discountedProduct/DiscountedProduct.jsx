@@ -45,8 +45,8 @@ const DiscountedProduct = () => {
   return (
       <section className="tech-section">
         <div className="tech-section__header">
-          <h2>Deal theo bo</h2>
-          <p>Tiet kiem hon khi mua theo combo.</p>
+          <h2>DEAL THEO COMBO</h2>
+          <p>Tiết kiểm hơn khi mua theo combo.</p>
         </div>
         <div className="tech-grid tech-grid--deals">
           {loading && (
@@ -57,8 +57,8 @@ const DiscountedProduct = () => {
           )}
           {!loading && combos.length === 0 && (
             <div className="tech-card tech-card--deal">
-              <h3>Chua co combo</h3>
-              <p>Hay them san pham vao danh muc Combo.</p>
+              <h3>Chưa co combo</h3>
+              <p>Hãy thêm sản phẩm vào danh mục Combo.</p>
             </div>
           )}
           {!loading &&
@@ -67,7 +67,7 @@ const DiscountedProduct = () => {
                 <span className="tag">Combo</span>
                 {item.image?.[0] && (
                   <div className="tech-card__media">
-                    <img src={item.image[0]} alt={item.name} />
+                    <img src={item.image[0]} alt={item.name} loading="lazy" />
                   </div>
                 )}
                 <h3>{item.name}</h3>

@@ -2,9 +2,7 @@
 import React from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 import cod from "@/assets/images/cod.png";
-import momo from "@/assets/images/momo.png";
 import vnpay from "@/assets/images/vnpay.png";
-import momoIcon from "@/assets/images/momoIcon.png";
 import vnpayIcon from "@/assets/images/vnpayIcon.png";
 
 import "./LeftOrder.scss";
@@ -81,24 +79,6 @@ const LeftOrder = ({
               <div className="detailt-item">
                 <p>VN PAY</p>
                 <img src={vnpayIcon} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="leftOrder__payment-item">
-          <input
-            type="radio"
-            name="payment"
-            checked={paymentMethod === "MOMO"}
-            onChange={() => onSelectPayment("MOMO")}
-          />
-          <div className="leftOrder__payment-item-info">
-            <img src={momo} />
-            <div className="leftOrder__payment-item-info-detail">
-              <p className="title">Vi dien tu</p>
-              <div className="detailt-item">
-                <p>Momo</p>
-                <img src={momoIcon} />
               </div>
             </div>
           </div>

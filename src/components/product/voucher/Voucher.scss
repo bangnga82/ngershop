@@ -1,6 +1,6 @@
 .tech-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin: 24px 0;
 }
@@ -9,14 +9,28 @@
   background: #fff;
   border: 1px solid #efe6e1;
   border-radius: 12px;
-  padding: 14px;
+  padding: 12px;
+  min-height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+
+.tech-strip__item strong {
+  display: block;
+  font-size: 18px;
+  color: #3b2f2a;
+}
+
+.tech-strip__item span {
   color: #8b7a73;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 @media (max-width: 640px) {
   .tech-strip {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }

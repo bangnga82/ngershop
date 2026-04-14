@@ -54,7 +54,11 @@ const Category = () => {
               }
             >
               <div className="category__item-img">
-                <img src={resolveImageUrl(item.imageUrl)} alt={item.name} />
+                <img
+                  src={resolveImageUrl(item.imageUrl)}
+                  alt={item.name}
+                  loading="lazy"
+                />
               </div>
               <button className="category__item-btn">{item.name}</button>
             </div>

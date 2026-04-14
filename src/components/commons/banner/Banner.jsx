@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import productApi from "@/utils/api/productApi";
 import { mapProductToCard } from "@/utils/api/mappers";
+import Voucher from "@/components/product/voucher/Voucher";
 import bannerLarge from "@/assets/images/banner-large.png";
 import bannerMedium from "@/assets/images/banner-medium.png";
 import "./Banner.scss";
@@ -45,8 +46,8 @@ const Banner = () => {
           Hàng mới mỗi tuần, chất lượng, giao hàng nhanh.
         </p>
         <div className="tech-hero__actions">
-          <button className="btn btn--primary">Mua ngay</button>
-          <button className="btn btn--ghost">Xem khuyen mai</button>
+          {/*<button className="btn btn--primary">Mua ngay</button>*/}
+          {/*<button className="btn btn--ghost">Xem khuyen mai</button>*/}
         </div>
         <div className="tech-hero__stats">
           <div>
@@ -62,6 +63,7 @@ const Banner = () => {
             <span>Danh gia trung binh</span>
           </div>
         </div>
+        <Voucher />
       </div>
       <div className="tech-hero__visual">
         <div className="glow" />

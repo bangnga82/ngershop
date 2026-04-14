@@ -58,6 +58,17 @@
           border: 1px solid #f59abf;
           box-shadow: 0 0 0 3px rgba(245, 154, 191, 0.18);
         }
+
+        &::-ms-reveal,
+        &::-ms-clear {
+          display: none;
+        }
+
+        &::-webkit-credentials-auto-fill-button {
+          visibility: hidden;
+          display: none !important;
+          pointer-events: none;
+        }
       }
     }
 

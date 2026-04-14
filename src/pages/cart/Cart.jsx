@@ -10,7 +10,7 @@ import Layout from "@/components/commons/layout/Layout";
 import CartItem from "@/components/cart/CartItem";
 import { useDispatch } from "react-redux";
 import { setOrderList, setPrice } from "@/store/orderSlice";
-import cartApi from "@/utils/api/cartApi";
+import cartApi, { getStoredCartVariantLabel } from "@/utils/api/cartApi";
 import { resolveImageUrl } from "@/utils/api/mappers";
 import { buildAuthRedirectPath, isAuthenticated } from "@/utils/auth";
 
@@ -28,15 +28,15 @@ const Cart = () => {
   }, [selectedProducts]);
 
   const mapCartItems = (cartItems) =>
-    (cartItems || []).map((item) => ({
+    [...(cartItems || [])].reverse().map((item) => ({
       id: item.variantId,
       variantId: item.variantId,
       name: item.productName,
-      image: [resolveImageUrl(item.imageUrl)],
+      image: [resolveImageUrl(item.imageUrl) || "/vite.svg"],
       price: item.price,
       quantity: item.quantity,
       discount: 0,
-      type: "",
+      type: item.variantLabel || getStoredCartVariantLabel(item.variantId) || "",
     }));
 
   const refreshCart = async () => {

@@ -26,7 +26,15 @@ const ProductList = ({
 	return (
 		<div className="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
 			<div className="overflow-x-auto">
-				<table className="min-w-full divide-y divide-gray-200">
+				<table className="w-full table-fixed divide-y divide-gray-200">
+					<colgroup>
+						<col />
+						<col className="w-44" />
+						<col className="w-36" />
+						<col className="w-24" />
+						<col className="w-32" />
+						<col className="w-28" />
+					</colgroup>
 					<thead className="bg-gray-50">
 						<tr>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

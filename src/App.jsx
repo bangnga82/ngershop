@@ -26,6 +26,10 @@ import CategoryAdminPage from "./pages/admin/CategoryAdminPage";
 import UserAdminPage from "./pages/admin/UserAdminPage";
 import FollowingProducts from "./pages/followingProducts/FollowingProducts";
 import AdminGuard from "./components/commons/guards/AdminGuard";
+import ChatbotWidget from "./components/chatbot/ChatbotWidget";
+import PaymentSuccess from "./pages/payment/PaymentSuccess";
+import PaymentFailed from "./pages/payment/PaymentFailed";
+import OrderTracking from "./pages/order-tracking/OrderTracking";
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -78,6 +82,10 @@ const App = () => {
     {
       path: "/order",
       element: <Order />,
+    },
+    {
+      path: "/order-tracking",
+      element: <OrderTracking />,
     },
     {
       path: "/blog",
@@ -151,8 +159,21 @@ const App = () => {
       path: "/followingProducts/:id",
       element: <FollowingProducts />,
     },
+    {
+      path: "/payment-success",
+      element: <PaymentSuccess />,
+    },
+    {
+      path: "/payment-failed",
+      element: <PaymentFailed />,
+    },
   ]);
-  return <>{routes}</>;
+  return (
+    <>
+      {routes}
+      <ChatbotWidget />
+    </>
+  );
 };
 
 export default App;

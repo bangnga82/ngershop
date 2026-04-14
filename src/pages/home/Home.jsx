@@ -8,9 +8,7 @@ import Male from "@/components/product/collection/male/Male";
 import Comment from "@/components/product/comment/Comment";
 import DiscountedProduct from "@/components/product/discountedProduct/DiscountedProduct";
 import SuggestedProduct from "@/components/product/suggestedProducts/SuggestedProduct";
-import Voucher from "@/components/product/voucher/Voucher";
 import React from "react";
-import ChatbotWidget from "@/components/chatbot/ChatbotWidget";
 
 const Home = () => {
     return (
@@ -18,14 +16,12 @@ const Home = () => {
             <Layout>
                 <Banner />
                 <Category />
-                <Voucher />
                 <DiscountedProduct />
                 <SuggestedProduct />
                 <Male />
                 <Female />
                 <Accessory/>
                 <Comment />
-                <ChatbotWidget />
             </Layout>
         </div>
     );

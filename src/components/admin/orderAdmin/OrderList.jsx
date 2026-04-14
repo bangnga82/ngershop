@@ -9,6 +9,7 @@ const OrderList = ({
 	onPageChange,
 	onOrdersPerPageChange,
 	onViewOrder,
+	onStatusChange,
 	onSort,
 	sortConfig,
 }) => {
@@ -23,11 +24,11 @@ const OrderList = ({
 					<thead className="bg-gray-50">
 						<tr>
 							<th
-								onClick={() => onSort("id")}
+								onClick={() => onSort("reference")}
 								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
 							>
 								Mã đơn hàng{" "}
-								{sortConfig.key === "id" &&
+								{sortConfig.key === "reference" &&
 									(sortConfig.direction === "asc"
 										? "↑"
 										: "↓")}
@@ -79,6 +80,7 @@ const OrderList = ({
 								key={order.id}
 								order={order}
 								onView={onViewOrder}
+								onStatusChange={onStatusChange}
 							/>
 						))}
 					</tbody>

@@ -22,7 +22,13 @@ const DetailProduct = () => {
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState(0);
+  const [selectedType, setSelectedType] = useState(null);
+  const [previewType, setPreviewType] = useState(0);
+
+  const appendReview = (review) => {
+    if (!review) return;
+    setReviews((prev) => [mapReviewToComment(review), ...prev]);
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -34,7 +40,9 @@ const DetailProduct = () => {
         const data = res?.data?.data;
         if (isMounted) {
           setProduct(data || null);
-          setSelectedType(0);
+          const variants = data?.variants || [];
+          setSelectedType(variants.length === 1 ? 0 : null);
+          setPreviewType(variants.length > 0 ? 0 : null);
         }
       })
       .catch((error) => {
@@ -54,7 +62,7 @@ const DetailProduct = () => {
     reviewApi
       .getByProduct(id)
       .then((res) => {
-        const data = res?.data?.data || [];
+        const data = res?.data?.data?.content || [];
         if (isMounted) setReviews(data.map(mapReviewToComment));
       })
       .catch((error) => {
@@ -90,9 +98,10 @@ const DetailProduct = () => {
 
   const selectedVariantImage = useMemo(() => {
     if (!productView) return null;
-    const variant = productView?.variants?.[selectedType];
+    const activeType = previewType ?? selectedType;
+    const variant = productView?.variants?.[activeType];
     return resolveImageUrl(variant?.imageUrl);
-  }, [productView, selectedType]);
+  }, [previewType, productView, selectedType]);
 
   if (loading || !productView) {
     return (
@@ -121,10 +130,15 @@ const DetailProduct = () => {
         <RightSession
           product={productView}
           selectedType={selectedType}
+          previewType={previewType}
           onSelectType={setSelectedType}
+          onPreviewType={setPreviewType}
         />
       </div>
-      <InformationDetail product={productView} />
+      <InformationDetail
+        product={productView}
+        onReviewCreated={appendReview}
+      />
     </Layout>
   );
 };

@@ -85,12 +85,14 @@ const Comment = () => {
                 src={review.product.image[0]}
                 alt={review.product.name}
                 className="swiper-reviews__item-img"
+                loading="lazy"
               />
               {review.product.image[1] && (
                 <img
                   src={review.product.image[1]}
                   alt={review.product.name}
                   className="swiper-reviews__item-img image2"
+                  loading="lazy"
                 />
               )}
             </div>
@@ -133,6 +135,7 @@ const Comment = () => {
                           src={comment.avatar}
                           alt={comment.name}
                           className="swiper-comment_item-avatar"
+                          loading="lazy"
                         />
                       </div>
                       <p className="swiper-comment_name">{comment.name}</p>

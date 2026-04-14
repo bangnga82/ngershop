@@ -5,42 +5,62 @@ import { formatNumber } from "@/utils/function";
 import { FaRegHeart } from "react-icons/fa";
 import cartApi from "@/utils/api/cartApi";
 import { buildAuthRedirectPath, isAuthenticated } from "@/utils/auth";
+import {
+    FAVORITES_UPDATED_EVENT,
+    getFavoriteProducts,
+    toggleFavoriteProduct,
+} from "@/utils/favoriteProducts";
 
 import "./ProductItem.scss";
 
 const ProductItem = ({ product, breadcrumbCategory }) => {
     const [indexImage, setIndexImage] = useState(0);
     const navigate = useNavigate();
-    const [isFettching, setIsFetching] = useState(false);
-    const [likeProducts, setLikeProducts] = useState(
-        JSON.parse(localStorage.getItem("likeProducts")) || []
-    );
+    const [likeProducts, setLikeProducts] = useState(getFavoriteProducts());
 
     useEffect(() => {
-        setLikeProducts(JSON.parse(localStorage.getItem("likeProducts")) || []);
-    }, [isFettching]);
+        const syncFavorites = (event) => {
+            setLikeProducts(event?.detail?.products || getFavoriteProducts());
+        };
+
+        window.addEventListener(FAVORITES_UPDATED_EVENT, syncFavorites);
+        window.addEventListener("storage", syncFavorites);
+
+        return () => {
+            window.removeEventListener(FAVORITES_UPDATED_EVENT, syncFavorites);
+            window.removeEventListener("storage", syncFavorites);
+        };
+    }, []);
 
     const isLiked = (item) => likeProducts.some((p) => p.id === item.id);
 
     const handleLike = (item) => {
-        setIsFetching(!isFettching);
-        const isLike = isLiked(item);
-        if (isLike) {
-            const updatedLikeProducts = likeProducts.filter((p) => p.id !== item.id);
-            localStorage.setItem("likeProducts", JSON.stringify(updatedLikeProducts));
-        } else {
-            likeProducts.push(item);
-            localStorage.setItem("likeProducts", JSON.stringify(likeProducts));
-        }
+        toggleFavoriteProduct(item);
     };
 
     const discount = Number(product?.discount || 0);
     const images = product?.image || ["/vite.svg"];
     const count = product?.count || 0;
 
+    const navigateToProduct = () => {
+        navigate(`/product/${product.id}`, {
+            state: breadcrumbCategory
+                ? { fromCategory: breadcrumbCategory }
+                : undefined,
+        });
+    };
+
     const handleAddToCart = async (e) => {
         e.stopPropagation();
-        const variantId = product?.variants?.[0]?.id;
+        const variants = product?.variants || [];
+        if (variants.length > 1) {
+            navigate(`/product/${product?.id}`, {
+                state: breadcrumbCategory ? { fromCategory: breadcrumbCategory } : undefined,
+            });
+            return;
+        }
+
+        const variantId = variants[0]?.id;
         if (!variantId) {
             alert("San pham chua co bien the de mua.");
             return;
@@ -66,7 +86,18 @@ const ProductItem = ({ product, breadcrumbCategory }) => {
     };
 
     return (
-        <div className="product-item">
+        <div
+            className="product-item"
+            onClick={navigateToProduct}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    navigateToProduct();
+                }
+            }}
+        >
             {discount > 0 && (
                 <button className="product-item_discount">- {discount}%</button>
             )}
@@ -78,15 +109,8 @@ const ProductItem = ({ product, breadcrumbCategory }) => {
             </div>
             <div
                 className="product-item_img"
-                onClick={() =>
-                    navigate(`/product/${product.id}`, {
-                        state: breadcrumbCategory
-                            ? { fromCategory: breadcrumbCategory }
-                            : undefined,
-                    })
-                }
             >
-                <img src={images[indexImage]} alt={product.name} />
+                <img src={images[indexImage]} alt={product.name} loading="lazy" />
             </div>
             <button className="product-item_add-to-card" onClick={handleAddToCart}>
                 Them vao gio hang
@@ -104,19 +128,12 @@ const ProductItem = ({ product, breadcrumbCategory }) => {
                             index === indexImage ? "active" : ""
                         }`}
                     >
-                        <img src={image} alt={product.name} />
+                        <img src={image} alt={product.name} loading="lazy" />
                     </div>
                 ))}
             </div>
             <p
                 className="product-item_name"
-                onClick={() =>
-                    navigate(`/product/${product.id}`, {
-                        state: breadcrumbCategory
-                            ? { fromCategory: breadcrumbCategory }
-                            : undefined,
-                    })
-                }
             >
                 {product.name}
             </p>

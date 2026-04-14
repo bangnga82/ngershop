@@ -1,12 +1,51 @@
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LayoutAdmin from "./LayoutAdmin";
 import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import StatCard from "@/components/admin/StatCard";
 import SaleOverviewChart from "@/components/admin/chart/SaleOverviewChart";
 import CategoryDistributionChart from "@/components/admin/chart/CategoryDistributionChart";
+import adminDashboardApi from "@/utils/api/adminDashboardApi";
+
+const defaultDashboard = {
+	totalSales: 0,
+	newUsers: 0,
+	totalProducts: 0,
+	conversionRate: 0,
+	saleOverview: [],
+	categoryDistribution: [],
+};
+
+const formatCurrency = (value) =>
+	new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: "USD",
+		maximumFractionDigits: 0,
+	}).format(Number(value || 0));
+
+const formatInteger = (value) =>
+	new Intl.NumberFormat("en-US").format(Number(value || 0));
+
+const formatPercent = (value) =>
+	`${Number(value || 0).toFixed(1).replace(".", ",")}%`;
+
 const Overview = () => {
+	const [dashboard, setDashboard] = useState(defaultDashboard);
+
+	useEffect(() => {
+		const loadDashboard = async () => {
+			try {
+				const response = await adminDashboardApi.getOverview();
+				setDashboard(response?.data?.data || defaultDashboard);
+			} catch (error) {
+				console.error("Load admin dashboard error:", error);
+			}
+		};
+
+		loadDashboard();
+	}, []);
+
 	return (
 		<LayoutAdmin>
 			<div className="flex-1 overflow-auto relative z-10">
@@ -21,31 +60,31 @@ const Overview = () => {
 						<StatCard
 							name="Total Sales"
 							icon={Zap}
-							value="$12,345"
+							value={formatCurrency(dashboard.totalSales)}
 							color="#6366F1"
 						/>
 						<StatCard
 							name="New Users"
 							icon={Users}
-							value="1,234"
+							value={formatInteger(dashboard.newUsers)}
 							color="#8B5CF6"
 						/>
 						<StatCard
 							name="Total Products"
 							icon={ShoppingBag}
-							value="567"
+							value={formatInteger(dashboard.totalProducts)}
 							color="#EC4899"
 						/>
 						<StatCard
 							name="Conversion Rate"
 							icon={BarChart2}
-							value="12,5%"
+							value={formatPercent(dashboard.conversionRate)}
 							color="#10B981"
 						/>
 					</motion.div>
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-						<SaleOverviewChart />
-						<CategoryDistributionChart />
+						<SaleOverviewChart data={dashboard.saleOverview} />
+						<CategoryDistributionChart data={dashboard.categoryDistribution} />
 					</div>
 				</main>
 			</div>
