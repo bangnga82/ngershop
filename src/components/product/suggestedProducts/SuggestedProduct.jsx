@@ -88,8 +88,8 @@ const SuggestedProduct = () => {
   return (
     <section className="tech-section tech-section--dark">
       <div className="tech-section__header">
-        <h2>GỢI Ý CHĂM DA MÙA HÈ</h2>
-        <p>Đề xuất bởi nhân viên chăm sóc da NgerShop.</p>
+        <h2>GOI Y CHAM DA MUA HE</h2>
+        <p>De xuat boi nhan vien cham soc da NgerShop.</p>
       </div>
       <div className="tech-grid tech-grid--featured">
         {isLoading && <p>Dang tai san pham...</p>}

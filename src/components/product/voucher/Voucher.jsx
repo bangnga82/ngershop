@@ -10,7 +10,7 @@ const Voucher = () => {
     },
     {
       title: "Free",
-      text: "Free ship mọi đơn hàng",
+      text: "Freeship mọi đơn hàng",
     },
     {
       title: "Shopping",

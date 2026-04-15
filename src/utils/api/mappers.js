@@ -3,9 +3,9 @@ const getApiBase = () => import.meta.env.VITE_API_URL || "";
 export const resolveImageUrl = (url) => {
   if (!url) return "";
   if (url.startsWith("http")) return url;
-  const base = getApiBase();
-  if (!base) return url;
   const normalized = url.startsWith("/") ? url : `/${url}`;
+  const base = getApiBase();
+  if (!base) return normalized;
   return `${base}${normalized}`;
 };
 

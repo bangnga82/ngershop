@@ -85,7 +85,7 @@ const RightSession = ({
         const qty = Math.max(1, Number(infoSelect.quantity || 1));
         try {
             await cartApi.addItem(variantId, qty, selectedVariantLabel);
-            alert("Da them vao gio hang.");
+            alert("Đã thêm vào giỏ hàng.");
         } catch (error) {
             if (error?.response?.status === 401) {
                 navigate(buildAuthRedirectPath(`/product/${product?.id}`));
@@ -94,7 +94,7 @@ const RightSession = ({
             const message =
                 error?.response?.data?.data?.message ||
                 error?.response?.data?.message ||
-                "Them vao gio hang that bai.";
+                "Thêm vào giỏ hàng thât bại.";
             alert(message);
         }
     };
