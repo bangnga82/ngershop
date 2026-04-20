@@ -15,7 +15,7 @@ const OrderStatusFilter = ({
 				onClick={() => onFilterChange("All")}
 				className={`px-3 py-1 rounded-md text-sm ${
 					statusFilter === "All"
-						? "bg-orange-500 text-white"
+						? "bg-emerald-600 text-white"
 						: "bg-gray-100 text-gray-700 hover:bg-gray-200"
 				}`}
 			>

@@ -15,7 +15,7 @@ const ProductStatusFilter = ({
 				onClick={() => onFilterChange("All")}
 				className={`whitespace-nowrap rounded-md px-3 py-1 text-sm ${
 					statusFilter === "All"
-						? "bg-orange-500 text-white"
+						? "bg-emerald-600 text-white"
 						: "bg-gray-100 text-gray-700 hover:bg-gray-200"
 				}`}
 			>

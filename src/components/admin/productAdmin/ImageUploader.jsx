@@ -61,7 +61,7 @@ const ImageUploader = ({ images, onUpload, onRemove, maxImages = 4 }) => {
 				/>
 				<label
 					htmlFor="image-upload"
-					className="inline-block px-4 py-2 bg-orange-500 text-white rounded-lg cursor-pointer hover:bg-orange-600"
+					className="inline-block px-4 py-2 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-700"
 				>
 					Upload Images
 				</label>

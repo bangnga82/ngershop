@@ -138,12 +138,12 @@ const ProductViewModal = ({ product, onClose, onEdit }) => {
             </button>
             <button
               onClick={() => onEdit(product)}
-              className="px-4 py-2 border border-gray-300 bg-orange-500 rounded-lg text-white "
+              className="px-4 py-2 border border-gray-300 bg-emerald-600 rounded-lg text-white "
             >
               Edit Product
             </button>
             {product.stock < 20 && product.status !== 'Out of Stock' && (
-              <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Restock</button>
+              <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700">Restock</button>
             )}
           </div>
         </div>

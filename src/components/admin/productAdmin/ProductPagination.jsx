@@ -98,7 +98,7 @@ const ProductPagination = ({
 						}
 						className={`px-3 py-1 rounded-md ${
 							page === currentPage
-								? "bg-orange-500 text-white"
+								? "bg-emerald-600 text-white"
 								: page === "..."
 								? "text-gray-500 cursor-default"
 								: "text-gray-700 hover:bg-gray-200"

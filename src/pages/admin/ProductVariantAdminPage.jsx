@@ -155,7 +155,7 @@ const ProductVariantAdminPage = () => {
                 type="button"
                 onClick={openAddVariant}
                 disabled={!selectedProductId}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60"
+                className="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Add Variant
               </button>

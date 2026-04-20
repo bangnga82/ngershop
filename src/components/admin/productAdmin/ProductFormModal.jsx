@@ -152,7 +152,7 @@ const ProductFormModal = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+              className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
             >
               {formType === "add" ? "Add Product" : "Save Changes"}
             </button>

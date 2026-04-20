@@ -44,7 +44,7 @@ const CategoryForm = ({
 					<span className="truncate">
 						{formData.image?.name || "Choose an image file"}
 					</span>
-					<span className="inline-flex items-center rounded-md bg-orange-500 px-3 py-1 text-xs font-medium text-white">
+					<span className="inline-flex items-center rounded-md bg-emerald-600 px-3 py-1 text-xs font-medium text-white">
 						Browse
 					</span>
 					<input
@@ -78,7 +78,7 @@ const CategoryForm = ({
 				</button>
 				<button
 					type="submit"
-					className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+					className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
 				>
 					{formType === "add" ? "Add Category" : "Save Changes"}
 				</button>
