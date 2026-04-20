@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import LayoutAdmin from "./LayoutAdmin";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
 import adminUserApi from "@/utils/api/adminUserApi";
 
@@ -142,7 +141,7 @@ const UserAdminPage = () => {
   }, [pageMeta.totalElements]);
 
   return (
-    <LayoutAdmin>
+    <>
       <div className="space-y-6">
         <HeaderAdmin title={"Users"} />
 
@@ -171,7 +170,7 @@ const UserAdminPage = () => {
               </select>
               <button
                 type="submit"
-                className="rounded-md bg-blue-600 px-4 py-2 text-white"
+                className="min-w-24 whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-white"
               >
                 Tim kiem
               </button>
@@ -373,7 +372,7 @@ const UserAdminPage = () => {
           </div>
         </div>
       )}
-    </LayoutAdmin>
+    </>
   );
 };
 

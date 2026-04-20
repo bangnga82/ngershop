@@ -257,6 +257,9 @@ const HeaderDesktop = () => {
       setIsNotificationOpen(false);
       if (notification.type === "ORDER" || notification.type === "PAYMENT") {
         navigate("/order-tracking");
+      } else if (notification.type === "CONTACT" && isAdmin) {
+        const openId = notification.referenceId || notification.id;
+        navigate(`/admin/contact-messages?open=${encodeURIComponent(openId)}`);
       }
     } catch (error) {
       console.error("Mark notification read error:", error);

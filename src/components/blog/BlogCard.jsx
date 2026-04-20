@@ -2,6 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SquareUser } from "lucide-react";
+import {
+	applyImageFallback,
+	DEFAULT_IMAGE_FALLBACK_SRC,
+} from "@/utils/imageFallback";
 const BlogCard = ({ blog, index }) => {
 	const cardVariants = {
 		hidden: { opacity: 0, y: 50 },
@@ -30,9 +34,11 @@ const BlogCard = ({ blog, index }) => {
 				<div className="md:flex">
 					<div className="md:w-1/3">
 						<img
-							src={blog.thumbnail}
+							src={blog.thumbnail || DEFAULT_IMAGE_FALLBACK_SRC}
 							alt={blog.title}
 							className=" h-48 md:h-full w-full object-cover"
+							data-fallback-key={blog.slug}
+							onError={applyImageFallback}
 						/>
 					</div>
 					<div className="md:w-2/3 p-6">

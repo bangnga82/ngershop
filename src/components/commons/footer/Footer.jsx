@@ -14,31 +14,31 @@ const Footer = () => {
         <img className="footer__logo-img" src={logo} alt="TechNova" />
       </div>
       <ul className="footer__list">
-        <li className="footer__title">Cong ty...</li>
-        <li className="footer__item">Dia chi: ...</li>
-        <li className="footer__item">Email: ...</li>
-        <li className="footer__item">Hotline: ...</li>
+        <li className="footer__title">Cong ty: Mỹ phẩm NgerShop</li>
+        <li className="footer__item">Dia chi: 266 P.Đội Cấn, Liễu Giai, Ba Đình, Hà Nội</li>
+        <li className="footer__item">Email: bangnga@gmail.com</li>
+        <li className="footer__item">Hotline: 0362648200</li>
       </ul>
       <ul className="footer__list">
-        <li className="footer__title">Ve chung toi</li>
-        <li className="footer__item hover">Gioi thieu</li>
-        <li className="footer__item hover">Lien he</li>
-        <li className="footer__item hover">Tin tuc</li>
-        <li className="footer__item hover">He thong cua hang</li>
-        <li className="footer__item hover">San pham</li>
+        <li className="footer__title">Về chúng tôi</li>
+        <li className="footer__item hover">Giới thiệu</li>
+        <li className="footer__item hover">Liên hệ</li>
+        <li className="footer__item hover">Tin tức</li>
+        <li className="footer__item hover">Hệ thống cửa hàng</li>
+        <li className="footer__item hover">Sản phẩm</li>
       </ul>
       <ul className="footer__list">
-        <li className="footer__title">Dich vu khach hang</li>
+        <li className="footer__title">Dịch vụ khách hàng</li>
         <li
           className="footer__item hover"
           onClick={() => navigate("/order-tracking")}
         >
           Kiem tra don hang
         </li>
-        <li className="footer__item hover">Chinh sach van chuyen</li>
-        <li className="footer__item hover">Chinh sach doi tra</li>
-        <li className="footer__item hover">Bao mat khach hang</li>
-        <li className="footer__item hover">Dang ky tai khoan</li>
+        <li className="footer__item hover">Chính sách vận chuyển</li>
+        <li className="footer__item hover">Chính sách đổi trả</li>
+        <li className="footer__item hover">Bảo mật khác hàng</li>
+        <li className="footer__item hover">Đăng ký tài khoản</li>
       </ul>
     </div>
   );

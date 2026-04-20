@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LayoutAdmin from "./LayoutAdmin";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
 import { motion } from "framer-motion";
 import productApi from "@/utils/api/productApi";
@@ -71,13 +70,9 @@ const ProductAttributeAdminPage = () => {
 
   useEffect(() => {
     productApi
-      .getProducts({ page: 0, size: 50, status: true })
-      .then((res) => {
-        setProducts(res?.data?.data?.content || []);
-      })
-      .catch((error) => {
-        console.error("Load products error:", error);
-      });
+      .getAllProducts({ size: 100, status: true })
+      .then((res) => setProducts(res?.items || []))
+      .catch((error) => console.error("Load products error:", error));
   }, []);
 
   useEffect(() => {
@@ -149,16 +144,15 @@ const ProductAttributeAdminPage = () => {
   };
 
   return (
-    <LayoutAdmin>
-      <div className="flex-1 overflow-auto relative z-10">
-        <HeaderAdmin title={"Product Attributes"} />
-        <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 10, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6"
-          >
+    <>
+      <HeaderAdmin title={"Product Attributes"} />
+      <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 10, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-6"
+        >
             <div className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -324,10 +318,9 @@ const ProductAttributeAdminPage = () => {
                 </form>
               )}
             </div>
-          </motion.div>
-        </main>
-      </div>
-    </LayoutAdmin>
+        </motion.div>
+      </main>
+    </>
   );
 };
 

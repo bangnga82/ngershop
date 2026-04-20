@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LayoutAdmin from "./LayoutAdmin";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
 import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
 import StatCard from "@/components/admin/StatCard";
@@ -16,7 +15,22 @@ import {
 import DeleteProductModal from "@/components/admin/productAdmin/DeleteProductModal";
 import productApi from "@/utils/api/productApi";
 import categoryApi from "@/utils/api/categoryApi";
+import adminDashboardApi from "@/utils/api/adminDashboardApi";
 import { buildVariantLabel, resolveImageUrl } from "@/utils/api/mappers";
+import { formatVND, parseMoneyToNumber } from "@/utils/format/vnd";
+
+const defaultDashboard = {
+  totalSales: 0,
+  newUsers: 0,
+  totalProducts: 0,
+  conversionRate: 0,
+};
+
+const formatInteger = (value) =>
+  new Intl.NumberFormat("vi-VN").format(Number(value || 0));
+
+const formatPercent = (value) =>
+  `${Number(value || 0).toFixed(1).replace(".", ",")}%`;
 
 const mapProductToAdmin = (product) => {
   const images =
@@ -29,7 +43,7 @@ const mapProductToAdmin = (product) => {
     id: product?.id,
     name: product?.name || "",
     category: product?.categoryName || "",
-    price: `$${Number(product?.price || 0).toFixed(2)}`,
+    price: Number(product?.price || 0),
     stock: product?.stock ?? 0,
     status: product?.isActive ? "Active" : "Inactive",
     image: images.length ? images : ["/vite.svg"],
@@ -58,6 +72,7 @@ const dataUrlToFile = (dataUrl, filename) => {
 };
 
 const ProductAdminPage = () => {
+  const [dashboard, setDashboard] = useState(defaultDashboard);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(null);
@@ -82,14 +97,8 @@ const ProductAdminPage = () => {
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (!sortConfig.key) return 0;
-    const aValue =
-        sortConfig.key === "price"
-            ? parseFloat(a[sortConfig.key].replace("$", ""))
-            : a[sortConfig.key];
-    const bValue =
-        sortConfig.key === "price"
-            ? parseFloat(b[sortConfig.key].replace("$", ""))
-            : b[sortConfig.key];
+    const aValue = sortConfig.key === "price" ? Number(a.price || 0) : a[sortConfig.key];
+    const bValue = sortConfig.key === "price" ? Number(b.price || 0) : b[sortConfig.key];
     if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
     if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
@@ -97,16 +106,32 @@ const ProductAdminPage = () => {
 
   const refreshProducts = async () => {
     try {
-      const res = await productApi.getProducts({ page: 0, size: 50, status: true });
-      const items = res?.data?.data?.content || [];
-      setProducts(items.map(mapProductToAdmin));
+      const res = await productApi.getAllProducts({ size: 100 });
+      setProducts((res?.items || []).map(mapProductToAdmin));
     } catch (error) {
       console.error("Load products error:", error);
     }
   };
 
+  const refreshDashboard = async () => {
+    try {
+      const response = await adminDashboardApi.getOverview();
+      const data = response?.data?.data || defaultDashboard;
+      setDashboard({
+        totalSales: Number(data?.totalSales || 0),
+        newUsers: Number(data?.newUsers || 0),
+        totalProducts: Number(data?.totalProducts || 0),
+        conversionRate: Number(data?.conversionRate || 0),
+      });
+    } catch (error) {
+      console.error("Load admin dashboard error:", error);
+      setDashboard(defaultDashboard);
+    }
+  };
+
   useEffect(() => {
     refreshProducts();
+    refreshDashboard();
     categoryApi
         .getCategories({ page: 0, size: 50 })
         .then((res) => {
@@ -153,6 +178,7 @@ const ProductAdminPage = () => {
     try {
       await productApi.toggleStatus(id);
       await refreshProducts();
+      await refreshDashboard();
     } catch (error) {
       alert("Khong the cap nhat trang thai san pham.");
     } finally {
@@ -177,7 +203,7 @@ const ProductAdminPage = () => {
     const form = new FormData();
     form.append("name", payload.name);
     form.append("description", payload.description || "");
-    const priceValue = parseFloat(String(payload.price || 0).replace("$", "")) || 0;
+    const priceValue = parseMoneyToNumber(payload.price);
     form.append("price", priceValue);
     form.append("categoryId", category.id);
 
@@ -201,6 +227,7 @@ const ProductAdminPage = () => {
         await productApi.update(formData.id, form);
       }
       await refreshProducts();
+      await refreshDashboard();
       setShowModal(null);
     } catch (error) {
       alert("Luu san pham that bai.");
@@ -208,38 +235,37 @@ const ProductAdminPage = () => {
   };
 
   return (
-      <LayoutAdmin>
-        <div className="flex-1 overflow-auto relative z-10">
-          <HeaderAdmin title={"Products"} />
-          <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-            <motion.div
-                className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 10, x: 0 }}
-                transition={{ duration: 0.5 }}
-            >
+      <>
+        <HeaderAdmin title={"Products"} />
+        <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+          <motion.div
+            className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 10, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
               <StatCard
                   name="Total Sales"
                   icon={Zap}
-                  value="$12,345"
+                  value={formatVND(dashboard.totalSales)}
                   color="#6366F1"
               />
               <StatCard
                   name="New Users"
                   icon={Users}
-                  value="1,234"
+                  value={formatInteger(dashboard.newUsers)}
                   color="#8B5CF6"
               />
               <StatCard
                   name="Total Products"
                   icon={ShoppingBag}
-                  value="567"
+                  value={formatInteger(dashboard.totalProducts)}
                   color="#EC4899"
               />
               <StatCard
                   name="Conversion Rate"
                   icon={BarChart2}
-                  value="12,5%"
+                  value={formatPercent(dashboard.conversionRate)}
                   color="#10B981"
               />
             </motion.div>
@@ -291,10 +317,7 @@ const ProductAdminPage = () => {
                               id: selectedProduct.id,
                               name: selectedProduct.name || "",
                               category: selectedProduct.category || "",
-                              price: String(selectedProduct.price || "").replace(
-                                "$",
-                                ""
-                              ),
+                              price: String(selectedProduct.price || ""),
                               description: selectedProduct.description || "",
                               images: selectedProduct.image || [],
                             }
@@ -313,10 +336,9 @@ const ProductAdminPage = () => {
                       product={selectedProduct}
                   />
               )}
-            </motion.div>
-          </main>
-        </div>
-      </LayoutAdmin>
+          </motion.div>
+        </main>
+      </>
   );
 };
 

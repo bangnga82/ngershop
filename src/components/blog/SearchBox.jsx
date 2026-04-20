@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
+import {
+	applyImageFallback,
+	DEFAULT_IMAGE_FALLBACK_SRC,
+} from "@/utils/imageFallback";
 const SearchBox = ({ blogs }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
@@ -125,9 +129,14 @@ const SearchBox = ({ blogs }) => {
 										>
 											<div className="flex items-start gap-3">
 												<img
-													src={blog.thumbnail}
+													src={
+														blog.thumbnail ||
+														DEFAULT_IMAGE_FALLBACK_SRC
+													}
 													alt={blog.title}
 													className="w-12 h-12 object-cover rounded"
+													data-fallback-key={blog.slug}
+													onError={applyImageFallback}
 												/>
 												<div className="flex-1 overflow-hidden">
 													<h4 className="text-sm font-medium text-gray-800 line-clamp-1">

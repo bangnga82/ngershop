@@ -3,11 +3,41 @@ import LayoutBlog from "@/pages/blog/LayoutBlog";
 import { blogContent, blogData } from "./blogData";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { applyImageFallback } from "@/utils/imageFallback";
 const BlogDetail = () => {
 	const navigate = useNavigate();
 	const slug = useParams().slug;
 	const blog = blogData.find((blog) => blog.slug === slug);
 	const content = blogContent[slug] || [];
+
+	if (!blog) {
+		return (
+			<LayoutBlog>
+				<div className="bg-white rounded-lg shadow p-6">
+					<h1 className="text-2xl font-bold text-gray-800">
+						Bài viết không tồn tại
+					</h1>
+					<p className="mt-2 text-gray-600">
+						Không tìm thấy bài viết với đường dẫn này.
+					</p>
+					<div className="mt-5 flex gap-3">
+						<button
+							className="px-4 py-2 rounded-md bg-[#ff6347] text-white font-semibold hover:opacity-90 transition"
+							onClick={() => navigate("/blog")}
+						>
+							Về trang blog
+						</button>
+						<button
+							className="px-4 py-2 rounded-md bg-gray-100 text-gray-800 font-semibold hover:bg-gray-200 transition"
+							onClick={() => navigate("/")}
+						>
+							Về trang chủ
+						</button>
+					</div>
+				</div>
+			</LayoutBlog>
+		);
+	}
 
 	return (
 		<LayoutBlog>
@@ -67,6 +97,7 @@ const BlogDetail = () => {
 										</motion.p>
 									);
 								} else if (item.type === "image") {
+									const resolvedSrc = item.value || blog.thumbnail;
 									return (
 										<motion.div
 											key={index}
@@ -79,9 +110,11 @@ const BlogDetail = () => {
 											}}
 										>
 											<img
-												src={item.value}
+												src={resolvedSrc}
 												alt={`Hình ảnh ${index + 1}`}
 												className="w-full h-auto rounded-lg"
+												data-fallback-key={`${slug}:${index}`}
+												onError={applyImageFallback}
 											/>
 										</motion.div>
 									);
@@ -97,12 +130,17 @@ const BlogDetail = () => {
 										#{blog.category}
 									</span>
 								)}
-								<span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-									#thời_trang
-								</span>
-								<span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-									#mùa_đông
-								</span>
+								{(blog.tags || []).map((tag) => (
+									<span
+										key={tag}
+										className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+									>
+										#
+										{String(tag)
+											.trim()
+											.replace(/\s+/g, "_")}
+									</span>
+								))}
 							</div>
 						</div>
 					</div>

@@ -3,6 +3,7 @@ import {
 	BarChart2,
 	DollarSign,
 	Layers,
+	Mail,
 	Menu,
 	ShoppingBag,
 	Sliders,
@@ -56,6 +57,12 @@ const SIDEBAR_ITEMS = [
 		color: "#0ea5e9",
 		href: "/admin/users",
 	},
+	{
+		name: "Contacts",
+		icon: Mail,
+		color: "#ef4444",
+		href: "/admin/contact-messages",
+	},
 ];
 const SidebarAdmin = () => {
 	const location = useLocation();
@@ -90,14 +97,19 @@ const SidebarAdmin = () => {
 					{SIDEBAR_ITEMS.map((item, index) => (
 						<Link key={item.href} to={item.href}>
 							<motion.div
-								className={`flex items-center p-4 text-sm font-medium rounded-lg bg-[#FFB056] transition-colors mb-2 ${
-									location.pathname === item.href ? 'bg-[#FFC107] ' : ''
+								className={`flex items-center p-4 text-sm font-medium rounded-lg transition-colors mb-2 ${
+									location.pathname === item.href
+										? 'bg-[#FFF0F7] text-[#C2185B] hover:bg-[#FFE3F1] active:bg-[#FFE3F1]'
+										: 'bg-[#FFD1E6] text-[#7A1E46] hover:bg-[#FFC1DE] active:bg-[#FFC1DE]'
 								}`}
 							>
 								<item.icon
 									size={20}
 									style={{
-										color: item.color,
+										color:
+											location.pathname === item.href
+												? "#C2185B"
+												: "#7A1E46",
 										minWidth: "20px",
 									}}
 								/>
@@ -128,7 +140,7 @@ const SidebarAdmin = () => {
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
 						onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-						className="p-2 rounded-full hover:bg-[#FF8901] transition-colors max-w-fit"
+						className="p-2 rounded-full hover:bg-[#FFE3F1] active:bg-[#FFE3F1] transition-colors max-w-fit"
 					>
 						<Menu size={24} />
 					</motion.button>

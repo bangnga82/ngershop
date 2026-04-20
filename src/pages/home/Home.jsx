@@ -9,6 +9,8 @@ import Comment from "@/components/product/comment/Comment";
 import DiscountedProduct from "@/components/product/discountedProduct/DiscountedProduct";
 import SuggestedProduct from "@/components/product/suggestedProducts/SuggestedProduct";
 import React from "react";
+import BeautyCorner from "@/components/blog/BeautyCorner";
+import RecentlyViewedProducts from "@/components/product/recentlyViewed/RecentlyViewedProducts";
 
 const Home = () => {
     return (
@@ -18,6 +20,8 @@ const Home = () => {
                 <Category />
                 <DiscountedProduct />
                 <SuggestedProduct />
+                <BeautyCorner />
+                <RecentlyViewedProducts limit={6} />
                 <Male />
                 <Female />
                 <Accessory/>

@@ -1,4 +1,5 @@
 import * as XLSX from 'xlsx';
+import { formatVND, parseMoneyToNumber } from "@/utils/format/vnd";
 
 export const exportProductsToExcel = (products, filename = 'Products_Export') => {
   // Prepare data for export
@@ -6,7 +7,7 @@ export const exportProductsToExcel = (products, filename = 'Products_Export') =>
     'Product ID': product.id,
     'Name': product.name,
     'Category': product.category,
-    'Price': product.price,
+    'Price': formatVND(product.price),
     'Stock': product.stock,
     'Status': product.status,
     'SKU': product.sku,
@@ -69,7 +70,7 @@ export const formatProductForSave = (formData, existingProduct = null) => {
     id: formData.id,
     name: formData.name,
     category: formData.category,
-    price: `$${parseFloat(formData.price).toFixed(2)}`,
+    price: parseMoneyToNumber(formData.price),
     image: Array.isArray(formData.images) ? formData.images : [],
     description: formData.description,
     lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),

@@ -2,6 +2,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import { formatVND } from "@/utils/format/vnd";
 
 const ProductViewModal = ({ product, onClose, onEdit }) => {
   if (!product) return null;
@@ -51,7 +52,7 @@ const ProductViewModal = ({ product, onClose, onEdit }) => {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Price</div>
-                  <div className="font-medium text-lg">{product.price}</div>
+                  <div className="font-medium text-lg">{formatVND(product.price)}</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Status</div>

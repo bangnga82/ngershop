@@ -18,12 +18,14 @@ import BlogList from "./components/blog/BlogList";
 import BlogDetail from "./components/blog/BlogDetail";
 import SearchResultPage from "./pages/blog/SearchResultPage";
 import Overview from "./pages/admin/Overview";
+import LayoutAdmin from "./pages/admin/LayoutAdmin";
 import ProductAdminPage from "./pages/admin/ProductAdminPage";
 import ProductVariantAdminPage from "./pages/admin/ProductVariantAdminPage";
 import ProductAttributeAdminPage from "./pages/admin/ProductAttributeAdminPage";
 import OrderAdminPage from "./pages/admin/OrderAdminPage";
 import CategoryAdminPage from "./pages/admin/CategoryAdminPage";
 import UserAdminPage from "./pages/admin/UserAdminPage";
+import ContactAdminPage from "./pages/admin/ContactAdminPage";
 import FollowingProducts from "./pages/followingProducts/FollowingProducts";
 import AdminGuard from "./components/commons/guards/AdminGuard";
 import ChatbotWidget from "./components/chatbot/ChatbotWidget";
@@ -100,60 +102,22 @@ const App = () => {
       element: <SearchResultPage />,
     },
     {
-      path: "/admin/*",
+      path: "/admin",
       element: (
-          <AdminGuard>
-            <Overview />
-          </AdminGuard>
+        <AdminGuard>
+          <LayoutAdmin />
+        </AdminGuard>
       ),
-    },
-    {
-      path: "/admin/products",
-      element: (
-          <AdminGuard>
-            <ProductAdminPage />
-          </AdminGuard>
-      ),
-    },
-    {
-      path: "/admin/variants",
-      element: (
-          <AdminGuard>
-            <ProductVariantAdminPage />
-          </AdminGuard>
-      ),
-    },
-    {
-      path: "/admin/attributes",
-      element: (
-          <AdminGuard>
-            <ProductAttributeAdminPage />
-          </AdminGuard>
-      ),
-    },
-    {
-      path: "/admin/orders",
-      element: (
-          <AdminGuard>
-            <OrderAdminPage />
-          </AdminGuard>
-      ),
-    },
-    {
-      path: "/admin/categories",
-      element: (
-          <AdminGuard>
-            <CategoryAdminPage />
-          </AdminGuard>
-      ),
-    },
-    {
-      path: "/admin/users",
-      element: (
-          <AdminGuard>
-            <UserAdminPage />
-          </AdminGuard>
-      ),
+      children: [
+        { index: true, element: <Overview /> },
+        { path: "categories", element: <CategoryAdminPage /> },
+        { path: "products", element: <ProductAdminPage /> },
+        { path: "variants", element: <ProductVariantAdminPage /> },
+        { path: "attributes", element: <ProductAttributeAdminPage /> },
+        { path: "orders", element: <OrderAdminPage /> },
+        { path: "users", element: <UserAdminPage /> },
+        { path: "contact-messages", element: <ContactAdminPage /> },
+      ],
     },
     {
       path: "/followingProducts/:id",

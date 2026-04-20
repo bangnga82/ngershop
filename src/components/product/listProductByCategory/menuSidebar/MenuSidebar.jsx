@@ -68,49 +68,49 @@ const MenuSidebar = () => {
                 </div>
                 {opens.includes(item.id) && (
                     <div className="menuSidebar__category-item-child">
-                      <p>KhÃ´ng cÃ³ danh má»¥c con</p>
+                      {/*<p>KhÃ´ng cÃ³ danh má»¥c con</p>*/}
                     </div>
                 )}
               </div>
           ))}
         </div>
-        <div className="menuSidebar__price">
-          <div className="menuSidebar__price-header">
-            <p>Chọn mức giá</p>
-            {isOpenPrice ? (
-                <FaCaretDown
-                    className="icon"
-                    onClick={() => setIsOpenPrice(false)}
-                />
-            ) : (
-                <FaCaretUp className="icon" onClick={() => setIsOpenPrice(true)} />
-            )}
-          </div>
-          {isOpenPrice && (
-              <div>
-                <div className="menuSidebar__price-item">
-                  <input type="checkbox" />
-                  <p>Giá dưới 200.000đ</p>
-                </div>
-                <div className="menuSidebar__price-item">
-                  <input type="checkbox" />
-                  <p>200.000đ - 500.000đ</p>
-                </div>
-                <div className="menuSidebar__price-item">
-                  <input type="checkbox" />
-                  <p>500.000đ - 700.000đ</p>
-                </div>
-                <div className="menuSidebar__price-item">
-                  <input type="checkbox" />
-                  <p>700.000đ - 1.000.000đ</p>
-                </div>
-                <div className="menuSidebar__price-item">
-                  <input type="checkbox" />
-                  <p>Giá trên 1.000.000đ</p>
-                </div>
-              </div>
-          )}
-        </div>
+        {/*<div className="menuSidebar__price">*/}
+        {/*  <div className="menuSidebar__price-header">*/}
+        {/*    <p>Chọn mức giá</p>*/}
+        {/*    {isOpenPrice ? (*/}
+        {/*        <FaCaretDown*/}
+        {/*            className="icon"*/}
+        {/*            onClick={() => setIsOpenPrice(false)}*/}
+        {/*        />*/}
+        {/*    ) : (*/}
+        {/*        <FaCaretUp className="icon" onClick={() => setIsOpenPrice(true)} />*/}
+        {/*    )}*/}
+        {/*  </div>*/}
+        {/*  {isOpenPrice && (*/}
+        {/*      <div>*/}
+        {/*        <div className="menuSidebar__price-item">*/}
+        {/*          <input type="checkbox" />*/}
+        {/*          <p>Giá dưới 200.000đ</p>*/}
+        {/*        </div>*/}
+        {/*        <div className="menuSidebar__price-item">*/}
+        {/*          <input type="checkbox" />*/}
+        {/*          <p>200.000đ - 500.000đ</p>*/}
+        {/*        </div>*/}
+        {/*        <div className="menuSidebar__price-item">*/}
+        {/*          <input type="checkbox" />*/}
+        {/*          <p>500.000đ - 700.000đ</p>*/}
+        {/*        </div>*/}
+        {/*        <div className="menuSidebar__price-item">*/}
+        {/*          <input type="checkbox" />*/}
+        {/*          <p>700.000đ - 1.000.000đ</p>*/}
+        {/*        </div>*/}
+        {/*        <div className="menuSidebar__price-item">*/}
+        {/*          <input type="checkbox" />*/}
+        {/*          <p>Giá trên 1.000.000đ</p>*/}
+        {/*        </div>*/}
+        {/*      </div>*/}
+        {/*  )}*/}
+        {/*</div>*/}
       </div>
   );
 };

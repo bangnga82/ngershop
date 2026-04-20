@@ -1,8 +1,26 @@
 import React from "react";
 import SearchBox from "./SearchBox";
-import { blogData, popularTags, categories } from "./blogData";
+import { blogData } from "./blogData";
+import { getCategories, getPopularTags } from "./helper.js";
 import { motion } from "framer-motion";
+import {
+  applyImageFallback,
+  DEFAULT_IMAGE_FALLBACK_SRC,
+} from "@/utils/imageFallback";
 const SidebarBlog = ({onBlogSelect}) => {
+  const categories = getCategories();
+  const popularTags = getPopularTags();
+
+  const beautyCategories = [
+    "Cách chăm sóc da",
+    "Góc review",
+    "Xu hướng trang điểm",
+    "Bí quyết khỏe đẹp",
+    "Tin tức",
+  ];
+
+  const featuredBlog =
+    blogData.find((b) => beautyCategories.includes(b.category)) || blogData[0];
 	return (
 		<div className="bg-white rounded-lg shadow p-6 space-y-8">
 			<SearchBox blogs={blogData} />
@@ -11,18 +29,21 @@ const SidebarBlog = ({onBlogSelect}) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Tư vấn thời trang</h2>
-        <div className="mb-6" onClick={() => onBlogSelect("10-cach-phoi-ao-thun-dai-tay-va-quan-jeans-tre-trung")} >
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Tư vấn mỹ phẩm</h2>
+        {featuredBlog && (
+          <div className="mb-6" onClick={() => onBlogSelect(featuredBlog.slug)} >
               <img 
-                src='https://phunuvietnam.mediacdn.vn/zoom/320_200/179072216278405120/2024/11/15/thiet-ke-chua-co-ten-2024-11-15t165241144-17316698288152087254795.jpg' 
-                alt="Tư vấn thời trang" 
+                src={featuredBlog.thumbnail || DEFAULT_IMAGE_FALLBACK_SRC} 
+                alt={featuredBlog.title} 
                 className="w-full h-50 object-cover rounded-lg mb-2"
+                data-fallback-key={featuredBlog.slug}
+                onError={applyImageFallback}
               />
               <h3 className="font-semibold text-gray-800 mb-2 hover:text-[#ff6347] cursor-pointer duration-300">
-                10 cách phối áo thun dài tay và quần jeans trẻ trung
+                {featuredBlog.title}
               </h3>
-              
             </div>
+        )}
       </motion.div>
       <div className="space-y-6">
             <motion.div
@@ -79,9 +100,11 @@ const SidebarBlog = ({onBlogSelect}) => {
                       onClick={() => onBlogSelect(blog.slug)}
                     >
                       <img 
-                        src={blog.thumbnail} 
+                        src={blog.thumbnail || DEFAULT_IMAGE_FALLBACK_SRC} 
                         alt={blog.title} 
                         className="w-16 h-16 object-cover rounded"
+                        data-fallback-key={blog.slug}
+                        onError={applyImageFallback}
                       />
                       <div>
                         <h4 className="text-sm font-medium text-gray-800">{blog.title}</h4>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Eye, Edit, Trash } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import { formatVND } from "@/utils/format/vnd";
 
 const ProductListItem = ({ product, onView, onEdit, onDelete }) => {
   return (
@@ -35,7 +36,9 @@ const ProductListItem = ({ product, onView, onEdit, onDelete }) => {
           {product.category}
         </div>
       </td>
-      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{product.price}</td>
+      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+        {formatVND(product.price)}
+      </td>
       <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
       <td className="px-4 py-4 whitespace-nowrap">
         <StatusBadge status={product.status} />

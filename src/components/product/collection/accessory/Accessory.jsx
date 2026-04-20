@@ -86,75 +86,75 @@ const Accessory = () => {
   ]);
   return (
     <div data-aos="fade-up" className="accessory">
-      <div className="accessory-advertise">
-        <div className="accessory-advertise__left">
-          <p className="accessory-advertise__logo">
-            <span>ND</span>
-            <span className="second">Style</span>
-          </p>
-          <p className="accessory-advertise__title">
-            <span>BLACK</span>
-            <span className="yellow">FRIDAY</span>
-            <span>CÓ GÌ?</span>
-          </p>
-        </div>
-        <div className="accessory-advertise__right">
-          <div className="accessory-advertise__right-item">
-            <div className="accessory-advertise__right-item-one one">
-              <p className="title">SALE TỚI 50%</p>
-              <p className="description">Sản phẩm phụ kiện</p>
-            </div>
-            <div className="accessory-advertise__right-item-one two">
-              <p className="title">SẢ HÀNG LỚN</p>
-              <p className="description">Hơn 200 loại giày dép</p>
-            </div>
-          </div>
-          <div className="accessory-advertise__right-item">
-            <div className="accessory-advertise__right-item-one three">
-              <p className="title">MUA 1 TẶNG 1</p>
-              <p className="description">Sản phẩm trong BST Spring 2024</p>
-            </div>
-            <div className="accessory-advertise__right-item-one four">
-              <p className="title">TẶNG PHỤ KIỆN</p>
-              <p className="description">Khi mua váy thuộc BST</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Line title="PHỤ KIỆN" />
-      <div data-aos="fade-up" className="accessory-products-menu__list">
-        <ul className="accessory-products-menu__list-item">
-          <li
-            className={`accessory-products-menu__li ${
-              menu === "male" ? "active" : ""
-            }`}
-            onClick={() => setMenu("male")}
-          >
-            Phụ kiện nam
-          </li>
-          <li
-            className={`accessory-products-menu__li ${
-              menu === "female" ? "active" : ""
-            }`}
-            onClick={() => setMenu("female")}
-          >
-            Phụ kiện nữ
-          </li>
-          <li
-            className={`accessory-products-menu__li ${
-              menu === "sock" ? "active" : ""
-            }`}
-            onClick={() => setMenu("sock")}
-          >
-            Tất/vớ
-          </li>
-        </ul>
-      </div>
-      <div data-aos="fade-up" className="accessory-products__list">
-        {listProduct.map((product, index) => (
-          <ProductItem key={index} product={product} />
-        ))}
-      </div>
+      {/*<div className="accessory-advertise">*/}
+      {/*  <div className="accessory-advertise__left">*/}
+      {/*    <p className="accessory-advertise__logo">*/}
+      {/*      <span>ND</span>*/}
+      {/*      <span className="second">Style</span>*/}
+      {/*    </p>*/}
+      {/*    <p className="accessory-advertise__title">*/}
+      {/*      <span>BLACK</span>*/}
+      {/*      <span className="yellow">FRIDAY</span>*/}
+      {/*      <span>CÓ GÌ?</span>*/}
+      {/*    </p>*/}
+      {/*  </div>*/}
+      {/*  <div className="accessory-advertise__right">*/}
+      {/*    <div className="accessory-advertise__right-item">*/}
+      {/*      <div className="accessory-advertise__right-item-one one">*/}
+      {/*        <p className="title">SALE TỚI 50%</p>*/}
+      {/*        <p className="description">Sản phẩm phụ kiện</p>*/}
+      {/*      </div>*/}
+      {/*      <div className="accessory-advertise__right-item-one two">*/}
+      {/*        <p className="title">SẢ HÀNG LỚN</p>*/}
+      {/*        <p className="description">Hơn 200 loại giày dép</p>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    <div className="accessory-advertise__right-item">*/}
+      {/*      <div className="accessory-advertise__right-item-one three">*/}
+      {/*        <p className="title">MUA 1 TẶNG 1</p>*/}
+      {/*        <p className="description">Sản phẩm trong BST Spring 2024</p>*/}
+      {/*      </div>*/}
+      {/*      <div className="accessory-advertise__right-item-one four">*/}
+      {/*        <p className="title">TẶNG PHỤ KIỆN</p>*/}
+      {/*        <p className="description">Khi mua váy thuộc BST</p>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+      {/*<Line title="PHỤ KIỆN" />*/}
+      {/*<div data-aos="fade-up" className="accessory-products-menu__list">*/}
+      {/*  <ul className="accessory-products-menu__list-item">*/}
+      {/*    <li*/}
+      {/*      className={`accessory-products-menu__li ${*/}
+      {/*        menu === "male" ? "active" : ""*/}
+      {/*      }`}*/}
+      {/*      onClick={() => setMenu("male")}*/}
+      {/*    >*/}
+      {/*      Phụ kiện nam*/}
+      {/*    </li>*/}
+      {/*    <li*/}
+      {/*      className={`accessory-products-menu__li ${*/}
+      {/*        menu === "female" ? "active" : ""*/}
+      {/*      }`}*/}
+      {/*      onClick={() => setMenu("female")}*/}
+      {/*    >*/}
+      {/*      Phụ kiện nữ*/}
+      {/*    </li>*/}
+      {/*    <li*/}
+      {/*      className={`accessory-products-menu__li ${*/}
+      {/*        menu === "sock" ? "active" : ""*/}
+      {/*      }`}*/}
+      {/*      onClick={() => setMenu("sock")}*/}
+      {/*    >*/}
+      {/*      Tất/vớ*/}
+      {/*    </li>*/}
+      {/*  </ul>*/}
+      {/*</div>*/}
+      {/*<div data-aos="fade-up" className="accessory-products__list">*/}
+      {/*  {listProduct.map((product, index) => (*/}
+      {/*    <ProductItem key={index} product={product} />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
     </div>
   );
 };

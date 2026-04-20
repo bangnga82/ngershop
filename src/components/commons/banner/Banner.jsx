@@ -55,7 +55,7 @@ const Banner = () => {
             <span>Khach hang tin dung</span>
           </div>
           <div>
-            <strong>500+</strong>
+            <strong>50+</strong>
             <span>San pham lam dep</span>
           </div>
           <div>

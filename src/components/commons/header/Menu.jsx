@@ -15,14 +15,14 @@ const Menu = () => {
             Trang chủ
           </span>
         </li>
-        <li className="menu-desktop__item">
-          <span
-            onClick={() => navigate("/blog")}
-            className="menu-desktop__item-span"
-          >
-            Tin tức
-          </span>
-        </li>
+        {/*<li className="menu-desktop__item">*/}
+        {/*  <span*/}
+        {/*    onClick={() => navigate("/blog")}*/}
+        {/*    className="menu-desktop__item-span"*/}
+        {/*  >*/}
+        {/*    Tin tức*/}
+        {/*  </span>*/}
+        {/*</li>*/}
         <li className="menu-desktop__item">
           <span
             onClick={() => navigate("/contact")}

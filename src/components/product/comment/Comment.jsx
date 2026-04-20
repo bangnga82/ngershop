@@ -80,71 +80,71 @@ const Comment = () => {
         {reviews.map((review, index) => (
           <SwiperSlide className="swiper-reviews__item" key={index}>
             {/* image */}
-            <div className="swiper-reviews__item-image">
-              <img
-                src={review.product.image[0]}
-                alt={review.product.name}
-                className="swiper-reviews__item-img"
-                loading="lazy"
-              />
-              {review.product.image[1] && (
-                <img
-                  src={review.product.image[1]}
-                  alt={review.product.name}
-                  className="swiper-reviews__item-img image2"
-                  loading="lazy"
-                />
-              )}
-            </div>
+            {/*<div className="swiper-reviews__item-image">*/}
+            {/*  <img*/}
+            {/*    src={review.product.image[0]}*/}
+            {/*    alt={review.product.name}*/}
+            {/*    className="swiper-reviews__item-img"*/}
+            {/*    loading="lazy"*/}
+            {/*  />*/}
+            {/*  {review.product.image[1] && (*/}
+            {/*    <img*/}
+            {/*      src={review.product.image[1]}*/}
+            {/*      alt={review.product.name}*/}
+            {/*      className="swiper-reviews__item-img image2"*/}
+            {/*      loading="lazy"*/}
+            {/*    />*/}
+            {/*  )}*/}
+            {/*</div>*/}
             {/* comment */}
-            <div className="swiper-reviews__item-comment">
-              <h1 className="swiper-reviews__item-comment-title">
-                ĐÁNH GIÁ CỦA KHÁCH HÀNG
-              </h1>
-              <Swiper
-                slidesPerView={1}
-                loop={true}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                modules={[Autoplay]}
-                nested={true}
-                className="swiper-comments__list"
-              >
-                {review.comments.map((comment, index) => (
-                  <SwiperSlide className="swiper-comment__item" key={index}>
-                    <div className="swiper-comment__item-content">
-                      <p className="swiper-comment__item-comment">
-                        {comment.comment}
-                      </p>
-                      <div className="swiper-comment__item-content-rating">
-                        <span className="swiper-comment__item-content-rating-star">
-                          {Array.from({ length: comment.rating }, (_, i) => (
-                            <FaStar key={i} />
-                          ))}
-                        </span>
-                        <span className="swiper-comment__item-content-rating-star">
-                          {Array.from(
-                            { length: 5 - comment.rating },
-                            (_, i) => (
-                              <FaRegStar key={i} />
-                            )
-                          )}
-                        </span>
-                      </div>
-                      <div className="swiper-comment__item-content-avatar">
-                        <img
-                          src={comment.avatar}
-                          alt={comment.name}
-                          className="swiper-comment_item-avatar"
-                          loading="lazy"
-                        />
-                      </div>
-                      <p className="swiper-comment_name">{comment.name}</p>
-                      <p className="swiper-comment_job">{comment.job}</p>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            {/*<div className="swiper-reviews__item-comment">*/}
+            {/*  <h1 className="swiper-reviews__item-comment-title">*/}
+            {/*    ĐÁNH GIÁ CỦA KHÁCH HÀNG*/}
+            {/*  </h1>*/}
+            {/*  <Swiper*/}
+            {/*    slidesPerView={1}*/}
+            {/*    loop={true}*/}
+            {/*    autoplay={{ delay: 3000, disableOnInteraction: false }}*/}
+            {/*    modules={[Autoplay]}*/}
+            {/*    nested={true}*/}
+            {/*    className="swiper-comments__list"*/}
+            {/*  >*/}
+            {/*    {review.comments.map((comment, index) => (*/}
+            {/*      <SwiperSlide className="swiper-comment__item" key={index}>*/}
+            {/*        <div className="swiper-comment__item-content">*/}
+            {/*          <p className="swiper-comment__item-comment">*/}
+            {/*            {comment.comment}*/}
+            {/*          </p>*/}
+            {/*          <div className="swiper-comment__item-content-rating">*/}
+            {/*            <span className="swiper-comment__item-content-rating-star">*/}
+            {/*              {Array.from({ length: comment.rating }, (_, i) => (*/}
+            {/*                <FaStar key={i} />*/}
+            {/*              ))}*/}
+            {/*            </span>*/}
+            {/*            <span className="swiper-comment__item-content-rating-star">*/}
+            {/*              {Array.from(*/}
+            {/*                { length: 5 - comment.rating },*/}
+            {/*                (_, i) => (*/}
+            {/*                  <FaRegStar key={i} />*/}
+            {/*                )*/}
+            {/*              )}*/}
+            {/*            </span>*/}
+            {/*          </div>*/}
+            {/*          <div className="swiper-comment__item-content-avatar">*/}
+            {/*            <img*/}
+            {/*              src={comment.avatar}*/}
+            {/*              alt={comment.name}*/}
+            {/*              className="swiper-comment_item-avatar"*/}
+            {/*              loading="lazy"*/}
+            {/*            />*/}
+            {/*          </div>*/}
+            {/*          <p className="swiper-comment_name">{comment.name}</p>*/}
+            {/*          <p className="swiper-comment_job">{comment.job}</p>*/}
+            {/*        </div>*/}
+            {/*      </SwiperSlide>*/}
+            {/*    ))}*/}
+            {/*  </Swiper>*/}
+            {/*</div>*/}
           </SwiperSlide>
         ))}
       </Swiper>

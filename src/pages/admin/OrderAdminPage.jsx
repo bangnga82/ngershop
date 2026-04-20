@@ -5,7 +5,6 @@ import {
   sortOrders,
   exportOrdersToExcel,
 } from "@/components/admin/orderAdmin/orderExcel";
-import LayoutAdmin from "./LayoutAdmin";
 import OrderFilters from "@/components/admin/orderAdmin/OrderFilters";
 import OrderList from "@/components/admin/orderAdmin/OrderList";
 import OrderViewModal from "@/components/admin/orderAdmin/OrderViewModal";
@@ -140,48 +139,46 @@ const OrderAdminPage = () => {
   };
 
   return (
-    <LayoutAdmin>
-      <div className="flex-1 overflow-auto relative z-10">
-        <HeaderAdmin title={"Orders"} />
-        <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 10, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <OrderFilters
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              statusFilter={statusFilter}
-              onStatusFilterChange={setStatusFilter}
-              onExportExcel={handleExportExcel}
-              statusCounts={statusCounts}
-              totalCount={orders.length}
-            />
+    <>
+      <HeaderAdmin title={"Orders"} />
+      <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 10, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <OrderFilters
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            onExportExcel={handleExportExcel}
+            statusCounts={statusCounts}
+            totalCount={orders.length}
+          />
 
-            <OrderList
-              orders={sortedOrders}
-              currentPage={currentPage}
-              ordersPerPage={ordersPerPage}
-              totalOrders={sortedOrders.length}
-              onPageChange={setCurrentPage}
-              onOrdersPerPageChange={setOrdersPerPage}
-              onViewOrder={handleViewOrder}
+          <OrderList
+            orders={sortedOrders}
+            currentPage={currentPage}
+            ordersPerPage={ordersPerPage}
+            totalOrders={sortedOrders.length}
+            onPageChange={setCurrentPage}
+            onOrdersPerPageChange={setOrdersPerPage}
+            onViewOrder={handleViewOrder}
+            onStatusChange={handleStatusChange}
+            onSort={handleSort}
+            sortConfig={sortConfig}
+          />
+          {showModal && selectedOrder && (
+            <OrderViewModal
+              order={selectedOrder}
               onStatusChange={handleStatusChange}
-              onSort={handleSort}
-              sortConfig={sortConfig}
+              onClose={() => setShowModal(false)}
             />
-            {showModal && selectedOrder && (
-              <OrderViewModal
-                order={selectedOrder}
-                onStatusChange={handleStatusChange}
-                onClose={() => setShowModal(false)}
-              />
-            )}
-          </motion.div>
-        </main>
-      </div>
-    </LayoutAdmin>
+          )}
+        </motion.div>
+      </main>
+    </>
   );
 };
 

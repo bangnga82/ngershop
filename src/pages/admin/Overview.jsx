@@ -1,6 +1,5 @@
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
 import React, { useEffect, useState } from "react";
-import LayoutAdmin from "./LayoutAdmin";
 import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import StatCard from "@/components/admin/StatCard";
@@ -18,11 +17,9 @@ const defaultDashboard = {
 };
 
 const formatCurrency = (value) =>
-	new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency: "USD",
-		maximumFractionDigits: 0,
-	}).format(Number(value || 0));
+	new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(
+		Number(value || 0)
+	) + " VND";
 
 const formatInteger = (value) =>
 	new Intl.NumberFormat("en-US").format(Number(value || 0));
@@ -47,19 +44,18 @@ const Overview = () => {
 	}, []);
 
 	return (
-		<LayoutAdmin>
-			<div className="flex-1 overflow-auto relative z-10">
-				<HeaderAdmin title={"Overview"} />
-				<main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-					<motion.div
-						className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
-						initial={{ opacity: 0, x: 30 }}
-						animate={{ opacity: 10, x: 0 }}
-						transition={{ duration: 0.5 }}
-					>
-						<StatCard
-							name="Total Sales"
-							icon={Zap}
+		<>
+			<HeaderAdmin title={"Overview"} />
+			<main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+				<motion.div
+					className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
+					initial={{ opacity: 0, x: 30 }}
+					animate={{ opacity: 10, x: 0 }}
+					transition={{ duration: 0.5 }}
+				>
+					<StatCard
+						name="Total Sales"
+						icon={Zap}
 							value={formatCurrency(dashboard.totalSales)}
 							color="#6366F1"
 						/>
@@ -87,8 +83,7 @@ const Overview = () => {
 						<CategoryDistributionChart data={dashboard.categoryDistribution} />
 					</div>
 				</main>
-			</div>
-		</LayoutAdmin>
+		</>
 	);
 };
 

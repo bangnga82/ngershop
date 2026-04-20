@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 0;
+  padding: 22px 0 12px;
   width: 100%;
 }
 
@@ -52,17 +52,17 @@
   gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 4px 6% 4px 0;
+  /* symmetric padding so the list doesn't stick to the left edge */
+  padding: 4px 6%;
+  justify-content: center;
   flex: 1;
+  /* Hide the horizontal scrollbar "drag bar" while keeping scroll behavior */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
 }
 
 .category__track::-webkit-scrollbar {
-  height: 6px;
-}
-
-.category__track::-webkit-scrollbar-thumb {
-  background: #f2c3b3;
-  border-radius: 999px;
+  display: none; /* Chrome/Safari */
 }
 
 .category__item {
@@ -117,7 +117,7 @@
   background: #fff6f2;
   color: #b27e6a;
   font-size: 20px;
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;

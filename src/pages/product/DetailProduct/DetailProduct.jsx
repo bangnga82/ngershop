@@ -13,8 +13,10 @@ import reviewApi from "@/utils/api/reviewApi";
 import {
   buildVariantLabel,
   mapReviewToComment,
+  mapProductToCard,
   resolveImageUrl,
 } from "@/utils/api/mappers";
+import { addRecentlyViewedProduct } from "@/utils/recentlyViewedProducts";
 
 const DetailProduct = () => {
   const { id } = useParams();
@@ -43,6 +45,7 @@ const DetailProduct = () => {
           const variants = data?.variants || [];
           setSelectedType(variants.length === 1 ? 0 : null);
           setPreviewType(variants.length > 0 ? 0 : null);
+          if (data) addRecentlyViewedProduct(mapProductToCard(data));
         }
       })
       .catch((error) => {

@@ -108,14 +108,14 @@ const ProductFormModal = ({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Price ($)
+                Price (VND)
               </label>
               <input
                 type="number"
                 name="price"
                 value={formData.price}
                 onChange={handleFormChange}
-                step="0.01"
+                step="1"
                 min="0"
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required

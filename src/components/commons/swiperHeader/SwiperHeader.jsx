@@ -1,65 +1,22 @@
 /* eslint-disable */
-import React, { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import React from "react";
 
 import "./SwiperHeader.scss";
+
 const SwiperHeader = () => {
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
-    const swiperRef = useRef(null);
-    const [isBeginning, setIsBeginning] = useState(true);
-    const [isEnd, setIsEnd] = useState(false);
-
-    useEffect(() => {
-        if (swiperRef.current && swiperRef.current.swiper) {
-            const swiperInstance = swiperRef.current.swiper;
-            const updateNavigation = () => {
-                setIsBeginning(swiperInstance.isBeginning);
-                setIsEnd(swiperInstance.isEnd);
-            };
-
-            swiperInstance.on("slideChange", updateNavigation);
-            updateNavigation();
-
-            return () => {
-                swiperInstance.off("slideChange", updateNavigation);
-            };
-        }
-    }, []);
-
     return (
         <div className="swiper-header">
-            <button
-                ref={prevRef}
-                className={`swiper-button ${isBeginning ? "swiper-button_disabled" : ""}`}
-                disabled={isBeginning}
-            >
-                <GrFormPrevious className="swiper-icon" />
-            </button>
-            <Swiper
-                modules={[Navigation]}
-                ref={swiperRef}
-                navigation={{
-                    prevEl: prevRef.current,
-                    nextEl: nextRef.current,
-                }}
-                className="swiper-container"
-            >
-                <SwiperSlide>NgerShop: Hang moi ve hang tuan</SwiperSlide>
-                <SwiperSlide>Qua sinh - Phu kien de thuong</SwiperSlide>
-                <SwiperSlide>Da xinh tu tin don he</SwiperSlide>
-            </Swiper>
-            <button
-                ref={nextRef}
-                className={`swiper-button ${isEnd ? "swiper-button_disabled" : ""}`}
-                disabled={isEnd}
-            >
-                <GrFormNext className="swiper-icon" />
-            </button>
+            <div className="swiper-header__items" role="list">
+                <div className="swiper-header__item" role="listitem">
+                    <span className="swiper-header__text">NgerShop: Hàng mới về hàng tuần</span>
+                </div>
+                <div className="swiper-header__item" role="listitem">
+                    <span className="swiper-header__text">Quà xinh - Phụ kiện dễ thương</span>
+                </div>
+                <div className="swiper-header__item" role="listitem">
+                    <span className="swiper-header__text">Da xinh tự tin đón hè</span>
+                </div>
+            </div>
         </div>
     );
 };
