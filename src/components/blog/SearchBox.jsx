@@ -91,7 +91,7 @@ const SearchBox = ({ blogs }) => {
 						value={searchTerm}
 						onChange={handleSearchChange}
 						onKeyDown={handleKeyPress}
-						className="py-2 pr-10 pl-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff7f00] focus:border-transparent w-full"
+						className="py-2 pr-10 pl-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)] focus:border-transparent w-full"
 						onFocus={() =>
 							searchTerm.trim() !== "" && setIsOpen(true)
 						}
@@ -146,7 +146,7 @@ const SearchBox = ({ blogs }) => {
 														{blog.summary}
 													</p>
 													<div className="flex items-center mt-1">
-														<span className="text-xs bg-[#fff3e0] text-[#ff6347] rounded px-1.5 py-0.5">
+														<span className="text-xs bg-[color:var(--accent-soft)] text-[color:var(--accent)] rounded px-1.5 py-0.5">
 															{blog.category}
 														</span>
 													</div>
@@ -162,7 +162,7 @@ const SearchBox = ({ blogs }) => {
 								{searchResults.length} kết quả
 							</span>
 							<button
-								className="cursor-pointer text-xs text-[#ff6347] hover:underline duration-700 font-medium"
+								className="cursor-pointer text-xs text-[color:var(--accent)] hover:underline duration-700 font-medium"
 								onClick={handleSearchSubmit}
 							>
 								Xem tất cả kết quả

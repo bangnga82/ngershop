@@ -33,7 +33,11 @@ const Menu = () => {
         </li>
         <li className="menu-desktop__item">
           <span
-            onClick={() => navigate("/market-system")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigate("/market-system");
+            }}
             className="menu-desktop__item-span"
           >
             Hệ thống cửa hàng

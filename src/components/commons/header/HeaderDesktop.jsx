@@ -16,6 +16,9 @@ import notificationApi from "@/utils/api/notificationApi";
 import productApi from "@/utils/api/productApi";
 import { mapProductToCard } from "@/utils/api/mappers";
 import { clearAdminFlag, ensureAdminStatus } from "@/utils/auth";
+import { emitFavoriteProductsUpdated } from "@/utils/favoriteProducts";
+import { emitRecentlyViewedUpdated } from "@/utils/recentlyViewedProducts";
+import { resetChatbotStorage } from "@/utils/chatbotSession";
 
 import Menu from "./Menu";
 
@@ -224,6 +227,9 @@ const HeaderDesktop = () => {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessTokenExpiresAt");
       clearAdminFlag();
+      emitFavoriteProductsUpdated();
+      emitRecentlyViewedUpdated();
+      resetChatbotStorage();
       setIsShow(false);
       setIsNotificationOpen(false);
       navigate("/auth");

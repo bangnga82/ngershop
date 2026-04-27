@@ -40,7 +40,7 @@ const Banner = () => {
   return (
     <section className="tech-hero">
       <div className="tech-hero__content">
-        <p className="tech-hero__eyebrow">NgerShop | My pham chinh hang</p>
+        <p className="tech-hero__eyebrow">NgerShop | Mỹ phẩm chính hãng</p>
         <h1>Mãi tươi - Mãi xinh nha người đẹp.</h1>
         <p className="tech-hero__sub">
           Hàng mới mỗi tuần, chất lượng, giao hàng nhanh.
@@ -51,16 +51,16 @@ const Banner = () => {
         </div>
         <div className="tech-hero__stats">
           <div>
-            <strong>10k+</strong>
-            <span>Khach hang tin dung</span>
+            <strong>1k+</strong>
+            <span>Khách hàng tin dùng</span>
           </div>
           <div>
             <strong>50+</strong>
-            <span>San pham lam dep</span>
+            <span>Sản phẩm làm đẹp</span>
           </div>
           <div>
             <strong>4.9/5</strong>
-            <span>Danh gia trung binh</span>
+            <span>Đánh giá trung bình</span>
           </div>
         </div>
         <Voucher />

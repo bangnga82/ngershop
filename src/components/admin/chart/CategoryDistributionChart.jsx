@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { getOrderStatusHex } from "@/components/admin/orderAdmin/orderStatusTheme";
 
-const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#10b981", "#f59e0b"];
+const FALLBACK_COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#10b981", "#f59e0b"];
 
 const CategoryDistributionChart = ({ data = [] }) => {
   const hasData = data.some((item) => Number(item?.value || 0) > 0);
@@ -36,7 +37,7 @@ const CategoryDistributionChart = ({ data = [] }) => {
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={getOrderStatusHex(entry?.name) || FALLBACK_COLORS[index % FALLBACK_COLORS.length]}
                   />
                 ))}
               </Pie>

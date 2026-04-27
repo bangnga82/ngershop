@@ -161,9 +161,9 @@ const ProductAttributeAdminPage = () => {
                 <select
                   value={selectedProductId}
                   onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
                 >
-                  <option value="">Chon san pham</option>
+                  <option value="">Chọn sản phẩm</option>
                   {products.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
@@ -179,7 +179,7 @@ const ProductAttributeAdminPage = () => {
                   value={selectedVariantId}
                   onChange={(e) => setSelectedVariantId(e.target.value)}
                   disabled={!selectedProductId}
-                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-60"
+                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)] disabled:opacity-60"
                 >
                   <option value="">Chon variant</option>
                   {variants.map((variant) => (
@@ -262,7 +262,7 @@ const ProductAttributeAdminPage = () => {
                     </div>
                   ))}
                   {attributes.length === 0 && (
-                    <p className="text-sm text-gray-500">Khong co thuoc tinh.</p>
+                    <p className="text-sm text-gray-500">Không có thuộc tính.</p>
                   )}
                 </div>
               )}

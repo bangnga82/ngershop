@@ -22,7 +22,7 @@ const BlogDetail = () => {
 					</p>
 					<div className="mt-5 flex gap-3">
 						<button
-							className="px-4 py-2 rounded-md bg-[#ff6347] text-white font-semibold hover:opacity-90 transition"
+							className="px-4 py-2 rounded-md bg-[color:var(--accent)] text-white font-semibold hover:opacity-90 transition"
 							onClick={() => navigate("/blog")}
 						>
 							Về trang blog
@@ -48,20 +48,20 @@ const BlogDetail = () => {
 			>
 				<div className="text-sm text-gray-500">
 					<button
-						className="hover:text-[#ff6347] duration-300 cursor-pointer"
+						className="hover:text-[color:var(--accent)] duration-300 cursor-pointer"
 						onClick={() => navigate("/")}
 					>
 						Trang chủ
 					</button>
 					<span>{" > "}</span>
 					<button
-						className="hover:text-[#ff6347] duration-300 cursor-pointer"
+						className="hover:text-[color:var(--accent)] duration-300 cursor-pointer"
 						onClick={() => navigate("/blog")}
 					>
 						Tin tức
 					</button>
 					<span>{" > "}</span>
-					<span className="text-[#ff6347] font-bold">
+					<span className="text-[color:var(--accent)] font-bold">
 						{blog.title}
 					</span>
 				</div>

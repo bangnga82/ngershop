@@ -18,7 +18,7 @@ const CategoryForm = ({
 					name="name"
 					value={formData.name}
 					onChange={onChange}
-					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
 					required
 				/>
 			</div>
@@ -32,7 +32,7 @@ const CategoryForm = ({
 					value={formData.description}
 					onChange={onChange}
 					rows="3"
-					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+					className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
 				></textarea>
 			</div>
 
@@ -40,7 +40,7 @@ const CategoryForm = ({
 				<label className="block text-sm font-medium text-gray-700">
 					Image
 				</label>
-				<label className="mt-1 flex items-center justify-between gap-3 rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-600 cursor-pointer transition hover:border-orange-300 hover:bg-orange-50 focus-within:ring-2 focus-within:ring-orange-500">
+				<label className="mt-1 flex items-center justify-between gap-3 rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-600 cursor-pointer transition hover:border-[color:var(--accent-border)] hover:bg-[color:var(--accent-soft)] focus-within:ring-2 focus-within:ring-[color:var(--accent)]">
 					<span className="truncate">
 						{formData.image?.name || "Choose an image file"}
 					</span>

@@ -69,7 +69,7 @@ const ProductPagination = ({
 					onChange={(e) =>
 						onItemsPerPageChange(parseInt(e.target.value))
 					}
-					className="border border-gray-300 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-orange-500"
+						className="border border-gray-300 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
 				>
 					<option value={5}>5</option>
 					<option value={10}>10</option>

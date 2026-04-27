@@ -23,15 +23,15 @@
       gap: 20px;
       button {
         padding: 5px 10px;
-        border: 1px solid #ff6347;
+        border: 1px solid var(--accent);
         background-color: #ffffff;
         border-radius: 15px;
-        color: #ff6347;
+        color: var(--accent);
         cursor: pointer;
         font-size: 15px;
 
         &:hover {
-          background-color: #ff6347;
+          background-color: var(--accent);
           color: #ffffff;
         }
       }
@@ -48,7 +48,7 @@
     .right-session__price__sale {
       font-size: 30px;
       font-weight: 500;
-      color: #ff6347;
+      color: var(--accent);
     }
 
     .right-session__price__real {
@@ -62,7 +62,7 @@
       &.is-current {
         font-size: 30px;
         font-weight: 600;
-        color: #ff6347;
+        color: var(--accent);
         text-decoration: none;
       }
     }
@@ -97,7 +97,7 @@
       }
 
       .active {
-        background-color: #ff6347;
+        background-color: var(--accent);
         border: none;
         color: #ffffff;
       }
@@ -154,11 +154,11 @@
 
       p {
         font-size: 15px;
-        color: #ff6347;
+        color: var(--accent);
         cursor: pointer;
 
         &:hover {
-          color: #ff6347;
+          color: var(--accent);
         }
       }
     }
@@ -174,8 +174,8 @@
     .right-session__button-add {
       width: 50%;
       padding: 10px 20px;
-      background-color: #fce8e5;
-      color: #ff6347;
+      background-color: var(--accent-soft);
+      color: var(--accent);
       font-size: 15px;
       font-weight: 500;
       border: none;
@@ -183,7 +183,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #ff7a62;
+        background-color: var(--accent);
         color: #ffffff;
       }
     }
@@ -191,7 +191,7 @@
     .right-session__button-buy {
       width: 50%;
       padding: 10px 20px;
-      background-color: #ff6347;
+      background-color: var(--accent);
       color: #ffffff;
       font-size: 15px;
       font-weight: 500;
@@ -200,7 +200,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #ff907c;
+        background-color: var(--accent-hover);
       }
     }
   }

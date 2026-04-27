@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
-import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
-import StatCard from "@/components/admin/StatCard";
 import { motion } from "framer-motion";
 import ProductFilters from "@/components/admin/productAdmin/ProductFilters";
 import ProductList from "@/components/admin/productAdmin/ProductList";
@@ -15,22 +13,8 @@ import {
 import DeleteProductModal from "@/components/admin/productAdmin/DeleteProductModal";
 import productApi from "@/utils/api/productApi";
 import categoryApi from "@/utils/api/categoryApi";
-import adminDashboardApi from "@/utils/api/adminDashboardApi";
 import { buildVariantLabel, resolveImageUrl } from "@/utils/api/mappers";
-import { formatVND, parseMoneyToNumber } from "@/utils/format/vnd";
-
-const defaultDashboard = {
-  totalSales: 0,
-  newUsers: 0,
-  totalProducts: 0,
-  conversionRate: 0,
-};
-
-const formatInteger = (value) =>
-  new Intl.NumberFormat("vi-VN").format(Number(value || 0));
-
-const formatPercent = (value) =>
-  `${Number(value || 0).toFixed(1).replace(".", ",")}%`;
+import { parseMoneyToNumber } from "@/utils/format/vnd";
 
 const mapProductToAdmin = (product) => {
   const images =
@@ -72,7 +56,6 @@ const dataUrlToFile = (dataUrl, filename) => {
 };
 
 const ProductAdminPage = () => {
-  const [dashboard, setDashboard] = useState(defaultDashboard);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(null);
@@ -113,25 +96,8 @@ const ProductAdminPage = () => {
     }
   };
 
-  const refreshDashboard = async () => {
-    try {
-      const response = await adminDashboardApi.getOverview();
-      const data = response?.data?.data || defaultDashboard;
-      setDashboard({
-        totalSales: Number(data?.totalSales || 0),
-        newUsers: Number(data?.newUsers || 0),
-        totalProducts: Number(data?.totalProducts || 0),
-        conversionRate: Number(data?.conversionRate || 0),
-      });
-    } catch (error) {
-      console.error("Load admin dashboard error:", error);
-      setDashboard(defaultDashboard);
-    }
-  };
-
   useEffect(() => {
     refreshProducts();
-    refreshDashboard();
     categoryApi
         .getCategories({ page: 0, size: 50 })
         .then((res) => {
@@ -178,7 +144,6 @@ const ProductAdminPage = () => {
     try {
       await productApi.toggleStatus(id);
       await refreshProducts();
-      await refreshDashboard();
     } catch (error) {
       alert("Khong the cap nhat trang thai san pham.");
     } finally {
@@ -227,7 +192,6 @@ const ProductAdminPage = () => {
         await productApi.update(formData.id, form);
       }
       await refreshProducts();
-      await refreshDashboard();
       setShowModal(null);
     } catch (error) {
       alert("Luu san pham that bai.");
@@ -238,37 +202,6 @@ const ProductAdminPage = () => {
       <>
         <HeaderAdmin title={"Products"} />
         <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-          <motion.div
-            className="grid grid-cols-1 gap-5 mb-8 lg:grid-cols-4"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 10, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-              <StatCard
-                  name="Total Sales"
-                  icon={Zap}
-                  value={formatVND(dashboard.totalSales)}
-                  color="#6366F1"
-              />
-              <StatCard
-                  name="New Users"
-                  icon={Users}
-                  value={formatInteger(dashboard.newUsers)}
-                  color="#8B5CF6"
-              />
-              <StatCard
-                  name="Total Products"
-                  icon={ShoppingBag}
-                  value={formatInteger(dashboard.totalProducts)}
-                  color="#EC4899"
-              />
-              <StatCard
-                  name="Conversion Rate"
-                  icon={BarChart2}
-                  value={formatPercent(dashboard.conversionRate)}
-                  color="#10B981"
-              />
-            </motion.div>
             <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 10, x: 0 }}

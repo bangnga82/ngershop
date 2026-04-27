@@ -34,11 +34,11 @@ const SearchResultPage = () => {
 		<LayoutBlog>
 			<div className="mb-6">
 				<div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-					<Link to="/" className="hover:text-[#ff6347] duration-200">
+					<Link to="/" className="hover:text-[color:var(--accent)] duration-200">
 						Trang chủ
 					</Link>
 					<span>&gt;</span>
-					<span className="text-[#ff6347] font-bold">Tìm kiếm</span>
+					<span className="text-[color:var(--accent)] font-bold">Tìm kiếm</span>
 				</div>
 
 				<h1 className="text-2xl font-bold text-gray-800 mb-6">
@@ -71,7 +71,7 @@ const SearchResultPage = () => {
 										/>
 										<div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
 											<div className="flex items-center gap-2">
-												<span className="text-white text-xs font-medium px-2 py-1 bg-[#ff6347] rounded-full">
+												<span className="text-white text-xs font-medium px-2 py-1 bg-[color:var(--accent)] rounded-full">
 													{blog.category}
 												</span>
 												<span className="text-white text-xs">
@@ -112,7 +112,7 @@ const SearchResultPage = () => {
 						</p>
 						<Link
 							to="/"
-							className="px-4 py-2 border bg-[#ff7f00] text-white rounded-md hover:bg-[#ffff] hover:text-[#ff7f00] hover:boder-[#ff7f00] transition"
+							className="px-4 py-2 border bg-[color:var(--accent)] text-white rounded-md hover:bg-white hover:text-[color:var(--accent)] hover:border-[color:var(--accent)] transition"
 						>
 							Quay lại trang chủ
 						</Link>

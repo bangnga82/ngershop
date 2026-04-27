@@ -1,4 +1,7 @@
 import axios from "axios";
+import { emitFavoriteProductsUpdated } from "@/utils/favoriteProducts";
+import { emitRecentlyViewedUpdated } from "@/utils/recentlyViewedProducts";
+import { resetChatbotStorage } from "@/utils/chatbotSession";
 
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_API_URL || "",
@@ -34,9 +37,20 @@ const storeAuthTokens = (data) => {
 };
 
 const clearAuthTokens = () => {
+    const hadAuthTokens = Boolean(
+        localStorage.getItem("accessToken") ||
+            localStorage.getItem("refreshToken") ||
+            localStorage.getItem("accessTokenExpiresAt")
+    );
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("accessTokenExpiresAt");
+    // Sync account-scoped localStorage views with UI after auth is cleared.
+    emitFavoriteProductsUpdated();
+    emitRecentlyViewedUpdated();
+    if (hadAuthTokens) {
+        resetChatbotStorage();
+    }
 };
 
 axiosClient.interceptors.response.use(

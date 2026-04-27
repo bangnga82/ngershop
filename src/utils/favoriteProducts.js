@@ -1,10 +1,37 @@
-export const FAVORITE_PRODUCTS_KEY = "likeProducts";
+export const FAVORITE_PRODUCTS_KEY_PREFIX = "likeProducts";
 export const FAVORITES_UPDATED_EVENT = "favorites-updated";
+
+const decodeJwtPayload = (token) => {
+  if (!token) return null;
+  const parts = token.split(".");
+  if (parts.length < 2) return null;
+  const payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+  try {
+    return JSON.parse(atob(payload));
+  } catch {
+    return null;
+  }
+};
+
+const getCurrentUserId = () => {
+  if (typeof window === "undefined") return null;
+  const token = window.localStorage.getItem("accessToken");
+  const payload = decodeJwtPayload(token);
+  return payload?.sub ?? null;
+};
+
+export const getFavoriteProductsStorageKey = () => {
+  if (typeof window === "undefined") return FAVORITE_PRODUCTS_KEY_PREFIX;
+  const userId = getCurrentUserId();
+  return userId != null && String(userId).length > 0
+    ? `${FAVORITE_PRODUCTS_KEY_PREFIX}:${userId}`
+    : `${FAVORITE_PRODUCTS_KEY_PREFIX}:guest`;
+};
 
 export const getFavoriteProducts = () => {
   if (typeof window === "undefined") return [];
   try {
-    const stored = window.localStorage.getItem(FAVORITE_PRODUCTS_KEY);
+    const stored = window.localStorage.getItem(getFavoriteProductsStorageKey());
     const parsed = stored ? JSON.parse(stored) : [];
     return Array.isArray(parsed) ? parsed : [];
   } catch {
@@ -12,14 +39,22 @@ export const getFavoriteProducts = () => {
   }
 };
 
-const saveFavoriteProducts = (products) => {
+export const emitFavoriteProductsUpdated = (products = getFavoriteProducts()) => {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(FAVORITE_PRODUCTS_KEY, JSON.stringify(products));
   window.dispatchEvent(
     new CustomEvent(FAVORITES_UPDATED_EVENT, {
       detail: { products },
     })
   );
+};
+
+const saveFavoriteProducts = (products) => {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(
+    getFavoriteProductsStorageKey(),
+    JSON.stringify(products)
+  );
+  emitFavoriteProductsUpdated(products);
 };
 
 export const isFavoriteProduct = (productId) =>

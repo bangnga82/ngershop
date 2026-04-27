@@ -138,7 +138,7 @@ const Cart = () => {
 
   const handleClickBuy = () => {
     if (selectedProducts.length === 0) {
-      alert("Vui long chon san pham de thanh toan.");
+      alert("Vui lòng chọn sản phẩm để thanh toán.");
       return;
     }
 
@@ -154,7 +154,7 @@ const Cart = () => {
           <TitleRouter title="Gio hang" />
           <div className="card">
             <div className="card-container">
-              <h1>Gio hang cua ban</h1>
+              <h1>Giỏ hàng của bạn</h1>
               <div className="card-container__list">
                 {listProducts.map((product) => (
                   <CartItem
@@ -174,10 +174,10 @@ const Cart = () => {
                 </p>
                 <div className="card-container__total-buttons">
                   <button className="btn1" onClick={() => navigate("/")}>
-                    Tiep tuc mua hang
+                    Tiếp tục mua hàng
                   </button>
                   <button className="btn2" onClick={handleClickBuy}>
-                    Thanh toan ngay
+                    Thanh toán ngay
                   </button>
                 </div>
               </div>

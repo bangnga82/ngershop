@@ -39,7 +39,7 @@ const SidebarBlog = ({onBlogSelect}) => {
                 data-fallback-key={featuredBlog.slug}
                 onError={applyImageFallback}
               />
-              <h3 className="font-semibold text-gray-800 mb-2 hover:text-[#ff6347] cursor-pointer duration-300">
+              <h3 className="font-semibold text-gray-800 mb-2 hover:text-[color:var(--accent)] cursor-pointer duration-300">
                 {featuredBlog.title}
               </h3>
             </div>
@@ -74,7 +74,7 @@ const SidebarBlog = ({onBlogSelect}) => {
                 {categories.map((category, index) => (
                   <li key={index}>
                     <button
-                      className="flex items-center justify-between text-gray-700 hover:text-[#ff7f00] transition w-full"
+                      className="flex items-center justify-between text-gray-700 hover:text-[color:var(--accent)] transition w-full"
                     >
                       <span>{category.name}</span>
                       <span className="bg-gray-100 px-2 py-1 rounded-full text-xs">

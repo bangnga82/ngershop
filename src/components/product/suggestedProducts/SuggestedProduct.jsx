@@ -53,8 +53,8 @@ const SuggestedProduct = () => {
   return (
     <section className="tech-section suggested-products tech-section--suggested tech-section--dark">
       <div className="suggested-products__header tech-section__header">
-        <h2>SAN PHAM GOI Y</h2>
-        <p>Lua chon noi bat, de dang tim thay mon do phu hop.</p>
+        <h2>SẢN PHẨM NỔI BẬT</h2>
+        <p>Lựa chọn nổi bật, dễ dàng tìm thấy món đồ phù hợp</p>
       </div>
 
       <div className="suggested-products__grid">

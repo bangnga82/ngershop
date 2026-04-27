@@ -1,6 +1,7 @@
 import adminUserApi from "./api/adminUserApi";
 
 const ADMIN_CACHE_KEY = "isAdmin";
+const ADMIN_CACHE_USER_KEY = "isAdminUserId";
 
 export const getAccessToken = () => localStorage.getItem("accessToken");
 
@@ -46,25 +47,31 @@ export const setCachedAdminFlag = (value) => {
 
 export const clearAdminFlag = () => {
   localStorage.removeItem(ADMIN_CACHE_KEY);
+  localStorage.removeItem(ADMIN_CACHE_USER_KEY);
 };
 
 export const ensureAdminStatus = async () => {
-  const cached = getCachedAdminFlag();
-  if (cached === "true") return true;
-  if (cached === "false") return false;
-
   const token = getAccessToken();
   if (!token) return false;
 
   const userId = getUserIdFromToken(token);
   if (!userId) return false;
 
+  const cached = getCachedAdminFlag();
+  const cachedUserId = localStorage.getItem(ADMIN_CACHE_USER_KEY);
+  if (cachedUserId && String(cachedUserId) === String(userId)) {
+    if (cached === "true") return true;
+    if (cached === "false") return false;
+  }
+
   try {
     await adminUserApi.getById(userId);
     setCachedAdminFlag(true);
+    localStorage.setItem(ADMIN_CACHE_USER_KEY, String(userId));
     return true;
   } catch {
     setCachedAdminFlag(false);
+    localStorage.setItem(ADMIN_CACHE_USER_KEY, String(userId));
     return false;
   }
 };

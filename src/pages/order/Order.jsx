@@ -12,6 +12,7 @@ import orderApi from "@/utils/api/orderApi";
 import paymentApi from "@/utils/api/paymentApi";
 import cartApi from "@/utils/api/cartApi";
 import { setOrderList } from "@/store/orderSlice";
+import AddAddressModal from "@/components/order/addAddressModal/AddAddressModal";
 
 const Order = () => {
   const selectedProducts = useSelector((state) => state.order.orderList);
@@ -21,21 +22,36 @@ const Order = () => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [placing, setPlacing] = useState(false);
+  const [showAddAddress, setShowAddAddress] = useState(false);
+  const [savingAddress, setSavingAddress] = useState(false);
+  const [editingAddress, setEditingAddress] = useState(null);
+
+  const loadAddresses = async () => {
+    try {
+      const res = await addressApi.getOwn();
+      const list = res?.data?.data || [];
+      setAddresses(list);
+      const defaultAddr = list.find((a) => a.isDefault) || list[0];
+      setSelectedAddressId(defaultAddr?.id || null);
+    } catch (error) {
+      console.error("Load addresses error:", error);
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
-    addressApi
-      .getOwn()
-      .then((res) => {
+    (async () => {
+      try {
+        const res = await addressApi.getOwn();
         const list = res?.data?.data || [];
         if (!isMounted) return;
         setAddresses(list);
         const defaultAddr = list.find((a) => a.isDefault) || list[0];
         setSelectedAddressId(defaultAddr?.id || null);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Load addresses error:", error);
-      });
+      }
+    })();
     return () => {
       isMounted = false;
     };
@@ -64,7 +80,34 @@ const Order = () => {
   };
 
   const handleAddAddress = () => {
-    alert("Vui long them dia chi trong trang tai khoan.");
+    setEditingAddress(null);
+    setShowAddAddress(true);
+  };
+
+  const handleUpsertAddress = async (payload) => {
+    try {
+      setSavingAddress(true);
+      const res = editingAddress?.id
+        ? await addressApi.update(editingAddress.id, payload)
+        : await addressApi.create(payload);
+      const saved = res?.data?.data;
+      setShowAddAddress(false);
+      await loadAddresses();
+      if (saved?.id) setSelectedAddressId(saved.id);
+    } catch (error) {
+      const message =
+        error?.response?.data?.data?.message ||
+        error?.response?.data?.message ||
+        (editingAddress?.id ? "Cap nhat dia chi that bai." : "Them dia chi that bai.");
+      alert(message);
+    } finally {
+      setSavingAddress(false);
+    }
+  };
+
+  const handleEditAddress = (address) => {
+    setEditingAddress(address);
+    setShowAddAddress(true);
   };
 
   const handlePlaceOrder = async () => {
@@ -130,6 +173,7 @@ const Order = () => {
           paymentMethod={paymentMethod}
           onSelectPayment={setPaymentMethod}
           onAddAddress={handleAddAddress}
+          onEditAddress={handleEditAddress}
         />
         <RightOrder
           products={selectedProducts}
@@ -138,6 +182,15 @@ const Order = () => {
           onPlaceOrder={placing ? () => {} : handlePlaceOrder}
         />
       </div>
+      <AddAddressModal
+        isOpen={showAddAddress}
+        onClose={() => {
+          if (!savingAddress) setShowAddAddress(false);
+        }}
+        onSubmit={handleUpsertAddress}
+        submitting={savingAddress}
+        initialData={editingAddress}
+      />
     </Layout>
   );
 };

@@ -15,7 +15,7 @@
     top: 10px;
     left: 10px;
     z-index: 10;
-    background-color: #ff6347;
+    background-color: var(--accent);
     border: none;
     font-size: 15px;
     color: #ffffff;
@@ -49,7 +49,7 @@
   }
 
   .active {
-    background-color: #ff6347;
+    background-color: var(--accent);
     color: #ffffff;
   }
 
@@ -98,7 +98,7 @@
       visibility 0.4s;
 
     &:hover {
-      background-color: #ff6347;
+      background-color: var(--accent);
       color: #ffffff;
     }
   }
@@ -128,7 +128,7 @@
     }
 
     .active {
-      border: 1px solid #ff6347;
+      border: 1px solid var(--accent);
     }
   }
   .product-item_name {
@@ -168,7 +168,7 @@
     align-items: center;
 
     .product-item_price-fake {
-      color: #ff6347;
+      color: var(--accent);
       font-weight: 500;
       font-size: 15px;
     }
@@ -189,7 +189,7 @@
       visibility: visible;
 
       &:hover {
-        background-color: #ff6347;
+        background-color: var(--accent);
         color: #ffffff;
       }
     }

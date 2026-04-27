@@ -115,6 +115,7 @@ const DetailProduct = () => {
   }
 
   const categoryFromState = location?.state?.fromCategory;
+  const focusSection = location?.state?.scrollTo === "reviews" ? "reviews" : null;
   const crumbs = categoryFromState
     ? [
         {
@@ -141,6 +142,7 @@ const DetailProduct = () => {
       <InformationDetail
         product={productView}
         onReviewCreated={appendReview}
+        focusSection={focusSection}
       />
     </Layout>
   );

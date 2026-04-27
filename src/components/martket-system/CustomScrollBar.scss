@@ -7,12 +7,12 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #ff6347;
+    background-color: var(--accent);
     border-radius: 8px;
     border: 2px solid white;
   }
   
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: #ff6347 transparent;
+    scrollbar-color: var(--accent) transparent;
   }

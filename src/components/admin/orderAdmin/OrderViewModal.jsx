@@ -29,7 +29,7 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
           <button
             className={`px-4 py-2 font-medium ${
               activeTab === "details"
-                ? "border-b-2 border-orange-500 text-orange-600"
+                ? "border-b-2 border-[color:var(--accent)] text-[color:var(--accent)]"
                 : "text-gray-500 hover:text-gray-700"
             }`}
             onClick={() => setActiveTab("details")}
@@ -39,12 +39,12 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
           <button
             className={`px-4 py-2 font-medium ${
               activeTab === "items"
-                ? "border-b-2 border-orange-500 text-orange-600"
+                ? "border-b-2 border-[color:var(--accent)] text-[color:var(--accent)]"
                 : "text-gray-500 hover:text-gray-700"
             }`}
             onClick={() => setActiveTab("items")}
           >
-            San pham trong don ({order.items.length})
+            Sản phẩm trong đơn ({order.items.length})
           </button>
         </div>
 
@@ -52,24 +52,24 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
           {activeTab === "details" ? (
             <div className="p-6">
               <div className="mb-6">
-                <h4 className="mb-4 text-lg font-medium">Tong quan don hang</h4>
+                <h4 className="mb-4 text-lg font-medium">Tổng quan đơn hàng</h4>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="rounded-lg bg-gray-50 p-4">
                     <div className="flex items-start">
-                      <div className="mr-3 rounded-lg bg-orange-100 p-2">
-                        <Package className="h-5 w-5 text-orange-600" />
+                      <div className="mr-3 rounded-lg bg-[color:var(--accent-soft)] p-2">
+                        <Package className="h-5 w-5 text-[color:var(--accent)]" />
                       </div>
                       <div className="w-full">
                         <div className="text-sm font-medium">
-                          Thong tin don hang
+                          Thông tin đơn hàng
                         </div>
                         <div className="mt-2 space-y-2 text-sm">
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Ma don hang:</div>
+                            <div className="text-gray-500">Mã đơn hàng:</div>
                             <div>{orderCode}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Ngay dat:</div>
+                            <div className="text-gray-500">Ngày đặt:</div>
                             <div>
                               {new Date(order.orderDate).toLocaleDateString(
                                 "en-US",
@@ -84,7 +84,7 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                             </div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Trang thai:</div>
+                            <div className="text-gray-500">Trạng thái:</div>
                             <div className="flex flex-col gap-2">
                               <OrderStatusBadge status={order.status} />
                               <OrderStatusEditor
@@ -94,8 +94,8 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                                 }
                               />
                               <p className="text-xs text-gray-500">
-                                Chuyen sang Delivered de khach co the viet danh
-                                gia san pham.
+                                Chuyển sang Delivered để khách hàng có thể viết đánh
+                                giá sản phẩm.
                               </p>
                             </div>
                           </div>
@@ -111,19 +111,19 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                       </div>
                       <div>
                         <div className="text-sm font-medium">
-                          Thong tin nguoi ban
+                          Thông tin người bán
                         </div>
                         <div className="mt-2 space-y-2 text-sm">
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Ten nguoi ban:</div>
+                            <div className="text-gray-500">Tên người bán:</div>
                             <div>{order.sellerName}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Ten cua hang:</div>
+                            <div className="text-gray-500">Tên cửa hàng:</div>
                             <div>{order.storeName || "N/A"}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Lien he:</div>
+                            <div className="text-gray-500">Liên hệ:</div>
                             <div>{order.sellerContact || "N/A"}</div>
                           </div>
                         </div>
@@ -138,21 +138,21 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                       </div>
                       <div>
                         <div className="text-sm font-medium">
-                          Thong tin van chuyen
+                          Thông tin vận chuyển
                         </div>
                         <div className="mt-2 space-y-2 text-sm">
                           <div className="grid grid-cols-2 gap-2">
                             <div className="text-gray-500">
-                              Phuong thuc van chuyen:
+                              Phương thức vận chuyển:
                             </div>
                             <div>{order.shippingMethod || "Standard Delivery"}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Phi van chuyen:</div>
+                            <div className="text-gray-500">Phí vận chuyển:</div>
                             <div>{order.shippingFee || "Free"}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Ngay giao hang:</div>
+                            <div className="text-gray-500">Ngày giao hàng:</div>
                             <div>{order.estimatedDelivery || "N/A"}</div>
                           </div>
                         </div>
@@ -166,18 +166,18 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                         <MapPin className="h-5 w-5 text-purple-600" />
                       </div>
                       <div>
-                        <div className="text-sm font-medium">Dia chi nhan don</div>
+                        <div className="text-sm font-medium">Địa chỉ nhận đơn</div>
                         <div className="mt-2 space-y-2 text-sm">
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Nguoi nhan:</div>
+                            <div className="text-gray-500">Người nhận:</div>
                             <div>{order.recipient || "N/A"}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">So dien thoai:</div>
+                            <div className="text-gray-500">Số điện thoại:</div>
                             <div>{order.recipientPhone || "N/A"}</div>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-500">Dia chi:</div>
+                            <div className="text-gray-500">Địa chỉ:</div>
                             <div>{order.deliveryAddress || "N/A"}</div>
                           </div>
                         </div>
@@ -188,18 +188,18 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
               </div>
 
               <div className="mb-6">
-                <h4 className="mb-4 text-lg font-medium">Thong tin thanh toan</h4>
+                <h4 className="mb-4 text-lg font-medium">Thông tin thanh toán</h4>
                 <div className="rounded-lg bg-gray-50 p-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <div className="mb-1 text-sm text-gray-500">
-                        Phuong thuc thanh toan
+                        Phương thức thanh toán
                       </div>
                       <div>{order.paymentMethod || "Credit Card"}</div>
                     </div>
                     <div>
                       <div className="mb-1 text-sm text-gray-500">
-                        Trang thai thanh toan
+                        Trạng thái thanh toán
                       </div>
                       <div
                         className={`inline-block rounded-full px-2 py-1 text-xs ${
@@ -216,11 +216,11 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
               </div>
 
               <div>
-                <h4 className="mb-4 text-lg font-medium">Tong tien don hang</h4>
+                <h4 className="mb-4 text-lg font-medium">Tổng tiền đơn hàng</h4>
                 <div className="rounded-lg bg-gray-50 p-4">
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Tong tien:</span>
+                      <span className="text-gray-600">Tổng tiền:</span>
                       <span>
                         $
                         {order.subtotal ||
@@ -236,23 +236,23 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Phi van chuyen:</span>
+                      <span className="text-gray-600">Phí vận chuyển:</span>
                       <span>{order.shippingFee || "Free"}</span>
                     </div>
                     {order.discount && (
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Giam gia:</span>
+                        <span className="text-gray-600">Giảm giá:</span>
                         <span className="text-green-600">-{order.discount}</span>
                       </div>
                     )}
                     {order.tax && (
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Thue:</span>
+                        <span className="text-gray-600">Thuế:</span>
                         <span>{order.tax}</span>
                       </div>
                     )}
                     <div className="mt-2 flex justify-between border-t pt-2 font-semibold">
-                      <span>Thanh tien:</span>
+                      <span>Thành tiền:</span>
                       <span>{order.totalAmount}</span>
                     </div>
                   </div>

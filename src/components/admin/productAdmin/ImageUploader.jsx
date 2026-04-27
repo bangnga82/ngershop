@@ -44,7 +44,7 @@ const ImageUploader = ({ images, onUpload, onRemove, maxImages = 4 }) => {
 				onDrop={handleDrop}
 				className={`mt-1 border-2 border-dashed rounded-lg p-4 text-center ${
 					draggedOver
-						? "border-orange-500 bg-orange-50"
+						? "border-[color:var(--accent)] bg-[color:var(--accent-soft)]"
 						: "border-gray-300"
 				}`}
 			>

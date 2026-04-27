@@ -94,7 +94,7 @@ const BeautyCorner = () => {
             <Link
               key={blog.slug}
               to={`/blog/${blog.slug}`}
-              className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6347]"
+              className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
                 <img

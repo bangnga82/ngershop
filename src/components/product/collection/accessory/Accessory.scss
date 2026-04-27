@@ -23,7 +23,7 @@
         font-weight: 500;
         margin-bottom: 30px;
         .second {
-          color: #ff6347;
+    color: var(--accent);
         }
       }
 
@@ -168,14 +168,14 @@
         border-bottom: 2px solid white;
 
         &:hover {
-          color: #fd8f7c;
-          border-bottom: 2px solid #fd8f7c;
+          color: var(--accent);
+          border-bottom: 2px solid var(--accent);
         }
       }
 
       .active {
-        color: #fd8f7c;
-        border-bottom: 2px solid #fd8f7c;
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
       }
     }
   }

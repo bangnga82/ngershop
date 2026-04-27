@@ -142,146 +142,147 @@ const UserAdminPage = () => {
 
   return (
     <>
-      <div className="space-y-6">
-        <HeaderAdmin title={"Users"} />
-
-        <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <form
-              onSubmit={handleSearchSubmit}
-              className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center"
-            >
-              <input
-                className="w-full rounded-md border border-gray-200 px-3 py-2"
-                placeholder="Tim theo email, ten..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <select
-                className="w-full rounded-md border border-gray-200 px-3 py-2 sm:w-48"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+      <HeaderAdmin title={"Users"} />
+      <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+        <div className="space-y-6">
+          <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <form
+                onSubmit={handleSearchSubmit}
+                className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center"
               >
-                {STATUS_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                <input
+                  className="w-full rounded-md border border-gray-200 px-3 py-2"
+                  placeholder="Tim theo email, ten..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <select
+                  className="w-full rounded-md border border-gray-200 px-3 py-2 sm:w-48"
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                >
+                  {STATUS_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="submit"
+                  className="min-w-24 whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-white"
+                >
+                  Tim kiem
+                </button>
+              </form>
+
               <button
-                type="submit"
-                className="min-w-24 whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-white"
+                type="button"
+                onClick={() => setShowCreate(true)}
+                className="rounded-md bg-emerald-600 px-4 py-2 text-white"
               >
-                Tim kiem
+                Tao admin
               </button>
-            </form>
+            </div>
 
-            <button
-              type="button"
-              onClick={() => setShowCreate(true)}
-              className="rounded-md bg-emerald-600 px-4 py-2 text-white"
-            >
-              Tao admin
-            </button>
-          </div>
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <span>Tong: {formattedTotal}</span>
+              {loading && <span>Dang tai...</span>}
+            </div>
 
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <span>Tong: {formattedTotal}</span>
-            {loading && <span>Dang tai...</span>}
-          </div>
+            {error && <p className="text-sm text-red-600">{error}</p>}
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
-
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-sm">
-              <thead className="text-xs uppercase text-gray-500">
-                <tr>
-                  <th className="px-4 py-3">ID</th>
-                  <th className="px-4 py-3">Email</th>
-                  <th className="px-4 py-3">Ten</th>
-                  <th className="px-4 py-3">Phone</th>
-                  <th className="px-4 py-3">Roles</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td className="px-4 py-3">{user.id}</td>
-                    <td className="px-4 py-3">{user.email}</td>
-                    <td className="px-4 py-3">{user.fullName || "-"}</td>
-                    <td className="px-4 py-3">{user.phoneNumber || "-"}</td>
-                    <td className="px-4 py-3">
-                      {(user.roles || []).join(", ")}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`rounded-full px-2 py-1 text-xs ${
-                          user.status === "ACTIVE"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-red-100 text-red-700"
-                        }`}
-                      >
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-                        <button
-                          type="button"
-                          onClick={() => handleStatusToggle(user)}
-                          className="rounded-md border border-gray-200 px-3 py-1 text-xs"
-                        >
-                          {user.status === "ACTIVE" ? "Lock" : "Unlock"}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleOpenReset(user)}
-                          className="rounded-md border border-gray-200 px-3 py-1 text-xs"
-                        >
-                          Reset pass
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {!loading && users.length === 0 && (
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left text-sm">
+                <thead className="text-xs uppercase text-gray-500">
                   <tr>
-                    <td colSpan="7" className="px-4 py-6 text-center text-sm">
-                      Khong co user nao.
-                    </td>
+                    <th className="px-4 py-3">ID</th>
+                    <th className="px-4 py-3">Email</th>
+                    <th className="px-4 py-3">Ten</th>
+                    <th className="px-4 py-3">Phone</th>
+                    <th className="px-4 py-3">Roles</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3 text-right">Actions</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td className="px-4 py-3">{user.id}</td>
+                      <td className="px-4 py-3">{user.email}</td>
+                      <td className="px-4 py-3">{user.fullName || "-"}</td>
+                      <td className="px-4 py-3">{user.phoneNumber || "-"}</td>
+                      <td className="px-4 py-3">
+                        {(user.roles || []).join(", ")}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`rounded-full px-2 py-1 text-xs ${
+                            user.status === "ACTIVE"
+                              ? "bg-emerald-100 text-emerald-700"
+                              : "bg-red-100 text-red-700"
+                          }`}
+                        >
+                          {user.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+                          <button
+                            type="button"
+                            onClick={() => handleStatusToggle(user)}
+                            className="rounded-md border border-gray-200 px-3 py-1 text-xs"
+                          >
+                            {user.status === "ACTIVE" ? "Lock" : "Unlock"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenReset(user)}
+                            className="rounded-md border border-gray-200 px-3 py-1 text-xs"
+                          >
+                            Reset pass
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {!loading && users.length === 0 && (
+                    <tr>
+                      <td colSpan="7" className="px-4 py-6 text-center text-sm">
+                        Khong co user nao.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
 
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">
-              Page {pageMeta.page + 1} / {pageMeta.totalPages || 1}
-            </span>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                className="rounded-md border border-gray-200 px-3 py-1 text-sm"
-                disabled={pageMeta.page <= 0}
-                onClick={() => fetchUsers(pageMeta.page - 1)}
-              >
-                Prev
-              </button>
-              <button
-                type="button"
-                className="rounded-md border border-gray-200 px-3 py-1 text-sm"
-                disabled={pageMeta.page + 1 >= pageMeta.totalPages}
-                onClick={() => fetchUsers(pageMeta.page + 1)}
-              >
-                Next
-              </button>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-500">
+                Page {pageMeta.page + 1} / {pageMeta.totalPages || 1}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className="rounded-md border border-gray-200 px-3 py-1 text-sm"
+                  disabled={pageMeta.page <= 0}
+                  onClick={() => fetchUsers(pageMeta.page - 1)}
+                >
+                  Prev
+                </button>
+                <button
+                  type="button"
+                  className="rounded-md border border-gray-200 px-3 py-1 text-sm"
+                  disabled={pageMeta.page + 1 >= pageMeta.totalPages}
+                  onClick={() => fetchUsers(pageMeta.page + 1)}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       {showCreate && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">

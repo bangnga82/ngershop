@@ -136,14 +136,14 @@ const ProductVariantAdminPage = () => {
             <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex-1">
                 <label className="block text-sm font-medium text-gray-700">
-                  San pham
+                  Sản phẩm
                 </label>
                 <select
                   value={selectedProductId}
                   onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
                 >
-                  <option value="">Chon san pham</option>
+                  <option value="">Chọn sản phẩm</option>
                   {products.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
@@ -215,7 +215,7 @@ const ProductVariantAdminPage = () => {
                     </div>
                   ))}
                   {variants.length === 0 && (
-                    <p className="text-sm text-gray-500">Chua co variant.</p>
+                    <p className="text-sm text-gray-500">Chưa có variant.</p>
                   )}
                 </div>
               )}

@@ -25,8 +25,8 @@
         text-align: center;
 
         &:hover {
-          color: #ff6347;
-          border-bottom: 4px solid #ff6347;
+          color: var(--accent);
+          border-bottom: 4px solid var(--accent);
         }
 
         @media screen and (max-width: 1109.98px) {
@@ -39,8 +39,8 @@
       }
 
       .active {
-        color: #ff6347;
-        border-bottom: 4px solid #ff6347;
+        color: var(--accent);
+        border-bottom: 4px solid var(--accent);
       }
     }
 
@@ -87,7 +87,7 @@
     span {
       font-size: 15px;
       font-weight: 400;
-      color: #ff6347;
+      color: var(--accent);
       display: flex;
       align-items: center;
       gap: 5px;
@@ -150,8 +150,8 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
       &:focus {
-        border-color: #ff6347;
-        box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.12);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(255, 95, 138, 0.12);
       }
     }
   }
@@ -183,8 +183,8 @@
 
       &:hover,
       &.active {
-        background: #ff6347;
-        border-color: #ff6347;
+        background: var(--accent);
+        border-color: var(--accent);
         color: #fff;
       }
     }
@@ -197,13 +197,13 @@
     gap: 16px;
 
     span {
-      color: #ff6347;
+      color: var(--accent);
       font-weight: 600;
     }
 
     button {
       padding: 12px 22px;
-      background-color: #ff6347;
+      background-color: var(--accent);
       color: #fff;
       font-size: 15px;
       font-weight: 600;
@@ -212,7 +212,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #e65538;
+        background-color: var(--accent-hover);
       }
 
       &:disabled {
@@ -262,7 +262,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #ff9f8d 0%, #ff6347 100%);
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent) 100%);
     color: #fff;
     font-size: 18px;
     font-weight: 700;
@@ -286,7 +286,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      color: #ff6347;
+      color: var(--accent);
       margin-bottom: 10px;
     }
 

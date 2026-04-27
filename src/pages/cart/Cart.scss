@@ -39,7 +39,7 @@
           span {
             font-size: 20px;
             font-weight: 500;
-            color: #ff6347;
+            color: var(--accent);
           }
         }
 
@@ -59,23 +59,23 @@
           }
 
           .btn1 {
-            border: 1px solid #ff6347;
+            border: 1px solid var(--accent);
             background-color: white;
-            color: #ff6347;
+            color: var(--accent);
 
             &:hover {
-              background-color: #ff6347;
+              background-color: var(--accent);
               color: white;
             }
           }
 
           .btn2{
-            background-color: #ff6347;
+            background-color: var(--accent);
             color: white;
 
             &:hover {
               background-color: rgb(237, 236, 236);
-              color: #ff6347;
+              color: var(--accent);
             }
           }
         }

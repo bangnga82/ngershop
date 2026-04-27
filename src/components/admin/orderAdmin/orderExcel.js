@@ -50,7 +50,8 @@ export const getOrderStatusCounts = (orders) => {
     'Shipping': 0,
     'Pending': 0,
     'Cancelled': 0,
-    'Processing': 0
+    'Processing': 0,
+    'Paid': 0
   };
   
   orders.forEach(order => {

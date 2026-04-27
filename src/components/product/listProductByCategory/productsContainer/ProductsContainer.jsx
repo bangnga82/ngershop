@@ -8,6 +8,8 @@ import { mapProductToCard } from "@/utils/api/mappers";
 import ProductItem from "../../discountedProduct/productItem/ProductItem";
 import "./ProductsContainer.scss";
 
+const PAGE_SIZE = 8;
+
 const SORT_OPTIONS = {
   DEFAULT: "default",
   NAME_ASC: "name_asc",
@@ -19,7 +21,6 @@ const SORT_OPTIONS = {
 };
 
 const ProductsContainer = ({ categoryName }) => {
-  const [pageSize, setPageSize] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -34,6 +35,11 @@ const ProductsContainer = ({ categoryName }) => {
     setSortOption(event.target.value);
     setCurrentPage(1);
   };
+
+  useEffect(() => {
+    // When switching category, always start from page 1 to avoid landing on an out-of-range page.
+    setCurrentPage(1);
+  }, [categoryName]);
 
   useEffect(() => {
     let isMounted = true;
@@ -62,7 +68,7 @@ const ProductsContainer = ({ categoryName }) => {
     productApi
       .getProducts({
         page: currentPage - 1,
-        size: pageSize,
+        size: PAGE_SIZE,
         category: categoryName,
         status: true,
         ...sortParams,
@@ -89,7 +95,7 @@ const ProductsContainer = ({ categoryName }) => {
     return () => {
       isMounted = false;
     };
-  }, [currentPage, pageSize, categoryName, sortOption]);
+  }, [currentPage, categoryName, sortOption]);
 
   return (
     <div className="productsContainer">
@@ -122,10 +128,11 @@ const ProductsContainer = ({ categoryName }) => {
 
       <Pagination
         align="center"
-        pageSize={pageSize}
+        pageSize={PAGE_SIZE}
         total={total}
         current={currentPage}
         onChange={handleChangePage}
+        showSizeChanger={false}
         style={{ marginBottom: "20px" }}
       />
     </div>
@@ -133,4 +140,3 @@ const ProductsContainer = ({ categoryName }) => {
 };
 
 export default ProductsContainer;
-

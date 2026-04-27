@@ -18,8 +18,6 @@ const emptyAddress = {
   street: "",
   city: "",
   state: "",
-  country: "",
-  zipCode: "",
   description: "",
   isDefault: false,
 };
@@ -74,8 +72,6 @@ const Account = () => {
             street: firstAddress?.street || "",
             city: firstAddress?.city || "",
             state: firstAddress?.state || "",
-            country: firstAddress?.country || "",
-            zipCode: firstAddress?.zipCode || "",
             description: firstAddress?.description || "",
             isDefault: Boolean(firstAddress?.isDefault),
           });
@@ -273,7 +269,7 @@ const Account = () => {
                   />
                 </label>
                 <label>
-                  Thành phố
+                  Quận/Huyện
                   <input
                     name="city"
                     value={address.city}
@@ -285,22 +281,6 @@ const Account = () => {
                   <input
                     name="state"
                     value={address.state}
-                    onChange={handleAddressChange}
-                  />
-                </label>
-                <label>
-                  Quốc gia
-                  <input
-                    name="country"
-                    value={address.country}
-                    onChange={handleAddressChange}
-                  />
-                </label>
-                <label>
-                  Mã bưu điện
-                  <input
-                    name="zipCode"
-                    value={address.zipCode}
                     onChange={handleAddressChange}
                   />
                 </label>

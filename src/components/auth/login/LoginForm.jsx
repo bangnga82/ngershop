@@ -10,6 +10,9 @@ import { loginValidationSchema } from "@/utils/validation/authValidation";
 import ForgotPassword from "../forgotPassword/ForgotPassword";
 import { useLocation, useNavigate } from "react-router-dom";
 import authApi from "@/utils/api/authApi";
+import { emitFavoriteProductsUpdated } from "@/utils/favoriteProducts";
+import { emitRecentlyViewedUpdated } from "@/utils/recentlyViewedProducts";
+import { ensureAdminStatus } from "@/utils/auth";
 
 const LoginForm = ({ setIsLogin, compact = false }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,9 +46,17 @@ const LoginForm = ({ setIsLogin, compact = false }) => {
         const expiresAt = Date.now() + Number(expiresIn) * 1000;
         localStorage.setItem("accessTokenExpiresAt", String(expiresAt));
       }
+      emitFavoriteProductsUpdated();
+      emitRecentlyViewedUpdated();
       const params = new URLSearchParams(location.search);
-      const redirect = params.get("redirect") || "/";
-      navigate(redirect);
+      const redirect = params.get("redirect");
+      if (redirect && redirect.trim().length > 0) {
+        navigate(redirect);
+        return;
+      }
+
+      const isAdmin = await ensureAdminStatus().catch(() => false);
+      navigate(isAdmin ? "/admin" : "/");
     } catch (error) {
       const message =
         error?.response?.data?.data?.message ||
@@ -143,7 +154,7 @@ const LoginForm = ({ setIsLogin, compact = false }) => {
                 className="p_forgotPassword"
                 onClick={() => setIsForgotPassword(true)}
               >
-                Quên mật khẩu?
+                {/*Quên mật khẩu?*/}
               </p>
               {isFogotPassword && <ForgotPassword />}
               <p className="login-switch">

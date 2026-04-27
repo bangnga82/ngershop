@@ -31,7 +31,8 @@ const AdminGuard = ({ children }) => {
 
   if (status === "checking") return null;
   if (status === "no-auth") {
-    return <Navigate to="/auth?mode=login" replace />;
+    const redirect = encodeURIComponent(`${location.pathname}${location.search}`);
+    return <Navigate to={`/auth?mode=login&redirect=${redirect}`} replace />;
   }
   if (status === "denied") {
     return <Navigate to="/" replace />;

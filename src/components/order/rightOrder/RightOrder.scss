@@ -122,7 +122,7 @@
       cursor: pointer;
 
       &:hover {
-        color: #ff6347;
+      color: var(--accent);
         text-decoration: underline;
       }
     }
@@ -130,7 +130,7 @@
     &-btn {
       width: 100px;
       height: 40px;
-      background-color: #ff6347;
+      background-color: var(--accent);
       color: white;
       border: none;
       border-radius: 5px;

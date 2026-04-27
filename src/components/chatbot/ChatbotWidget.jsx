@@ -5,16 +5,19 @@ import chatbotApi from "@/utils/api/chatbotApi";
 import { getUserIdFromToken } from "@/utils/auth";
 import { formatNumber } from "@/utils/function";
 import { resolveImageUrl } from "@/utils/api/mappers";
+import {
+  CHATBOT_MESSAGES_KEY,
+  CHATBOT_OPEN_KEY,
+  CHATBOT_SESSION_KEY,
+  CHATBOT_RESET_EVENT,
+} from "@/utils/chatbotSession";
 
-const CHATBOT_MESSAGES_KEY = "ngershop_chatbot_messages";
-const CHATBOT_OPEN_KEY = "ngershop_chatbot_open";
-const CHATBOT_SESSION_KEY = "ngershop_chatbot_session";
 const CHATBOT_AUTO_HIDE_DELAY = 60000;
 
 const defaultBotMessage = {
   id: "bot-welcome",
   role: "bot",
-  text: "Xin chao! Ban can tu van san pham hay don hang?",
+  text: "Xin chào!Bạn cần tư vấn gì?",
 };
 
 const readStoredMessages = () => {
@@ -22,7 +25,20 @@ const readStoredMessages = () => {
     const raw = localStorage.getItem(CHATBOT_MESSAGES_KEY);
     if (!raw) return [defaultBotMessage];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : [defaultBotMessage];
+    if (!Array.isArray(parsed) || parsed.length === 0) return [defaultBotMessage];
+
+    // Migrate legacy welcome text if the conversation hasn't started yet.
+    const first = parsed[0];
+    if (
+      parsed.length === 1 &&
+      first?.id === defaultBotMessage.id &&
+      first?.role === "bot" &&
+      first?.text !== defaultBotMessage.text
+    ) {
+      return [defaultBotMessage];
+    }
+
+    return parsed;
   } catch {
     return [defaultBotMessage];
   }
@@ -89,6 +105,29 @@ const ChatbotWidget = ({ onSend }) => {
     localStorage.setItem(CHATBOT_SESSION_KEY, currentSessionId);
     sessionRef.current = currentSessionId;
   }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    const handleReset = () => {
+      const currentSessionId = getChatbotSessionId();
+      sessionRef.current = currentSessionId;
+      setMessages([defaultBotMessage]);
+      setInputValue("");
+      setIsSending(false);
+      setIsOpen(false);
+      try {
+        localStorage.setItem(CHATBOT_MESSAGES_KEY, JSON.stringify([defaultBotMessage]));
+        localStorage.setItem(CHATBOT_OPEN_KEY, "false");
+        localStorage.setItem(CHATBOT_SESSION_KEY, currentSessionId);
+      } catch {
+        // ignore
+      }
+    };
+
+    window.addEventListener(CHATBOT_RESET_EVENT, handleReset);
+    return () => {
+      window.removeEventListener(CHATBOT_RESET_EVENT, handleReset);
+    };
+  }, []);
 
   useEffect(() => {
     if (autoHideTimeoutRef.current) {
@@ -189,6 +228,9 @@ const ChatbotWidget = ({ onSend }) => {
     return resolveImageUrl(imageUrl);
   };
 
+  const shouldHide = location.pathname.startsWith("/auth");
+  if (shouldHide) return null;
+
   return (
     <div className="chatbot-widget">
       <button
@@ -202,8 +244,8 @@ const ChatbotWidget = ({ onSend }) => {
       <div className={`chatbot-panel ${isOpen ? "chatbot-panel--open" : ""}`}>
         <div className="chatbot-header">
           <div>
-            <p className="chatbot-title">Tro ly NgerShop</p>
-            <p className="chatbot-subtitle">Ho tro 24/7 • Phan hoi nhanh</p>
+            <p className="chatbot-title">Trợ lý NgerShop</p>
+            <p className="chatbot-subtitle">Hỗ trợ 24/7 • Phản hồi nhanh</p>
           </div>
           <button
             className="chatbot-close"
@@ -226,7 +268,7 @@ const ChatbotWidget = ({ onSend }) => {
                   Array.isArray(message.products) &&
                   message.products.length > 0 && (
                     <div className="chatbot-products">
-                      {message.products.slice(0, 4).map((product) => (
+                      {message.products.slice(0, 5).map((product) => (
                         <Link
                           key={product?.id}
                           to={`/product/${product?.id}`}
@@ -261,7 +303,7 @@ const ChatbotWidget = ({ onSend }) => {
 
           {isSending && (
             <div className="chatbot-message chatbot-message--bot">
-              <div className="chatbot-bubble chatbot-bubble--typing">Dang tra loi...</div>
+              <div className="chatbot-bubble chatbot-bubble--typing">Đang trả lời...</div>
             </div>
           )}
 

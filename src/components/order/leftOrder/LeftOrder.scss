@@ -33,6 +33,16 @@
           font-weight: 600;
         }
       }
+
+      &-edit {
+        margin-left: auto;
+        border: none;
+        background: transparent;
+        color: var(--accent, #ff5f7b);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
     }
 
     &-addAddress {
@@ -50,7 +60,7 @@
       }
 
       &:hover {
-        color: #ff6347;
+      color: var(--accent);
       }
     }
   }

@@ -18,7 +18,7 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 				</div>
 				<div className="p-6">
 					<div className="flex items-center mb-6">
-						<div className="h-16 w-16 bg-orange-100 rounded-lg flex items-center justify-center text-4xl overflow-hidden">
+						<div className="h-16 w-16 bg-[color:var(--accent-soft)] rounded-lg flex items-center justify-center text-4xl overflow-hidden">
 							{category.imageUrl ? (
 								<img
 									src={category.imageUrl}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FaRegStar,
   FaRegStarHalfStroke,
@@ -25,13 +25,28 @@ const getInitial = (name = "") => {
   return trimmed ? trimmed.charAt(0).toUpperCase() : "U";
 };
 
-const InformationDetail = ({ product, onReviewCreated }) => {
+const InformationDetail = ({ product, onReviewCreated, focusSection }) => {
   const navigate = useNavigate();
   const [typeMenu, setTypeMenu] = useState("info");
   const [rate, setRate] = useState(0);
   const [reviewForm, setReviewForm] = useState(REVIEW_EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
   const comments = product?.comments || [];
+  const focusedProductRef = useRef(null);
+
+  useEffect(() => {
+    if (focusSection !== "reviews" || !product?.id) return;
+    if (focusedProductRef.current === product.id) return;
+    focusedProductRef.current = product.id;
+    setTypeMenu("comment");
+  }, [focusSection, product?.id]);
+
+  useEffect(() => {
+    if (focusSection !== "reviews") return;
+    if (typeMenu !== "comment") return;
+    const el = document.getElementById("product-reviews");
+    el?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+  }, [focusSection, typeMenu]);
 
   useEffect(() => {
     if (!comments.length) {
@@ -99,8 +114,8 @@ const InformationDetail = ({ product, onReviewCreated }) => {
     <div className="comment__composer">
       <div className="comment__composer-header">
         <div>
-          <h2>Viet danh gia</h2>
-          <p>Chi danh gia sau khi don hang da duoc giao thanh cong.</p>
+          <h2>Viết đánh giá</h2>
+          {/*<p>Chi danh gia sau khi don hang da duoc giao thanh cong.</p>*/}
         </div>
         <div className="comment__composer-stars">
           {[1, 2, 3, 4, 5].map((star) => (
@@ -127,7 +142,7 @@ const InformationDetail = ({ product, onReviewCreated }) => {
             comment: event.target.value,
           }))
         }
-        placeholder="Cam nhan cua ban ve san pham nay..."
+        placeholder="Cảm nhận của bạn về sản phẩm này..."
         rows={5}
       />
 
@@ -152,19 +167,19 @@ const InformationDetail = ({ product, onReviewCreated }) => {
             className={`${typeMenu === "info" ? "active" : ""}`}
             onClick={() => setTypeMenu("info")}
           >
-            Thong tin san pham
+            Thông tin sản phẩm
           </li>
           <li
             className={`${typeMenu === "exchangePolicy" ? "active" : ""}`}
             onClick={() => setTypeMenu("exchangePolicy")}
           >
-            Chinh sach doi tra
+            Chính sách đổi trả
           </li>
           <li
             className={`${typeMenu === "comment" ? "active" : ""}`}
             onClick={() => setTypeMenu("comment")}
           >
-            Danh gia san pham
+            Đánh giá sản phẩm
           </li>
         </ul>
       </div>
@@ -179,7 +194,7 @@ const InformationDetail = ({ product, onReviewCreated }) => {
         </div>
       )}
       {typeMenu === "comment" && (
-        <div data-aos="fade-up" className="comment">
+        <div data-aos="fade-up" className="comment" id="product-reviews">
           <div className="comment__summary">
             <h1>{product.name}</h1>
             <div className="comment__summary-rate">
@@ -190,7 +205,7 @@ const InformationDetail = ({ product, onReviewCreated }) => {
                 <span>{renderAverageStars()}</span>
               </div>
               <div className="comment__summary-rate-count">
-                <span>{comments.length}</span> Danh gia
+                <span>{comments.length}</span> Đánh giá
               </div>
             </div>
           </div>
@@ -198,7 +213,7 @@ const InformationDetail = ({ product, onReviewCreated }) => {
           {renderReviewComposer()}
 
           {comments.length === 0 ? (
-            <div className="comment__no">Chua co danh gia nao</div>
+            <div className="comment__no">Chưa có đánh giá nào</div>
           ) : (
             <div className="comment__list">
               {comments.map((comment) => (

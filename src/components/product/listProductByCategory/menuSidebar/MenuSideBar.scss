@@ -28,18 +28,18 @@
       p{
         cursor: pointer;
         &:hover{
-          color: #ff6347;
+          color: var(--accent);
         }
       }
 
       .is-active {
-        color: #ff6347;
+        color: var(--accent);
         font-weight: 600;
       }
 
       .icon-up{
         font-size: 20px;
-        color: #ff6347;
+        color: var(--accent);
         cursor: pointer;
       }
 
@@ -62,7 +62,7 @@
         cursor: pointer;
 
         &:hover{
-          color: #ff6347;
+          color: var(--accent);
         }
       }
     }

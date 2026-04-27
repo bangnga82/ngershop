@@ -156,6 +156,24 @@
       color: #7d6960;
       font-size: 13px;
     }
+
+    .order-item__review {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 107, 71, 0.55);
+      background: #fff;
+      color: #ff6b47;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+      &:hover {
+        background: #ff6b47;
+        color: #fff;
+        border-color: #ff6b47;
+      }
+    }
   }
 }
 

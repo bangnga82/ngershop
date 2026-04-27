@@ -61,7 +61,7 @@ const BlogCard = ({ blog, index }) => {
 								</span>
 							</div>
 							<div className="ml-auto">
-								<span className="text-[#ff6347] hover:underline text-sm">
+								<span className="text-[color:var(--accent)] hover:underline text-sm">
 									Đọc tiếp
 								</span>
 							</div>

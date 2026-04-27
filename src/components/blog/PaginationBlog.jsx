@@ -15,7 +15,7 @@ const PaginationBlog = ({ currentPage, totalPages, onPageChange }) => {
             <li>
               <button
                 onClick={() => onPageChange(currentPage - 1)}
-                className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-[#ff6347] hover:text-white duration-300"
+                className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-[color:var(--accent)] hover:text-white duration-300"
               >
                 <ChevronLeft size={20}/>
               </button>
@@ -28,8 +28,8 @@ const PaginationBlog = ({ currentPage, totalPages, onPageChange }) => {
                 onClick={() => onPageChange(page)}
                 className={`flex items-center justify-center w-10 h-10 rounded-md ${
                   currentPage === page
-                    ? "bg-[#ff6347] text-white"
-                    : "border border-gray-300 bg-white text-gray-700 hover:bg-[#ff6347] hover:text-white duration-300"
+                    ? "bg-[color:var(--accent)] text-white"
+                    : "border border-gray-300 bg-white text-gray-700 hover:bg-[color:var(--accent)] hover:text-white duration-300"
                 }`}
               >
                 {page}
@@ -41,7 +41,7 @@ const PaginationBlog = ({ currentPage, totalPages, onPageChange }) => {
             <li>
               <button
                 onClick={() => onPageChange(currentPage + 1)}
-                className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-[#ff6347] hover:text-white duration-300"   
+                className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-[color:var(--accent)] hover:text-white duration-300"   
               >
                 <ChevronRight size={20}/>
               </button>

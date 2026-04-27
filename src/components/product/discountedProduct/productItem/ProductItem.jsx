@@ -107,31 +107,31 @@ const ProductItem = ({ product, breadcrumbCategory }) => {
             >
                 <FaRegHeart onClick={() => handleLike(product)} />
             </div>
-            <div
-                className="product-item_img"
-            >
-                <img src={images[indexImage]} alt={product.name} loading="lazy" />
-            </div>
-            <button className="product-item_add-to-card" onClick={handleAddToCart}>
-                Them vao gio hang
-            </button>
-            <div className="product-item_img-list">
-                {images.map((image, index) => (
-                    <div
-                        onMouseEnter={() => setIndexImage(index)}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setIndexImage(index);
-                        }}
-                        key={index}
-                        className={`product-item_img-list-item ${
-                            index === indexImage ? "active" : ""
-                        }`}
-                    >
-                        <img src={image} alt={product.name} loading="lazy" />
-                    </div>
-                ))}
-            </div>
+             <div
+                 className="product-item_img"
+             >
+                 <img src={images[indexImage]} alt={product.name} loading="lazy" />
+             </div>
+             <button className="product-item_add-to-card" onClick={handleAddToCart}>
+                 Them vao gio hang
+             </button>
+             <div className="product-item_img-list">
+                 {images.map((image, index) => (
+                     <div
+                         onMouseEnter={() => setIndexImage(index)}
+                         onClick={(e) => {
+                             e.stopPropagation();
+                             setIndexImage(index);
+                         }}
+                         key={index}
+                         className={`product-item_img-list-item ${
+                             index === indexImage ? "active" : ""
+                         }`}
+                     >
+                         <img src={image} alt={product.name} loading="lazy" />
+                     </div>
+                 ))}
+             </div>
             <p
                 className="product-item_name"
             >

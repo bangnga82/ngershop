@@ -145,9 +145,9 @@ const RightSession = ({
                 <h1>{product.name}</h1>
                 <div className="right-session__product-name__icons">
                     {isLike ? (
-                        <FaHeart
+                            <FaHeart
                             onClick={handleToggleFavorite}
-                            style={{ fontSize: "24px", cursor: "pointer", color: "#ff6347" }}
+                            style={{ fontSize: "24px", cursor: "pointer", color: "var(--accent)" }}
                         />
                     ) : (
                         <FaRegHeart
@@ -173,7 +173,7 @@ const RightSession = ({
         </span>
             </div>
             <div className="right-session__type">
-                <p>Phan loai</p>
+                <p>Phân loại</p>
                 <div className="right-session__type__buttons">
                     {(product.types || ["Default"]).map((type, index) => (
                         <button
@@ -195,7 +195,7 @@ const RightSession = ({
                 </div>
             </div>
             <div className="right-session__quantity-group">
-                <p>So luong</p>
+                <p>Số lượng</p>
                 <div className="right-session__quantity-group__quantity">
                     <div className="right-session__quantity-group__quantity-buttons">
                         <button
@@ -229,12 +229,12 @@ const RightSession = ({
                             +
                         </button>
                     </div>
-                    <p>Tim kiem san pham tuong tu</p>
+                    {/*<p>Tim kiem san pham tuong tu</p>*/}
                 </div>
             </div>
             <div className="right-session__button">
                 <button className="right-session__button-add" onClick={handleAddToCart}>
-                    Them vao gio hang
+                    Thêm vào giỏ hàng
                 </button>
                 <button className="right-session__button-buy" onClick={handleBuyNow}>
                     Mua ngay

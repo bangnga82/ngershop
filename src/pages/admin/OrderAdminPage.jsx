@@ -11,6 +11,7 @@ import OrderViewModal from "@/components/admin/orderAdmin/OrderViewModal";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
 import { ORDER_STATUS_LABELS } from "@/components/admin/orderAdmin/orderStatusOptions";
 import orderApi from "@/utils/api/orderApi";
+import { resolveImageUrl } from "@/utils/api/mappers";
 
 const placeholderItem = {
   image: "/vite.svg",
@@ -22,11 +23,12 @@ const mapOrderToAdmin = (order) => {
   const items =
     order?.items?.map((item) => ({
       id: item.variantId,
-      name: `Variant ${item.variantId}`,
+      name: item.productName || `Variant ${item.variantId}`,
       price: `$${Number(item.price || 0).toFixed(2)}`,
       quantity: item.quantity,
-      subtotal: `$${Number(item.price || 0) * item.quantity}`,
+      subtotal: `$${(Number(item.price || 0) * item.quantity).toFixed(2)}`,
       ...placeholderItem,
+      image: resolveImageUrl(item.imageUrl) || placeholderItem.image,
     })) || [];
 
   const rawStatus = order?.status || "PENDING";
@@ -35,8 +37,8 @@ const mapOrderToAdmin = (order) => {
     id: order?.id,
     reference: order?.reference || order?.id,
     orderDate: order?.createdDate || new Date().toISOString(),
-    sellerName: "TechNova",
-    storeName: "TechNova Official",
+    sellerName: "NgerShop",
+    storeName: "NgerShop Official",
     sellerContact: "N/A",
     rawStatus,
     status: mappedStatus,

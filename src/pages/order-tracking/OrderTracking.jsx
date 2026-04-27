@@ -33,6 +33,7 @@ const mapOrderItemWithVariant = async (item) => {
     const variant = res?.data?.data;
     return {
       variantId: item.variantId,
+      productId: variant?.productId || null,
       quantity: item.quantity,
       price: item.price,
       name: variant?.productName || `San pham ${item.variantId}`,
@@ -42,6 +43,7 @@ const mapOrderItemWithVariant = async (item) => {
   } catch (error) {
     return {
       variantId: item.variantId,
+      productId: null,
       quantity: item.quantity,
       price: item.price,
       name: `San pham ${item.variantId}`,
@@ -176,6 +178,19 @@ const OrderTracking = () => {
                             <span>
                               Tạm tính: {formatNumber(item.price * item.quantity)} d
                             </span>
+                            {order.status === "DELIVERED" && item.productId && (
+                              <button
+                                type="button"
+                                className="order-item__review"
+                                onClick={() => {
+                                  navigate(`/product/${item.productId}`, {
+                                    state: { scrollTo: "reviews" },
+                                  });
+                                }}
+                              >
+                                Đánh giá
+                              </button>
+                            )}
                           </div>
                         </div>
                       ))}

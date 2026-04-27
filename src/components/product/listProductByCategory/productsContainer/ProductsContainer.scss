@@ -33,7 +33,7 @@
 
         &:focus {
           outline: none;
-          border: 1px solid #ff6347;
+          border: 1px solid var(--accent);
         }
 
         option {
@@ -49,10 +49,18 @@
   .productsContainer__list {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 18px;
     align-items: start;
     margin-bottom: 50px;
+
+    @media screen and (max-width: 1199.98px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media screen and (max-width: 899.98px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
     @media screen and (max-width: 504.98px) {
       grid-template-columns: 1fr;
@@ -60,8 +68,8 @@
 
     .product-item {
       width: 100%;
-      max-width: 260px;
-      margin: 0 auto;
+      max-width: none;
+      margin: 0;
     }
   }
 

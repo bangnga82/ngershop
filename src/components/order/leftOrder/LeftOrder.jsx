@@ -13,10 +13,11 @@ const LeftOrder = ({
   paymentMethod,
   onSelectPayment,
   onAddAddress,
+  onEditAddress,
 }) => {
   return (
     <div className="leftOrder">
-      <h1>Dia chi nhan hang</h1>
+      <h1>Địa chỉ nhận hàng</h1>
       <div className="leftOrder__address">
         {addresses.map((address) => (
           <div key={address.id} className="leftOrder__address-item">
@@ -32,10 +33,20 @@ const LeftOrder = ({
               </p>
               <p>{address.phoneNumber}</p>
               <p>
-                {address.street}, {address.city}, {address.state},{" "}
-                {address.country}
+                {address.street}, {address.state}, {address.city}
               </p>
             </div>
+            <button
+              type="button"
+              className="leftOrder__address-item-edit"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onEditAddress?.(address);
+              }}
+            >
+              Sửa
+            </button>
           </div>
         ))}
         <div
@@ -43,10 +54,10 @@ const LeftOrder = ({
           onClick={onAddAddress}
         >
           <MdAddCircleOutline className="leftOrder__address-addAddress-icon" />
-          <p>Them dia chi moi</p>
+          <p>Thêm địa chỉ mới</p>
         </div>
       </div>
-      <h1>Phuong thuc thanh toan</h1>
+      <h1>Phương thức thanh toán</h1>
       <div className="leftOrder__payment">
         <div className="leftOrder__payment-item">
           <input
@@ -58,7 +69,7 @@ const LeftOrder = ({
           <div className="leftOrder__payment-item-info">
             <img src={cod} />
             <div className="leftOrder__payment-item-info-detail">
-              <p className="title">Thanh toan khi nhan hang</p>
+              <p className="title">Thanh toán khi nhận hàng</p>
               <div className="detailt-item">
                 <p>COD</p>
               </div>
@@ -75,7 +86,7 @@ const LeftOrder = ({
           <div className="leftOrder__payment-item-info">
             <img src={vnpay} />
             <div className="leftOrder__payment-item-info-detail">
-              <p className="title">Vi dien tu</p>
+              <p className="title">Ví điện tử</p>
               <div className="detailt-item">
                 <p>VN PAY</p>
                 <img src={vnpayIcon} />

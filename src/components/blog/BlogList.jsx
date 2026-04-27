@@ -38,7 +38,7 @@ const BlogList = () => {
 			<div className="mb-7">
 				<span>Trang chủ</span>
 				<span>{" > "}</span>
-				<span className="font-bold text-[#ff6347]">Tin tức</span>
+				<span className="font-bold text-[color:var(--accent)]">Tin tức</span>
 			</div>
 			<motion.div
 				variants={containerVariants}

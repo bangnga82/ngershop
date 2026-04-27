@@ -116,7 +116,7 @@ const ContactAdminPage = () => {
                   disabled={isLoading || page <= 0}
                   className="px-4 py-2 border rounded-md disabled:opacity-60"
                 >
-                  Truoc
+                  Trước
                 </button>
                 <button
                   type="button"
@@ -131,15 +131,15 @@ const ContactAdminPage = () => {
 
             <div className="bg-white border rounded-lg overflow-hidden">
               <div className="grid grid-cols-12 gap-2 px-4 py-3 bg-gray-50 text-sm font-semibold">
-                <div className="col-span-3">Khach hang</div>
-                <div className="col-span-3">Lien he</div>
-                <div className="col-span-4">Noi dung</div>
-                <div className="col-span-2">Thoi gian</div>
+                <div className="col-span-3">Khách hàng</div>
+                <div className="col-span-3">Liên hệ</div>
+                <div className="col-span-4">Nội dung</div>
+                <div className="col-span-2">Thời gian</div>
               </div>
 
               {filtered.length === 0 ? (
                 <div className="px-4 py-6 text-sm text-gray-500">
-                  Chua co tin nhan.
+                  Chưa có tin nhắn.
                 </div>
               ) : (
                 filtered.map((x) => (
@@ -147,7 +147,7 @@ const ContactAdminPage = () => {
                     key={x.id}
                     type="button"
                     onClick={() => openFromListItem(x)}
-                    className="w-full text-left grid grid-cols-12 gap-2 px-4 py-3 border-t hover:bg-orange-50"
+                    className="w-full text-left grid grid-cols-12 gap-2 px-4 py-3 border-t hover:bg-[color:var(--accent-soft)]"
                   >
                     <div className="col-span-3">
                       <div className="font-medium">

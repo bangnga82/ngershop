@@ -6,7 +6,7 @@ const CategoryListItem = ({ category, onView, onEdit, onDelete }) => {
 		<tr className="hover:bg-gray-50">
 			<td className="px-4 py-4 whitespace-nowrap">
 				<div className="flex items-center">
-					<div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center text-xl overflow-hidden flex-shrink-0">
+				<div className="h-10 w-10 bg-[color:var(--accent-soft)] rounded-lg flex items-center justify-center text-xl overflow-hidden flex-shrink-0">
 						{category.imageUrl ? (
 							<img
 								src={category.imageUrl}
@@ -50,7 +50,7 @@ const CategoryListItem = ({ category, onView, onEdit, onDelete }) => {
 					</button>
 					<button
 						onClick={() => onEdit(category)}
-						className="cursor-pointer text-orange-500 hover:text-orange-700"
+						className="cursor-pointer text-[color:var(--accent)] hover:text-[color:var(--accent-hover)]"
 						title="Edit Category"
 					>
 						<Edit className="h-4 w-4" />

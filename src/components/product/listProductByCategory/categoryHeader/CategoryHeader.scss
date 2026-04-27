@@ -35,11 +35,11 @@
     .swiper-icon {
       width: 20px;
       height: 20px;
-      color: #ff6347;
+      color: var(--accent);
     }
 
     &:hover {
-      background-color: #ff6347;
+      background-color: var(--accent);
 
       .swiper-icon {
         color: #fff;
@@ -99,7 +99,7 @@
           background-color: #ffffff;
 
           &:hover {
-            color: #ff6347;
+            color: var(--accent);
           }
         }
 

@@ -32,8 +32,17 @@ const Footer = () => {
         <li className="footer__item hover" onClick={() => navigate("/blog")}>
           Tin tức
         </li>
-        <li className="footer__item hover">Hệ thống cửa hàng</li>
-        <li className="footer__item hover">Sản phẩm</li>
+        <li
+          className="footer__item hover"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navigate("/market-system");
+          }}
+        >
+          Hệ thống cửa hàng
+        </li>
+        {/*<li className="footer__item hover">Sản phẩm</li>*/}
       </ul>
 
       <ul className="footer__list">
@@ -44,9 +53,9 @@ const Footer = () => {
         >
           Kiểm tra đơn hàng
         </li>
-        <li className="footer__item hover">Chính sách vận chuyển</li>
-        <li className="footer__item hover">Chính sách đổi trả</li>
-        <li className="footer__item hover">Bảo mật khách hàng</li>
+        {/*<li className="footer__item hover">Chính sách vận chuyển</li>*/}
+        {/*<li className="footer__item hover">Chính sách đổi trả</li>*/}
+        {/*<li className="footer__item hover">Bảo mật khách hàng</li>*/}
         <li
           className="footer__item hover"
           onClick={() => navigate("/auth?mode=register")}
@@ -59,4 +68,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

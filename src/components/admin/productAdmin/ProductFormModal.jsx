@@ -83,7 +83,7 @@ const ProductFormModal = ({
                 name="name"
                 value={formData.name}
                 onChange={handleFormChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
                 required
               />
             </div>
@@ -95,7 +95,7 @@ const ProductFormModal = ({
                 name="category"
                 value={formData.category}
                 onChange={handleFormChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
                 required
               >
                 <option value="">Chon danh muc</option>
@@ -117,7 +117,7 @@ const ProductFormModal = ({
                 onChange={handleFormChange}
                 step="1"
                 min="0"
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
                 required
               />
             </div>
@@ -130,7 +130,7 @@ const ProductFormModal = ({
               name="description"
               value={formData.description}
               onChange={handleFormChange}
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
               rows="4"
             ></textarea>
           </div>

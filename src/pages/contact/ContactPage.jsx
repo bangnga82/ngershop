@@ -63,12 +63,12 @@ const ContactPage = () => {
             <div className="flex items-center gap-3 mb-10">
               <span
                 onClick={() => navigate("/")}
-                className="cursor-pointer hover:text-[#ff6347] duration-200"
+                className="cursor-pointer hover:text-[color:var(--accent-hover)] duration-200"
               >
                 Trang chủ
               </span>
               <FaChevronRight size={12} className="inline-block" />
-              <p className="font-bold text-[#ff6347]">Liên hệ</p>
+              <p className="font-bold text-[color:var(--accent)]">Liên hệ</p>
             </div>
 
             <div className="block-title text-center mb-10">
@@ -86,7 +86,7 @@ const ContactPage = () => {
                 <div className="block-time text-center flex justify-center items-center flex-col gap-2">
                   <div>
                     <RiMapPin2Fill
-                      color="#FF6347"
+                      color="var(--accent)"
                       size={60}
                       className="inline-block"
                     />
@@ -102,7 +102,7 @@ const ContactPage = () => {
                 <div className="block-time text-center flex justify-center items-center flex-col gap-2">
                   <div>
                     <IoMdMail
-                      color="#FF6347"
+                      color="var(--accent)"
                       size={60}
                       className="inline-block"
                     />
@@ -116,7 +116,7 @@ const ContactPage = () => {
                 <div className="block-time text-center flex justify-center items-center flex-col gap-2">
                   <div>
                     <BsTelephoneFill
-                      color="#ff6347"
+                      color="var(--accent)"
                       size={60}
                       className="inline-block"
                     />
@@ -178,7 +178,7 @@ const ContactPage = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-3 cursor-pointer text-white bg-[#FF6347] rounded-md hover:bg-white hover:text-[#FF6347] hover:border-[#ff6347] border border-transparent hover:border duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="px-6 py-3 cursor-pointer text-white bg-[color:var(--accent)] rounded-md hover:bg-white hover:text-[color:var(--accent)] hover:border-[color:var(--accent)] border border-transparent hover:border duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     Gửi thông tin
                   </button>
@@ -193,4 +193,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-

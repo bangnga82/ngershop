@@ -1,9 +1,9 @@
-.title-container {
+  .title-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 50px;
-    color: #ff6347;
+    color: var(--accent);
     font-size: 30px;
     font-weight: 1000;
 
@@ -11,7 +11,7 @@
       display: block;
       flex: 1;
       height: 3px;
-      background-color: #ff6347;
+      background-color: var(--accent);
       position: relative;
     }
 
@@ -22,7 +22,7 @@
       width: 20px;
       height: 20px;
       top: -8px;
-      background-color: #ff6347;
+      background-color: var(--accent);
       transform: rotate(45deg);
     }
 
