@@ -1,0 +1,77 @@
+.ms-cardGrid {
+  --ms-card-w: 360px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 4px 0 12px;
+}
+
+.ms-card {
+  flex: 0 1 var(--ms-card-w);
+  max-width: 100%;
+
+  border-radius: 18px;
+  border: 1px solid var(--accent-border);
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.78)),
+    linear-gradient(135deg, rgba(255, 221, 233, 0.50), rgba(255, 255, 255, 0.62));
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  padding: 18px 18px 16px;
+  user-select: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.ms-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(255, 88, 135, 0.10);
+}
+
+.ms-card__title {
+  font-weight: 850;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.ms-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.ms-card__label {
+  font-size: 12px;
+  font-weight: 750;
+  color: rgba(17, 24, 39, 0.70);
+}
+
+.ms-card__value {
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(17, 24, 39, 0.92);
+}
+
+.ms-card__value--address {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+@media (max-width: 420px) {
+  .ms-cardGrid {
+    --ms-card-w: 320px;
+    gap: 14px;
+  }
+}

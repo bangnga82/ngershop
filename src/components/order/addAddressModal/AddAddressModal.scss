@@ -1,0 +1,123 @@
+.addAddressModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+
+  &__panel {
+    width: 100%;
+    max-width: 640px;
+    background: #fff7f3;
+    border: 1px solid #9f7a5f;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(159, 122, 95, 0.35);
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #9f7a5f;
+      margin: 0;
+    }
+  }
+
+  &__close {
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    color: #9f7a5f;
+    padding: 0 6px;
+  }
+
+  &__form {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      color: #6f4d35;
+    }
+
+    input {
+      height: 42px;
+      border-radius: 8px;
+      border: 1px solid rgba(159, 122, 95, 0.7);
+      padding: 0 12px;
+      outline: none;
+      background: #fff;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 12px;
+
+    label {
+      flex: 1;
+    }
+
+    @media screen and (max-width: 640px) {
+      flex-direction: column;
+    }
+  }
+
+  &__checkbox {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px !important;
+
+    input {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+
+    button {
+      height: 40px;
+      border-radius: 8px;
+      border: none;
+      padding: 0 14px;
+      cursor: pointer;
+      background: var(--accent, #ff5f7b);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid rgba(159, 122, 95, 0.9);
+      color: #6f4d35;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
