@@ -37,6 +37,7 @@ const Cart = () => {
       quantity: item.quantity,
       discount: 0,
       type: item.variantLabel || getStoredCartVariantLabel(item.variantId) || "",
+      fromCart: true,
     }));
 
   const refreshCart = async () => {

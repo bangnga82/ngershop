@@ -1,11 +1,12 @@
 import * as XLSX from 'xlsx';
+import { getOrderStatusLabelVi, normalizeOrderStatus, ORDER_STATUS } from "@/utils/orderStatus";
 
 export const exportOrdersToExcel = (orders, filename = 'Orders_Export') => {
   const exportData = orders.map(order => ({
     'Order ID': order.id,
     'Order Date': new Date(order.orderDate).toLocaleDateString(),
     'Seller': order.sellerName,
-    'Status': order.status,
+    'Status': getOrderStatusLabelVi(order.status),
     'Items Count': order.items.length,
     'Shipping Fee': order.shippingFee || 'Free',
     'Total Amount': order.totalAmount,
@@ -46,17 +47,18 @@ export const exportOrdersToExcel = (orders, filename = 'Orders_Export') => {
 
 export const getOrderStatusCounts = (orders) => {
   const counts = {
-    'Delivered': 0,
-    'Shipping': 0,
-    'Pending': 0,
-    'Cancelled': 0,
-    'Processing': 0,
-    'Paid': 0
+    [ORDER_STATUS.DELIVERED]: 0,
+    [ORDER_STATUS.SHIPPED]: 0,
+    [ORDER_STATUS.PENDING]: 0,
+    [ORDER_STATUS.CANCELLED]: 0,
+    [ORDER_STATUS.CONFIRMED]: 0,
+    [ORDER_STATUS.PAID]: 0,
   };
   
   orders.forEach(order => {
-    if (counts[order.status] !== undefined) {
-      counts[order.status]++;
+    const key = normalizeOrderStatus(order.status) || order.status;
+    if (counts[key] !== undefined) {
+      counts[key] += 1;
     }
   });
   
@@ -72,8 +74,14 @@ export const sortOrders = (orders, sortConfig) => {
     
     // Special handling for price/amount values
     if (sortConfig.key === 'totalAmount') {
-      aValue = parseFloat(aValue.replace(/[^0-9.-]+/g, ''));
-      bValue = parseFloat(bValue.replace(/[^0-9.-]+/g, ''));
+      aValue =
+        typeof a.totalAmountValue === "number"
+          ? a.totalAmountValue
+          : parseInt(String(aValue || "").replace(/[^\d-]/g, ""), 10) || 0;
+      bValue =
+        typeof b.totalAmountValue === "number"
+          ? b.totalAmountValue
+          : parseInt(String(bValue || "").replace(/[^\d-]/g, ""), 10) || 0;
     }
     
     // Special handling for dates

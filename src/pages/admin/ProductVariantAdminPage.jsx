@@ -78,11 +78,11 @@ const ProductVariantAdminPage = () => {
   const handleVariantSubmit = async (e) => {
     e.preventDefault();
     if (!selectedProductId) {
-      alert("Chon san pham truoc.");
+      alert("Chọn sản phẩm trước.");
       return;
     }
     if (variantForm.price === "" || variantForm.stock === "") {
-      alert("Nhap gia va ton kho.");
+      alert("Nhập giá và tồn kho.");
       return;
     }
     const form = new FormData();
@@ -104,13 +104,13 @@ const ProductVariantAdminPage = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Khong the luu variant.";
+        "Không thể lưu biến thể.";
       alert(message);
     }
   };
 
   const handleDeleteVariant = async (variant) => {
-    if (!window.confirm("Xoa variant nay?")) return;
+    if (!window.confirm("Xoa biến thể nay?")) return;
     try {
       await variantApi.remove(variant.id);
       await refreshVariants(selectedProductId);
@@ -118,14 +118,14 @@ const ProductVariantAdminPage = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Khong the xoa variant.";
+        "Không thể xóa biến thể.";
       alert(message);
     }
   };
 
   return (
     <>
-      <HeaderAdmin title={"Product Variants"} />
+      <HeaderAdmin title={"Biến thể"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: 30 }}
@@ -157,14 +157,14 @@ const ProductVariantAdminPage = () => {
                 disabled={!selectedProductId}
                 className="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Add Variant
+                Thêm biến thể
               </button>
             </div>
 
             <div className="rounded-lg border border-gray-200 bg-white p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">
-                  {selectedProduct?.name || "Variants"}
+                  {selectedProduct?.name || "Biển thể"}
                 </h3>
                 <span className="text-sm text-gray-500">
                   {variants.length} items
@@ -172,7 +172,7 @@ const ProductVariantAdminPage = () => {
               </div>
 
               {loading ? (
-                <p className="mt-4 text-sm text-gray-500">Dang tai...</p>
+                <p className="mt-4 text-sm text-gray-500">Dang tải...</p>
               ) : (
                 <div className="mt-4 space-y-2">
                   {variants.map((variant) => (
@@ -215,7 +215,7 @@ const ProductVariantAdminPage = () => {
                     </div>
                   ))}
                   {variants.length === 0 && (
-                    <p className="text-sm text-gray-500">Chưa có variant.</p>
+                    <p className="text-sm text-gray-500">Chưa có biển thể.</p>
                   )}
                 </div>
               )}

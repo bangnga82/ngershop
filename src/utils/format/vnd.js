@@ -8,8 +8,9 @@ export const parseMoneyToNumber = (value) => {
 
 export const formatVND = (value) => {
   const num = parseMoneyToNumber(value);
-  return `${new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(
-    num
-  )} VND`;
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    maximumFractionDigits: 0,
+  }).format(num);
 };
-

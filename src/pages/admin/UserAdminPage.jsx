@@ -142,7 +142,7 @@ const UserAdminPage = () => {
 
   return (
     <>
-      <HeaderAdmin title={"Users"} />
+      <HeaderAdmin title={"Người dùng"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <div className="space-y-6">
           <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm">
@@ -172,7 +172,7 @@ const UserAdminPage = () => {
                   type="submit"
                   className="min-w-24 whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-white"
                 >
-                  Tim kiem
+                  Tìm kiếm
                 </button>
               </form>
 
@@ -181,7 +181,7 @@ const UserAdminPage = () => {
                 onClick={() => setShowCreate(true)}
                 className="rounded-md bg-emerald-600 px-4 py-2 text-white"
               >
-                Tao admin
+                Tạo admin
               </button>
             </div>
 
@@ -198,11 +198,11 @@ const UserAdminPage = () => {
                   <tr>
                     <th className="px-4 py-3">ID</th>
                     <th className="px-4 py-3">Email</th>
-                    <th className="px-4 py-3">Ten</th>
-                    <th className="px-4 py-3">Phone</th>
-                    <th className="px-4 py-3">Roles</th>
-                    <th className="px-4 py-3">Status</th>
-                    <th className="px-4 py-3 text-right">Actions</th>
+                    <th className="px-4 py-3">Tên</th>
+                    <th className="px-4 py-3">Số điện thoại</th>
+                    <th className="px-4 py-3">Vai trò</th>
+                    <th className="px-4 py-3">Trạng thái</th>
+                    <th className="px-4 py-3 text-right">Hàng động</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -249,7 +249,7 @@ const UserAdminPage = () => {
                   {!loading && users.length === 0 && (
                     <tr>
                       <td colSpan="7" className="px-4 py-6 text-center text-sm">
-                        Khong co user nao.
+                        Không có user nào.
                       </td>
                     </tr>
                   )}

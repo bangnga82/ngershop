@@ -28,14 +28,14 @@ const CategoryFilters = ({
 					className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
 				>
 					<Download className="h-4 w-4 mr-2" />
-					Export
+					Xuất dữ liệu
 				</button>
 				<button
 					onClick={onAddCategory}
 					className="flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
 				>
 					<Plus className="h-4 w-4 mr-2" />
-					Add Category
+					Thêm danh mục
 				</button>
 			</div>
 		</div>

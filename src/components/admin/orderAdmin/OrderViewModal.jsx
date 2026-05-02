@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import OrderItemsGallery from "./OrderItemsGallery";
 import OrderStatusBadge from "./OrderStatusBadge";
 import OrderStatusEditor from "./OrderStatusEditor";
+import { formatVND } from "@/utils/currency";
 
 const OrderViewModal = ({ order, onClose, onStatusChange }) => {
   const [activeTab, setActiveTab] = useState("details");
@@ -11,6 +12,14 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
   if (!order) return null;
 
   const orderCode = order.reference || order.id;
+  const computedSubtotalValue =
+    typeof order.subtotalValue === "number"
+      ? order.subtotalValue
+      : (order.items || []).reduce(
+          (sum, item) =>
+            sum + Number(item.priceValue || 0) * Number(item.quantity || 0),
+          0
+        );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0000009e] p-4">
@@ -94,8 +103,7 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                                 }
                               />
                               <p className="text-xs text-gray-500">
-                                Chuyển sang Delivered để khách hàng có thể viết đánh
-                                giá sản phẩm.
+                                Chuyển sang "Đã giao hàng" để khách hàng có thể viết đánh giá sản phẩm.
                               </p>
                             </div>
                           </div>
@@ -221,19 +229,7 @@ const OrderViewModal = ({ order, onClose, onStatusChange }) => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tổng tiền:</span>
-                      <span>
-                        $
-                        {order.subtotal ||
-                          order.items
-                            .reduce(
-                              (sum, item) =>
-                                sum +
-                                parseFloat(item.price.replace("$", "")) *
-                                  item.quantity,
-                              0
-                            )
-                            .toFixed(2)}
-                      </span>
+                      <span>{order.subtotal || formatVND(computedSubtotalValue)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Phí vận chuyển:</span>

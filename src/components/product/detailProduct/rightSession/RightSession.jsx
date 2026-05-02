@@ -120,6 +120,7 @@ const RightSession = ({
             quantity,
             discount,
             type: product?.types?.[activeType] || "",
+            fromCart: false,
         };
 
         dispatch(setOrderList([orderItem]));

@@ -15,17 +15,10 @@ import {
   resolveImageUrl,
 } from "@/utils/api/mappers";
 import { formatNumber } from "@/utils/function";
+import { getOrderStatusLabelVi, normalizeOrderStatus } from "@/utils/orderStatus";
+import { applyImageFallback, DEFAULT_IMAGE_FALLBACK_SRC } from "@/utils/imageFallback";
 
 import "./OrderTracking.scss";
-
-const ORDER_STATUS_LABELS = {
-  PENDING: "Chờ xử lý",
-  PAID: "Đã thanh toán",
-  CONFIRMED: "Đã xác nhận",
-  SHIPPING: "Đang giao",
-  DELIVERED: "Đã giao",
-  CANCELLED: "Đã hủy",
-};
 
 const mapOrderItemWithVariant = async (item) => {
   try {
@@ -37,7 +30,7 @@ const mapOrderItemWithVariant = async (item) => {
       quantity: item.quantity,
       price: item.price,
       name: variant?.productName || `San pham ${item.variantId}`,
-      imageUrl: resolveImageUrl(variant?.imageUrl) || "/vite.svg",
+      imageUrl: resolveImageUrl(variant?.imageUrl) || DEFAULT_IMAGE_FALLBACK_SRC,
       variantLabel: buildVariantLabel(variant),
     };
   } catch (error) {
@@ -47,7 +40,7 @@ const mapOrderItemWithVariant = async (item) => {
       quantity: item.quantity,
       price: item.price,
       name: `San pham ${item.variantId}`,
-      imageUrl: "/vite.svg",
+      imageUrl: DEFAULT_IMAGE_FALLBACK_SRC,
       variantLabel: "",
     };
   }
@@ -59,6 +52,13 @@ const mapOrder = async (order) => {
     ...order,
     items,
   };
+};
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("vi-VN");
 };
 
 const OrderTracking = () => {
@@ -143,12 +143,14 @@ const OrderTracking = () => {
                       </div>
                       <div className="order-card__meta">
                         <span className="order-card__status">
-                          {ORDER_STATUS_LABELS[order.status] || order.status}
+                          {getOrderStatusLabelVi(order.status) || order.status}
                         </span>
                         <p>
-                          {order.createdDate
-                            ? new Date(order.createdDate).toLocaleString("vi-VN")
-                            : ""}
+                          {normalizeOrderStatus(order.status) === "DELIVERED"
+                            ? formatDate(order.deliveredAt)
+                            : order.createdDate
+                              ? new Date(order.createdDate).toLocaleString("vi-VN")
+                              : ""}
                         </p>
                       </div>
                     </div>
@@ -157,11 +159,11 @@ const OrderTracking = () => {
                       {order.items.map((item) => (
                         <div key={item.variantId} className="order-item">
                           <img
-                            src={item.imageUrl || "/vite.svg"}
+                            src={item.imageUrl || DEFAULT_IMAGE_FALLBACK_SRC}
                             alt={item.name}
                             onError={(event) => {
-                              event.currentTarget.onerror = null;
-                              event.currentTarget.src = "/vite.svg";
+                              event.currentTarget.dataset.fallbackKey = String(item.variantId || item.name || "");
+                              applyImageFallback(event);
                             }}
                           />
                           <div className="order-item__info">
@@ -178,7 +180,7 @@ const OrderTracking = () => {
                             <span>
                               Tạm tính: {formatNumber(item.price * item.quantity)} d
                             </span>
-                            {order.status === "DELIVERED" && item.productId && (
+                            {normalizeOrderStatus(order.status) === "DELIVERED" && item.productId && (
                               <button
                                 type="button"
                                 className="order-item__review"

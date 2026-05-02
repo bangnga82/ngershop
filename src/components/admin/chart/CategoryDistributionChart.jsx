@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { getOrderStatusHex } from "@/components/admin/orderAdmin/orderStatusTheme";
+import { getOrderStatusLabelVi } from "@/utils/orderStatus";
 
 const FALLBACK_COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#10b981", "#f59e0b"];
 
@@ -16,7 +17,7 @@ const CategoryDistributionChart = ({ data = [] }) => {
       transition={{ delay: 0.3 }}
     >
       <h2 className="text-lg font-medium mb-4 text-black">
-        Order Status Distribution
+        Phân phối trạng thái đơn hàng
       </h2>
       <div className="h-80">
         {hasData ? (
@@ -31,7 +32,7 @@ const CategoryDistributionChart = ({ data = [] }) => {
                 outerRadius={80}
                 fill="#8884d8"
                 label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
+                  `${getOrderStatusLabelVi(name)} ${(percent * 100).toFixed(0)}%`
                 }
               >
                 {data.map((entry, index) => (
@@ -49,7 +50,7 @@ const CategoryDistributionChart = ({ data = [] }) => {
                 }}
                 itemStyle={{ color: "#000000" }}
               />
-              <Legend />
+              <Legend formatter={(value) => getOrderStatusLabelVi(value)} />
             </PieChart>
           </ResponsiveContainer>
         ) : (

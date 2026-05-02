@@ -20,7 +20,7 @@ const SaleOverviewChart = ({ data = [] }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className="text-lg font-medium mb-4 text-black">Order Overview</h2>
+      <h2 className="text-lg font-medium mb-4 text-black">Tổng quan đơn hàng</h2>
       <div className="h-80">
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%">
@@ -52,7 +52,7 @@ const SaleOverviewChart = ({ data = [] }) => {
           </ResponsiveContainer>
         ) : (
           <div className="h-full flex items-center justify-center text-sm text-gray-600">
-            Chua co du lieu don hang de thong ke.
+            Chưa có dữ liệu đơn hàng để thống kê.
           </div>
         )}
       </div>

@@ -42,14 +42,14 @@ const ProductFilters = ({
 					className="flex items-center whitespace-nowrap rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
 				>
 					<Download className="h-4 w-4 mr-2" />
-					Export Excel
+					Xuất dữ liệu
 				</button>
 				<button
 					onClick={onAddProduct}
 					className="flex items-center whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700"
 				>
 					<Plus className="h-4 w-4 mr-2" />
-					Add Product
+					Thêm sản phẩm
 				</button>
 			</div>
 		</div>

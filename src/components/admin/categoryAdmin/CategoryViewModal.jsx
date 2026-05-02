@@ -8,7 +8,7 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 		<div className="fixed inset-0 bg-[#0000009e] bg-opacity-50 flex items-center justify-center z-50 p-4">
 			<div className="bg-white rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
 				<div className="flex justify-between items-center p-4 border-b">
-					<h3 className="text-lg font-semibold">Category Details</h3>
+					<h3 className="text-lg font-semibold">Thông tin danh mục</h3>
 					<button
 						onClick={onClose}
 						className="text-gray-400 hover:text-gray-600"
@@ -39,7 +39,7 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 					{category.description && (
 						<div className="mb-6">
 							<h4 className="text-sm font-medium text-gray-700 mb-2">
-								Description
+								Mô tả
 							</h4>
 							<p className="text-gray-600">
 								{category.description}
@@ -49,12 +49,12 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 
 					<div className="mt-6">
 						<h4 className="text-sm font-medium text-gray-700 mb-2">
-							Statistics
+							Thống kê
 						</h4>
 						<div className="grid grid-cols-2 gap-4">
 							<div className="bg-gray-50 p-3 rounded-lg">
 								<div className="text-sm text-gray-500">
-									Total Products
+									Tổng số sản phẩm
 								</div>
 								<div className="font-semibold">
 									{category.productCount || 0}
@@ -62,7 +62,7 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 							</div>
 							<div className="bg-gray-50 p-3 rounded-lg">
 								<div className="text-sm text-gray-500">
-									Last Updated
+									Cập nhật lần cuối
 								</div>
 								<div className="font-semibold">
 									{category.lastUpdated}
@@ -82,7 +82,7 @@ const CategoryViewModal = ({ category, onClose, onEdit }) => {
 							onClick={() => onEdit(category)}
 							className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
 						>
-							Edit Category
+							Chỉnh sửa
 						</button>
 					</div>
 				</div>

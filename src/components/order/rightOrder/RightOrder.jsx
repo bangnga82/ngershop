@@ -6,7 +6,13 @@ import { formatNumber } from "@/utils/function";
 import { GrFormPrevious } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 
-const RightOrder = ({ products, onIncrease, onDecrease, onPlaceOrder }) => {
+const RightOrder = ({
+  products,
+  onIncrease,
+  onDecrease,
+  onPlaceOrder,
+  placing = false,
+}) => {
   const navigate = useNavigate();
   const total = useMemo(
     () =>
@@ -34,6 +40,8 @@ const RightOrder = ({ products, onIncrease, onDecrease, onPlaceOrder }) => {
                   <button
                     className="rightOrder__list-item-info-price-quantity-button"
                     onClick={() => onDecrease(product.id)}
+                    disabled={placing}
+                    aria-disabled={placing}
                   >
                     -
                   </button>
@@ -41,6 +49,8 @@ const RightOrder = ({ products, onIncrease, onDecrease, onPlaceOrder }) => {
                   <button
                     className="rightOrder__list-item-info-price-quantity-button"
                     onClick={() => onIncrease(product.id)}
+                    disabled={placing}
+                    aria-disabled={placing}
                   >
                     +
                   </button>
@@ -74,10 +84,15 @@ const RightOrder = ({ products, onIncrease, onDecrease, onPlaceOrder }) => {
           <span>
             <GrFormPrevious />
           </span>
-          Quay lại giỏ hàng
+         Quay lại giỏ hàng
         </p>
-        <button className="rightOrder__button-btn" onClick={onPlaceOrder}>
-          Đặt hàng
+        <button
+          className="rightOrder__button-btn"
+          onClick={onPlaceOrder}
+          disabled={placing}
+          aria-disabled={placing}
+        >
+         Đặt hàng
         </button>
       </div>
     </div>
@@ -85,3 +100,4 @@ const RightOrder = ({ products, onIncrease, onDecrease, onPlaceOrder }) => {
 };
 
 export default RightOrder;
+

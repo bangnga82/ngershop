@@ -1,3 +1,5 @@
+import { DEFAULT_IMAGE_FALLBACK_SRC } from "@/utils/imageFallback";
+
 const getApiBase = () => import.meta.env.VITE_API_URL || "";
 
 export const resolveImageUrl = (url) => {
@@ -15,7 +17,7 @@ export const mapProductToCard = (product) => {
   return {
     id: product?.id,
     name: product?.name || "",
-    image: images.length > 0 ? images : ["/vite.svg"],
+    image: images.length > 0 ? images : [DEFAULT_IMAGE_FALLBACK_SRC],
     discount: 0,
     price: Number(product?.price || 0),
     count: product?.stock ?? 0,

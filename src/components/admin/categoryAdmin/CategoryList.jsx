@@ -30,23 +30,23 @@ const CategoryList = ({
 								onClick={() => onSort("name")}
 								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
 							>
-								Category Name{" "}
+								Tên danh mục{" "}
 								{sortConfig.key === "name" &&
 									(sortConfig.direction === "asc"
 										? "↑"
 										: "↓")}
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Description
+								Mô tả
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Products
+								Sản phẩm
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Last Updated
+								Cập nhật lần cuối
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Actions
+								Hành động
 							</th>
 						</tr>
 					</thead>

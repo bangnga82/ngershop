@@ -39,7 +39,7 @@ const OrderFilters = ({
 					className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
 				>
 					<Download className="h-4 w-4 mr-2" />
-					Export Excel
+					Xuất dữ liệu
 				</button>
 			</div>
 		</div>

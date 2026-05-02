@@ -20,14 +20,14 @@ import { emitRecentlyViewedUpdated } from "@/utils/recentlyViewedProducts";
 import { resetChatbotStorage } from "@/utils/chatbotSession";
 
 const NAV_ITEMS = [
-  { name: "Overview", icon: BarChart2, href: "/admin" },
-  { name: "Categories", icon: TrendingUp, href: "/admin/categories" },
-  { name: "Products", icon: ShoppingBag, href: "/admin/products" },
-  { name: "Variants", icon: Layers, href: "/admin/variants" },
-  { name: "Attributes", icon: Sliders, href: "/admin/attributes" },
-  { name: "Orders", icon: DollarSign, href: "/admin/orders" },
-  { name: "Users", icon: Users, href: "/admin/users" },
-  { name: "Contacts", icon: Mail, href: "/admin/contact-messages" },
+  { name: "Tổng quan", icon: BarChart2, href: "/admin" },
+  { name: "Danh mục", icon: TrendingUp, href: "/admin/categories" },
+  { name: "Sản phẩm", icon: ShoppingBag, href: "/admin/products" },
+  { name: "Các biển thể", icon: Layers, href: "/admin/variants" },
+  { name: "Phân loại", icon: Sliders, href: "/admin/attributes" },
+  { name: "Đơn hàng", icon: DollarSign, href: "/admin/orders" },
+  { name: "Người dùng", icon: Users, href: "/admin/users" },
+  { name: "Liên hệ", icon: Mail, href: "/admin/contact-messages" },
 ];
 
 const TopNavAdmin = () => {

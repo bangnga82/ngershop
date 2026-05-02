@@ -1,5 +1,6 @@
 import React from "react";
 import { ORDER_STATUS_FILTER_CLASS } from "./orderStatusTheme";
+import { getOrderStatusLabelVi, ORDER_STATUS } from "@/utils/orderStatus";
 
 const OrderStatusFilter = ({
 	statusFilter,
@@ -23,54 +24,64 @@ const OrderStatusFilter = ({
 				All ({totalCount})
 			</button>
 			<button
-				onClick={() => onFilterChange("Delivered")}
+				onClick={() => onFilterChange(ORDER_STATUS.DELIVERED)}
 				className={`px-3 py-1 rounded-md text-sm ${
-					statusFilter === "Delivered"
-						? ORDER_STATUS_FILTER_CLASS.Delivered.active
-						: ORDER_STATUS_FILTER_CLASS.Delivered.idle
+					statusFilter === ORDER_STATUS.DELIVERED
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.DELIVERED].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.DELIVERED].idle
 				}`}
 			>
-				Delivered ({statusCounts["Delivered"] || 0})
+				{getOrderStatusLabelVi(ORDER_STATUS.DELIVERED)} ({statusCounts[ORDER_STATUS.DELIVERED] || 0})
 			</button>
 			<button
-				onClick={() => onFilterChange("Shipping")}
+				onClick={() => onFilterChange(ORDER_STATUS.SHIPPED)}
 				className={`px-3 py-1 rounded-md text-sm ${
-					statusFilter === "Shipping"
-						? ORDER_STATUS_FILTER_CLASS.Shipping.active
-						: ORDER_STATUS_FILTER_CLASS.Shipping.idle
+					statusFilter === ORDER_STATUS.SHIPPED
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.SHIPPED].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.SHIPPED].idle
 				}`}
 			>
-				Shipping ({statusCounts["Shipping"] || 0})
+				{getOrderStatusLabelVi(ORDER_STATUS.SHIPPED)} ({statusCounts[ORDER_STATUS.SHIPPED] || 0})
 			</button>
 			<button
-				onClick={() => onFilterChange("Paid")}
+				onClick={() => onFilterChange(ORDER_STATUS.CONFIRMED)}
 				className={`px-3 py-1 rounded-md text-sm ${
-					statusFilter === "Paid"
-						? ORDER_STATUS_FILTER_CLASS.Paid.active
-						: ORDER_STATUS_FILTER_CLASS.Paid.idle
+					statusFilter === ORDER_STATUS.CONFIRMED
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.CONFIRMED].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.CONFIRMED].idle
 				}`}
 			>
-				Paid ({statusCounts["Paid"] || 0})
+				{getOrderStatusLabelVi(ORDER_STATUS.CONFIRMED)} ({statusCounts[ORDER_STATUS.CONFIRMED] || 0})
 			</button>
 			<button
-				onClick={() => onFilterChange("Pending")}
+				onClick={() => onFilterChange(ORDER_STATUS.PAID)}
 				className={`px-3 py-1 rounded-md text-sm ${
-					statusFilter === "Pending"
-						? ORDER_STATUS_FILTER_CLASS.Pending.active
-						: ORDER_STATUS_FILTER_CLASS.Pending.idle
+					statusFilter === ORDER_STATUS.PAID
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.PAID].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.PAID].idle
 				}`}
 			>
-				Pending ({statusCounts["Pending"] || 0})
+				{getOrderStatusLabelVi(ORDER_STATUS.PAID)} ({statusCounts[ORDER_STATUS.PAID] || 0})
 			</button>
 			<button
-				onClick={() => onFilterChange("Cancelled")}
+				onClick={() => onFilterChange(ORDER_STATUS.PENDING)}
 				className={`px-3 py-1 rounded-md text-sm ${
-					statusFilter === "Cancelled"
-						? ORDER_STATUS_FILTER_CLASS.Cancelled.active
-						: ORDER_STATUS_FILTER_CLASS.Cancelled.idle
+					statusFilter === ORDER_STATUS.PENDING
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.PENDING].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.PENDING].idle
 				}`}
 			>
-				Cancelled ({statusCounts["Cancelled"] || 0})
+				{getOrderStatusLabelVi(ORDER_STATUS.PENDING)} ({statusCounts[ORDER_STATUS.PENDING] || 0})
+			</button>
+			<button
+				onClick={() => onFilterChange(ORDER_STATUS.CANCELLED)}
+				className={`px-3 py-1 rounded-md text-sm ${
+					statusFilter === ORDER_STATUS.CANCELLED
+						? ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.CANCELLED].active
+						: ORDER_STATUS_FILTER_CLASS[ORDER_STATUS.CANCELLED].idle
+				}`}
+			>
+				{getOrderStatusLabelVi(ORDER_STATUS.CANCELLED)} ({statusCounts[ORDER_STATUS.CANCELLED] || 0})
 			</button>
 		</div>
 	);

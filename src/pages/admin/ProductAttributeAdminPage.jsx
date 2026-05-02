@@ -9,9 +9,9 @@ const ATTRIBUTE_TYPES = [
   { label: "Color", value: "COLOR" },
   { label: "Size", value: "SIZE" },
   { label: "Material", value: "MATERIAL" },
-  { label: "Storage", value: "STORAGE" },
-  { label: "RAM", value: "RAM" },
-  { label: "Weight", value: "WEIGHT" },
+  // { label: "Storage", value: "STORAGE" },
+  // { label: "RAM", value: "RAM" },
+  // { label: "Weight", value: "WEIGHT" },
 ];
 
 const ProductAttributeAdminPage = () => {
@@ -86,11 +86,11 @@ const ProductAttributeAdminPage = () => {
   const handleAddAttribute = async (e) => {
     e.preventDefault();
     if (!selectedVariantId) {
-      alert("Chon variant truoc.");
+      alert("Chọn variant trước.");
       return;
     }
     if (!attrForm.value.trim()) {
-      alert("Nhap gia tri.");
+      alert("Nhập giá trị.");
       return;
     }
     try {
@@ -104,7 +104,7 @@ const ProductAttributeAdminPage = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Khong the them thuoc tinh.";
+        "Không thể thêm trước thuộc tính.";
       alert(message);
     }
   };
@@ -125,7 +125,7 @@ const ProductAttributeAdminPage = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Khong the cap nhat thuoc tinh.";
+        "Không thể cập nhật thuộc tính.";
       alert(message);
     }
   };
@@ -138,14 +138,14 @@ const ProductAttributeAdminPage = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Khong the xoa thuoc tinh.";
+        "Không thể xóa thuộc tính.";
       alert(message);
     }
   };
 
   return (
     <>
-      <HeaderAdmin title={"Product Attributes"} />
+      <HeaderAdmin title={"Thể loại"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: 30 }}
@@ -156,7 +156,7 @@ const ProductAttributeAdminPage = () => {
             <div className="grid gap-4 rounded-lg border border-gray-200 bg-white p-4 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  San pham
+                  Sản phẩm
                 </label>
                 <select
                   value={selectedProductId}
@@ -173,7 +173,7 @@ const ProductAttributeAdminPage = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Variant
+                  Biến thể
                 </label>
                 <select
                   value={selectedVariantId}
@@ -181,7 +181,7 @@ const ProductAttributeAdminPage = () => {
                   disabled={!selectedProductId}
                   className="mt-1 block w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)] disabled:opacity-60"
                 >
-                  <option value="">Chon variant</option>
+                  <option value="">Chon biến thể</option>
                   {variants.map((variant) => (
                     <option key={variant.id} value={variant.id}>
                       {buildVariantLabel(variant)}
@@ -194,7 +194,7 @@ const ProductAttributeAdminPage = () => {
             <div className="rounded-lg border border-gray-200 bg-white p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">
-                  {selectedProduct?.name || "Attributes"}
+                  {selectedProduct?.name || "Thể loại"}
                 </h3>
                 <span className="text-sm text-gray-500">
                   {attributes.length} items
@@ -227,12 +227,12 @@ const ProductAttributeAdminPage = () => {
                   type="submit"
                   className="rounded-md bg-emerald-600 px-4 py-2 text-white"
                 >
-                  Add
+                  Thêm
                 </button>
               </form>
 
               {attrLoading ? (
-                <p className="mt-4 text-sm text-gray-500">Dang tai...</p>
+                <p className="mt-4 text-sm text-gray-500">Đang tải...</p>
               ) : (
                 <div className="mt-4 space-y-2">
                   {attributes.map((attr) => (
@@ -305,13 +305,13 @@ const ProductAttributeAdminPage = () => {
                         onClick={() => setAttrEditing(null)}
                         className="rounded-md border border-gray-200 px-3 py-2 text-sm"
                       >
-                        Huy
+                        Hủy
                       </button>
                       <button
                         type="submit"
                         className="rounded-md bg-blue-600 px-3 py-2 text-sm text-white"
                       >
-                        Luu
+                        Lưu
                       </button>
                     </div>
                   </div>

@@ -162,7 +162,7 @@ const CategoryAdminPage = () => {
 
   return (
     <>
-      <HeaderAdmin title={"Categories"} />
+      <HeaderAdmin title={"Danh mục"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: 30 }}

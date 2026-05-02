@@ -1,16 +1,13 @@
+import { ORDER_STATUS, ORDER_STATUS_LABEL_VI } from "@/utils/orderStatus";
+
 export const ORDER_STATUS_OPTIONS = [
-  { value: "PENDING", label: "Pending" },
-  { value: "CONFIRMED", label: "Processing" },
-  { value: "PAID", label: "Paid" },
-  { value: "SHIPPED", label: "Shipping" },
-  { value: "DELIVERED", label: "Delivered" },
-  { value: "CANCELLED", label: "Cancelled" },
+  { value: ORDER_STATUS.PENDING, label: ORDER_STATUS_LABEL_VI.PENDING },
+  { value: ORDER_STATUS.CONFIRMED, label: ORDER_STATUS_LABEL_VI.CONFIRMED },
+  { value: ORDER_STATUS.PAID, label: ORDER_STATUS_LABEL_VI.PAID },
+  { value: ORDER_STATUS.SHIPPED, label: ORDER_STATUS_LABEL_VI.SHIPPED },
+  { value: ORDER_STATUS.DELIVERED, label: ORDER_STATUS_LABEL_VI.DELIVERED },
+  { value: ORDER_STATUS.CANCELLED, label: ORDER_STATUS_LABEL_VI.CANCELLED },
 ];
 
-export const ORDER_STATUS_LABELS = ORDER_STATUS_OPTIONS.reduce(
-  (acc, option) => ({
-    ...acc,
-    [option.value]: option.label,
-  }),
-  {}
-);
+// Keep legacy export name for existing imports.
+export const ORDER_STATUS_LABELS = ORDER_STATUS_LABEL_VI;

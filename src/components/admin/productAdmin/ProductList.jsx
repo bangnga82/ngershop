@@ -38,36 +38,36 @@ const ProductList = ({
 					<thead className="bg-gray-50">
 						<tr>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Product
+								Sản phẩm
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Category
+								Danh mục
 							</th>
 							<th
 								onClick={() => onSort("price")}
 								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
 							>
-								Price{" "}
+								Giá{" "}
 								{sortConfig.key === "price" &&
 									(sortConfig.direction === "asc"
 										? "↑"
 										: "↓")}
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Stock
+								Tồn kho
 							</th>
 							<th
 								onClick={() => onSort("status")}
 								className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700"
 							>
-								Status{" "}
+								Trạng thái{" "}
 								{sortConfig.key === "status" &&
 									(sortConfig.direction === "asc"
 										? "↑"
 										: "↓")}
 							</th>
 							<th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-								Actions
+								Hành động
 							</th>
 						</tr>
 					</thead>

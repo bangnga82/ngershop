@@ -1,9 +1,11 @@
 import React from "react";
 import { ORDER_STATUS_BADGE_CLASS } from "./orderStatusTheme";
+import { getOrderStatusLabelVi, normalizeOrderStatus } from "@/utils/orderStatus";
 
 const OrderStatusBadge = ({ status }) => {
 	const getStatusColor = (status) => {
-		return ORDER_STATUS_BADGE_CLASS[status] || "bg-gray-100 text-gray-800";
+		const key = normalizeOrderStatus(status) || status;
+		return ORDER_STATUS_BADGE_CLASS[key] || "bg-gray-100 text-gray-800";
 	};
 
 	return (
@@ -12,7 +14,7 @@ const OrderStatusBadge = ({ status }) => {
 				status
 			)}`}
 		>
-			{status}
+			{getOrderStatusLabelVi(status)}
 		</span>
 	);
 };

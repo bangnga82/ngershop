@@ -51,7 +51,7 @@ const ContactAdminPage = () => {
       alert(
         error?.response?.data?.data?.message ||
           error?.response?.data?.message ||
-          "Khong the tai danh sach lien he."
+          "Không thể tải danh sách liên hệ."
       );
     } finally {
       setIsLoading(false);
@@ -94,7 +94,7 @@ const ContactAdminPage = () => {
 
   return (
     <>
-      <HeaderAdmin title={"Contact messages"} />
+      <HeaderAdmin title={"Liên hệ"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: 30 }}
@@ -154,7 +154,7 @@ const ContactAdminPage = () => {
                         {x?.name || "-"}{" "}
                         {!x?.read && (
                           <span className="ml-2 text-xs px-2 py-1 rounded-full bg-red-100 text-red-700">
-                            Moi
+                            Mới
                           </span>
                         )}
                       </div>
@@ -180,10 +180,10 @@ const ContactAdminPage = () => {
                 <div className="w-full max-w-2xl bg-white rounded-lg border shadow-xl overflow-hidden">
                   <div className="px-4 py-3 bg-gray-50 border-b flex items-center justify-between">
                     <div className="font-semibold">
-                      Lien he #{selected.id}{" "}
+                      Liên hệ #{selected.id}{" "}
                       {!selected.read && (
                         <span className="ml-2 text-xs px-2 py-1 rounded-full bg-red-100 text-red-700">
-                          Moi
+                          Mới
                         </span>
                       )}
                     </div>
@@ -192,7 +192,7 @@ const ContactAdminPage = () => {
                       onClick={() => setSelected(null)}
                       className="px-3 py-1 border rounded-md"
                     >
-                      Dong
+                      Đóng
                     </button>
                   </div>
 

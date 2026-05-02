@@ -12,7 +12,7 @@ const ProductViewModal = ({ product, onClose, onEdit }) => {
       <div className="bg-white rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg text-gray font-semibold">Product Details</h3>
+            <h3 className="text-lg text-gray font-semibold">Thông tin sản phẩm</h3>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
               <X className="h-5 w-5" />
             </button>

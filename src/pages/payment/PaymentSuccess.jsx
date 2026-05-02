@@ -31,7 +31,7 @@ const PaymentSuccess = () => {
         dispatch(setOrderList([]));
         dispatch(setPrice(0));
         if (isMounted) {
-          alert("Thanh toan thanh cong.");
+          alert("Thanh toán thành công.");
           navigate(
             `/order-tracking?orderRef=${encodeURIComponent(orderRef || "")}`,
             { replace: true }

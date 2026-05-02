@@ -117,20 +117,20 @@ const AddAddressModal = ({
 
           <div className="addAddressModal__row">
             <label>
-             Thành phố
+             Tỉnh / Thành phố
               <input
                 value={form.city}
                 onChange={(e) => setField("city", e.target.value)}
-                placeholder="VD: Ha Noi"
+                placeholder="VD: Bắc Giang"
                 disabled={!!submitting}
               />
             </label>
             <label>
-              Quận Huyện
+              Quận / Huyện
               <input
                 value={form.state}
                 onChange={(e) => setField("state", e.target.value)}
-                placeholder="VD: Bac Tu Liem"
+                placeholder="VD: Lục Ngạn"
                 disabled={!!submitting}
               />
             </label>

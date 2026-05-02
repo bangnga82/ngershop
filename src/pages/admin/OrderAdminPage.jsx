@@ -9,9 +9,11 @@ import OrderFilters from "@/components/admin/orderAdmin/OrderFilters";
 import OrderList from "@/components/admin/orderAdmin/OrderList";
 import OrderViewModal from "@/components/admin/orderAdmin/OrderViewModal";
 import HeaderAdmin from "@/components/admin/HeaderAdmin";
-import { ORDER_STATUS_LABELS } from "@/components/admin/orderAdmin/orderStatusOptions";
+import { getOrderStatusLabelVi } from "@/utils/orderStatus";
 import orderApi from "@/utils/api/orderApi";
 import { resolveImageUrl } from "@/utils/api/mappers";
+import { normalizeOrderStatus } from "@/utils/orderStatus";
+import { coerceNumber, formatVND } from "@/utils/currency";
 
 const placeholderItem = {
   image: "/vite.svg",
@@ -19,20 +21,42 @@ const placeholderItem = {
   size: "N/A",
 };
 
+const formatDateRange = (from, to) => {
+  if (!from || !to) return null;
+  const fromDate = new Date(from);
+  const toDate = new Date(to);
+  if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime())) return null;
+  const a = fromDate.toLocaleDateString("vi-VN");
+  const b = toDate.toLocaleDateString("vi-VN");
+  return `${a} - ${b}`;
+};
+
+const formatDate = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString("vi-VN");
+};
+
 const mapOrderToAdmin = (order) => {
   const items =
     order?.items?.map((item) => ({
       id: item.variantId,
       name: item.productName || `Variant ${item.variantId}`,
-      price: `$${Number(item.price || 0).toFixed(2)}`,
+      priceValue: coerceNumber(item.price, 0),
+      price: formatVND(item.price),
       quantity: item.quantity,
-      subtotal: `$${(Number(item.price || 0) * item.quantity).toFixed(2)}`,
+      subtotalValue: coerceNumber(item.price, 0) * coerceNumber(item.quantity, 0),
+      subtotal: formatVND(coerceNumber(item.price, 0) * coerceNumber(item.quantity, 0)),
       ...placeholderItem,
       image: resolveImageUrl(item.imageUrl) || placeholderItem.image,
     })) || [];
 
   const rawStatus = order?.status || "PENDING";
-  const mappedStatus = ORDER_STATUS_LABELS[rawStatus] || rawStatus;
+  const normalized = normalizeOrderStatus(rawStatus) || rawStatus;
+  const etaRange = formatDateRange(order?.estimatedDeliveryFrom, order?.estimatedDeliveryTo);
+  const deliveredDate = formatDate(order?.deliveredAt);
+  const totalAmountValue = coerceNumber(order?.totalAmount, 0);
   return {
     id: order?.id,
     reference: order?.reference || order?.id,
@@ -41,20 +65,29 @@ const mapOrderToAdmin = (order) => {
     storeName: "NgerShop Official",
     sellerContact: "N/A",
     rawStatus,
-    status: mappedStatus,
+    status: rawStatus,
+    statusLabel: getOrderStatusLabelVi(rawStatus),
     shippingMethod: "Standard Delivery",
-    shippingFee: "Free",
-    estimatedDelivery: "N/A",
-    recipient: "N/A",
-    recipientPhone: "N/A",
-    deliveryAddress: "N/A",
+    shippingFee: order?.shippingFee ?? "Free",
+    // If delivered, show the actual delivered date. If shipping, show ETA range.
+    estimatedDelivery:
+      normalized === "DELIVERED"
+        ? deliveredDate || "N/A"
+        : normalized === "SHIPPED" && etaRange
+          ? etaRange
+          : "N/A",
+    recipient: order?.recipient || "N/A",
+    recipientPhone: order?.recipientPhone || "N/A",
+    deliveryAddress: order?.deliveryAddress || "N/A",
     paymentMethod: order?.paymentMethod || "N/A",
     paymentStatus:
       rawStatus === "PAID" || rawStatus === "DELIVERED" ? "Paid" : "Pending",
-    subtotal: `$${Number(order?.totalAmount || 0).toFixed(2)}`,
+    subtotalValue: totalAmountValue,
+    subtotal: formatVND(totalAmountValue),
     discount: null,
     tax: null,
-    totalAmount: `$${Number(order?.totalAmount || 0).toFixed(2)}`,
+    totalAmountValue,
+    totalAmount: formatVND(totalAmountValue),
     items,
   };
 };
@@ -142,7 +175,7 @@ const OrderAdminPage = () => {
 
   return (
     <>
-      <HeaderAdmin title={"Orders"} />
+      <HeaderAdmin title={"Đơn hàng"} />
       <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: 30 }}

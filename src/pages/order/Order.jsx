@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Order.scss";
@@ -18,6 +18,7 @@ const Order = () => {
   const selectedProducts = useSelector((state) => state.order.orderList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const placingRef = useRef(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("COD");
@@ -98,7 +99,7 @@ const Order = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        (editingAddress?.id ? "Cap nhat dia chi that bai." : "Them dia chi that bai.");
+        (editingAddress?.id ? "Cập nhật địa chỉ thất bại." : "Thêm địa chỉ thất bại.");
       alert(message);
     } finally {
       setSavingAddress(false);
@@ -111,12 +112,16 @@ const Order = () => {
   };
 
   const handlePlaceOrder = async () => {
+    if (placingRef.current) return;
+    placingRef.current = true;
     if (!selectedProducts.length) {
-      alert("Khong co san pham de dat hang.");
+      alert("Không có sản phẩm để đặt hàng.");
+      placingRef.current = false;
       return;
     }
     if (!selectedAddressId) {
-      alert("Vui long chon dia chi giao hang.");
+      alert("Vui lòng chọn địa chỉ giao hàng.");
+      placingRef.current = false;
       return;
     }
     const payload = {
@@ -142,12 +147,13 @@ const Order = () => {
           return;
         }
       }
-      await Promise.all(
-        selectedProducts.map((item) =>
-          cartApi.removeItem(item.variantId || item.id)
-        )
-      );
-      alert("Dat hang thanh cong.");
+      const cartItems = selectedProducts.filter((x) => x?.fromCart);
+      if (cartItems.length) {
+        await Promise.all(
+          cartItems.map((item) => cartApi.removeItem(item.variantId || item.id))
+        );
+      }
+      alert("Đặt hàng thành công.");
       dispatch(setOrderList([]));
       navigate(`/order-tracking?orderRef=${encodeURIComponent(order?.reference || "")}`, {
         replace: true,
@@ -156,10 +162,11 @@ const Order = () => {
       const message =
         error?.response?.data?.data?.message ||
         error?.response?.data?.message ||
-        "Dat hang that bai.";
+        "Đặt hàng thất bại.";
       alert(message);
     } finally {
       setPlacing(false);
+      placingRef.current = false;
     }
   };
 
@@ -179,7 +186,8 @@ const Order = () => {
           products={selectedProducts}
           onIncrease={handleIncrease}
           onDecrease={handleDecrease}
-          onPlaceOrder={placing ? () => {} : handlePlaceOrder}
+          onPlaceOrder={handlePlaceOrder}
+          placing={placing}
         />
       </div>
       <AddAddressModal
