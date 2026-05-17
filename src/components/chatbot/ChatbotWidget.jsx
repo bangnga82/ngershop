@@ -17,7 +17,7 @@ const CHATBOT_AUTO_HIDE_DELAY = 60000;
 const defaultBotMessage = {
   id: "bot-welcome",
   role: "bot",
-  text: "Xin chao! Ban can tu van gi?",
+  text: "Xin chao! Bạn cần tư vấn gì?",
 };
 
 const readStoredMessages = () => {
