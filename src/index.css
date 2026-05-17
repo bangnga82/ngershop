@@ -234,10 +234,12 @@ body {
   padding: 14px 18px;
   border-top: 1px solid #f0f0f0;
   background: #fff;
+  align-items: flex-end;
 }
 
 .chatbot-input textarea {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   resize: none;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
@@ -245,16 +247,22 @@ body {
   font-size: 14px;
   font-family: inherit;
   outline: none;
+  min-height: 42px;
+  max-height: 110px;
+  overflow-y: auto;
 }
 
 .chatbot-input button {
+  flex: 0 0 auto;
   border: none;
   border-radius: 12px;
   padding: 0 16px;
+  height: 42px;
   background: #1b1b1f;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .chatbot-input button:disabled {

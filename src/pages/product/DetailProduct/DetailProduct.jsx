@@ -90,7 +90,7 @@ const DetailProduct = () => {
       price: Number(product?.price || 0),
       discount: 0,
       count: stock,
-      status: product?.isActive && stock > 0 ? "Con hang" : "Het hang",
+      status: product?.isActive && stock > 0 ? "Còn hàng" : "Hết hàng",
       types,
       description: product?.description || "",
       exchangePolicy: "Doi tra trong 7 ngay.",

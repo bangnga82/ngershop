@@ -176,13 +176,13 @@ const UserAdminPage = () => {
                 </button>
               </form>
 
-              <button
-                type="button"
-                onClick={() => setShowCreate(true)}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-white"
-              >
-                Tạo admin
-              </button>
+              {/*<button*/}
+              {/*  type="button"*/}
+              {/*  onClick={() => setShowCreate(true)}*/}
+              {/*  className="rounded-md bg-emerald-600 px-4 py-2 text-white"*/}
+              {/*>*/}
+              {/*  Tạo admin*/}
+              {/*</button>*/}
             </div>
 
             <div className="flex items-center justify-between text-sm text-gray-600">
@@ -233,14 +233,14 @@ const UserAdminPage = () => {
                             onClick={() => handleStatusToggle(user)}
                             className="rounded-md border border-gray-200 px-3 py-1 text-xs"
                           >
-                            {user.status === "ACTIVE" ? "Lock" : "Unlock"}
+                            {user.status === "ACTIVE" ? "Khóa" : "Mở khóa"}
                           </button>
                           <button
                             type="button"
                             onClick={() => handleOpenReset(user)}
                             className="rounded-md border border-gray-200 px-3 py-1 text-xs"
                           >
-                            Reset pass
+                            Đổi mật khẩu
                           </button>
                         </div>
                       </td>
@@ -326,13 +326,13 @@ const UserAdminPage = () => {
                   onClick={() => setShowCreate(false)}
                   className="rounded-md border border-gray-200 px-4 py-2"
                 >
-                  Huy
+                  Hủy
                 </button>
                 <button
                   type="submit"
                   className="rounded-md bg-emerald-600 px-4 py-2 text-white"
                 >
-                  Tao
+                  Tạo
                 </button>
               </div>
             </form>
@@ -344,7 +344,7 @@ const UserAdminPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-md rounded-lg bg-white p-6">
             <h3 className="text-lg font-semibold">
-              Reset mat khau: {selectedUser.email}
+              Đổi mat khau: {selectedUser.email}
             </h3>
             <form onSubmit={handleResetPassword} className="mt-4 space-y-3">
               <input
@@ -360,13 +360,13 @@ const UserAdminPage = () => {
                   onClick={() => setShowReset(false)}
                   className="rounded-md border border-gray-200 px-4 py-2"
                 >
-                  Huy
+                  Hủy
                 </button>
                 <button
                   type="submit"
                   className="rounded-md bg-blue-600 px-4 py-2 text-white"
                 >
-                  Reset
+                  Đổi
                 </button>
               </div>
             </form>

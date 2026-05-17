@@ -1,0 +1,8 @@
+:root {
+  /* Primary accent (replaces old orange/tomato accents) */
+  --accent: #ff5f8a;
+  --accent-hover: #ff3f78;
+  --accent-soft: #ffe0ea;
+  --accent-border: #ff9bb3;
+}
+
